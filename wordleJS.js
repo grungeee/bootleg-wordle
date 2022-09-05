@@ -226,7 +226,7 @@ document.addEventListener('keydown', keydown);
 
 //&  ////////////////// start //////////////////////////
 // todo:
-//x implement animation with delay, which reveals the matches one by one
+//o implement animation with delay, which reveals the matches one by one
 //: |========================/ New Stuff /===========================|
 //: |================================================================|
 //* ===================== Keydown Event =====================
