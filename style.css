@@ -20,7 +20,7 @@ body {
 }
 
 .rows-container {
-  padding-top: 5rem;
+  margin-top: 5rem;
 
   display: flex;
   flex-direction: column;
@@ -66,32 +66,6 @@ body {
   /**
   * . prevent selection
   */
-}
-.logo-container {
-  margin-top: 3rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-}
-
-/* todo: */
-/* o add a vertical/horizontal rotation animation */
-.char--deco {
-  color: #fff;
-  background: #626262;
-  font-size: 4rem; /* 48 */
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0.4rem solid rgba(0, 0, 0, 0.3);
-  border-radius: 0.5rem;
-  height: 9.1rem;
-  width: 9.1rem;
-  text-align: center;
-  pointer-events: none;
-  outline: none;
 }
 
 .char--none {
@@ -272,6 +246,17 @@ body {
   }
 }
 
+/* * LOGO */
+
+.logo-container {
+  /* padding: 1rem 0; */
+  margin-top: 3rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
 .logo {
   font-size: 10rem;
   font-weight: bold;
@@ -279,6 +264,8 @@ body {
   user-select: none;
 }
 
+/* todo: */
+/* o add a vertical/horizontal rotation animation */
 /* * MEDIA QUERIES */
 
 @media (min-width: 84em) {
@@ -290,9 +277,10 @@ body {
   }
   .logo {
     font-size: 6rem;
-    margin-bottom: 2rem;
+    padding: 1rem 0;
   }
 }
+
 /* . 1344px */
 /* : 1344/16 = 84 */
 @media (max-width: 84em) {
