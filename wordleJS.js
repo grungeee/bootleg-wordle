@@ -218,7 +218,7 @@ function addLogoScreen() {
 `
   );
 }
-addLogoScreen();
+// addLogoScreen();
 
 const logoContainer = document.querySelector('.logo-container');
 const logoLetters = [...document.querySelectorAll('.logo')];
@@ -233,23 +233,40 @@ function clickOverlay(e) {
   }
   // removeLogoScreen();
 
-  function runAnimation() {
-    logoContainer.classList.remove('move-in-out');
-    e.target.offsetWidth; //> returns read-only property of layout-width of element
-    logoContainer.classList.add('move-in-out');
+  // function runAnimation() {
+  //   logoContainer.classList.remove('move-in-out');
+  //   e.target.offsetWidth; //> returns read-only property of layout-width of element
+  //   logoContainer.classList.add('move-in-out');
 
-    logoLetters.reverse().forEach((l, i) => {
-      setTimeout(() => {
-        l.classList.remove('rotateX');
-        l.offsetWidth;
-        l.classList.add('rotateX');
-      }, i * (25 * i));
-    });
-    return removeLogoScreen();
-  }
-
-  runAnimation();
+  //   logoLetters.reverse().forEach((l, i) => {
+  //     setTimeout(() => {
+  //       l.classList.remove('rotateX');
+  //       l.offsetWidth;
+  //       l.classList.add('rotateX');
+  //     }, i * (25 * i));
+  //     return removeLogoScreen();
+  //   });
+  // }
+  // runAnimation();
 }
+
+function runAnimation() {
+  logoContainer.classList.remove('move-in-out');
+  this.offsetWidth; //> returns read-only property of layout-width of element
+  logoContainer.classList.add('move-in-out');
+
+  logoLetters.reverse().forEach((l, i) => {
+    setTimeout(() => {
+      l.classList.remove('rotateX');
+      l.offsetWidth;
+      l.classList.add('rotateX');
+    }, i * (25 * i));
+    // return removeLogoScreen();
+  });
+}
+setTimeout(() => {
+  runAnimation();
+}, 300);
 //> -----------------------------------------------------------------
 // document.addEventListener('click', function (e) {
 //   console.log(e);
