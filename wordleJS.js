@@ -200,6 +200,7 @@ let key;
 let count = -1;
 let currentRow = 0;
 //> -----------------------------------------------------------------
+//* Animation on game load
 const containers = document.querySelectorAll('.container');
 
 function addLogoScreen() {
@@ -223,50 +224,42 @@ function addLogoScreen() {
 const logoContainer = document.querySelector('.logo-container');
 const logoLetters = [...document.querySelectorAll('.logo')];
 const overlay = document.querySelector('.overlay');
-document.addEventListener('click', clickOverlay);
-function clickOverlay(e) {
-  function removeLogoScreen() {
-    e.target.classList.contains('overlay');
-    logoContainer.remove(this);
-    overlay.remove(this);
-    // ! only after animation end initiate the game function
-  }
-  // removeLogoScreen();
 
-  // function runAnimation() {
-  //   logoContainer.classList.remove('move-in-out');
-  //   e.target.offsetWidth; //> returns read-only property of layout-width of element
-  //   logoContainer.classList.add('move-in-out');
+function startupAnimations() {
+  document.addEventListener('DOMContentLoaded', runAnimation);
+  function runAnimation() {
+    logoContainer.classList.remove('move-in-out');
+    this.offsetWidth; //> returns read-only property of layout-width of element
+    logoContainer.classList.add('move-in-out');
 
-  //   logoLetters.reverse().forEach((l, i) => {
-  //     setTimeout(() => {
-  //       l.classList.remove('rotateX');
-  //       l.offsetWidth;
-  //       l.classList.add('rotateX');
-  //     }, i * (25 * i));
-  //     return removeLogoScreen();
-  //   });
-  // }
-  // runAnimation();
-}
-
-function runAnimation() {
-  logoContainer.classList.remove('move-in-out');
-  this.offsetWidth; //> returns read-only property of layout-width of element
-  logoContainer.classList.add('move-in-out');
-
-  logoLetters.reverse().forEach((l, i) => {
+    logoLetters.reverse().forEach((l, i) => {
+      setTimeout(() => {
+        l.classList.remove('rotateX');
+        l.offsetWidth;
+        l.classList.add('rotateX');
+      }, i * (25 * i));
+    });
     setTimeout(() => {
-      l.classList.remove('rotateX');
-      l.offsetWidth;
-      l.classList.add('rotateX');
-    }, i * (25 * i));
-    // return removeLogoScreen();
-  });
+      logoLetters.forEach((l, i) => {
+        setTimeout(() => {
+          l.classList.remove('rotateX-out');
+          l.offsetWidth;
+          l.classList.add('rotateX-out');
+        }, i * (25 * i));
+      });
+    }, 2000);
+  }
+
+  logoContainer.addEventListener('animationend', removeLogoScreen);
+  function removeLogoScreen() {
+    setTimeout(() => {
+      logoContainer.remove();
+      overlay.remove();
+      // ! only after animation end initiate the game function
+    }, 2000);
+  }
 }
-setTimeout(() => {
-  runAnimation();
-}, 300);
+// startupAnimations();
 //> -----------------------------------------------------------------
 // document.addEventListener('click', function (e) {
 //   console.log(e);
