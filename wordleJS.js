@@ -248,7 +248,7 @@ function clickOverlay(e) {
     return removeLogoScreen();
   }
 
-  // runAnimation();
+  runAnimation();
 }
 //> -----------------------------------------------------------------
 // document.addEventListener('click', function (e) {
