@@ -245,9 +245,10 @@ function clickOverlay(e) {
         l.classList.add('rotateX');
       }, i * (25 * i));
     });
+    return removeLogoScreen();
   }
 
-  runAnimation();
+  // runAnimation();
 }
 //> -----------------------------------------------------------------
 // document.addEventListener('click', function (e) {
