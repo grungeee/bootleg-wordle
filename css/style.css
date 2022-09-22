@@ -1,3 +1,6 @@
+/* ^! Look into this thing > */
+/* https://css-tricks.com/practical-css-scroll-snapping/ */
+
 * {
   padding: 0;
   margin: 0;
@@ -6,6 +9,8 @@
 
 html {
   font-size: 62.25%;
+
+  touch-action: manipulation;
 }
 
 :root {
@@ -91,7 +96,6 @@ body {
   justify-content: center;
   flex-direction: column;
 
-  touch-action: manipulation;
   /* align-content: flex-end; */
   /* justify-content: flex-end; */
 }
@@ -141,7 +145,6 @@ body {
   caret-color: transparent;
   outline: none;
 
-  touch-action: manipulation;
   /* transition: all ease-in-out 100ms; */
 
   /**
@@ -193,11 +196,10 @@ body {
 
   /* --keyboard-width: 50vw; */
   width: var(--keyboard-width);
+  margin-top: 15rem;
   /* height: 100vh; */
   /* padding-top: 4vh; */
   /* padding-top: 19vh; */
-
-  touch-action: manipulation;
 
   /* prevent selection */
   -webkit-user-select: none; /* Safari */
