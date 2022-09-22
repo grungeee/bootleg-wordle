@@ -381,7 +381,7 @@ body {
     height: var(--doc-height);
   }
   .rows-container {
-    padding-top: 4rem;
+    /* padding-top: 4rem; */
   }
 
   .logo {
@@ -393,7 +393,7 @@ body {
     --keyboard-max-width: 96vw;
 
     height: var(--doc-height);
-    padding-bottom: 10vh;
+    /* padding-bottom: 10vh; */
 
     /* padding: 0 2rem 8rem 2rem; */
     /* margin: 0 10rem; */
