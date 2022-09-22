@@ -27,6 +27,9 @@ body {
 
   overflow: hidden;
   /* height: 100vh; */
+
+  /* touch-action: none; */
+  touch-action: manipulation;
 }
 
 .header {
@@ -224,8 +227,6 @@ body {
   align-items: center;
 
   flex: 1 1; /* grow + shrink > 0% */
-
-  touch-action: manipulation;
 }
 
 /**
@@ -324,7 +325,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  margin: 1.5rem 4rem;
+  margin: 1rem 4rem;
 
   color: rgb(235, 241, 255);
 
