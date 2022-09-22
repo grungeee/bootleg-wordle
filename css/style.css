@@ -184,7 +184,8 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   /* align-items: center; */
-  justify-self: flex-end;
+  /* justify-self: flex-end; */
+  justify-self: center;
 
   /* --keyboard-max-width: 50vw; */
   width: var(--keyboard-max-width);
@@ -230,7 +231,7 @@ body {
   flex: 1; /* grow + shrink */
   flex-basis: 0%;
 
-  touch-action: manipulation;
+  /* touch-action: manipulation; */
 }
 
 /**
