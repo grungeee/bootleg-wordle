@@ -69,7 +69,6 @@ body {
   width: 80vw;
   /* ~ ---- ~ */
   /* height: 90vh; */
-  height: 100%;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -85,31 +84,20 @@ body {
 
 .board-container {
   display: flex;
-  /* margin: 10rem 10rem; */
   flex-grow: 1;
-  /* align-content: flex-end; */
-  /* justify-content: flex-end; */
   justify-content: center;
   flex-direction: column;
-
-  /* position: fixed; */
-  /* padding: 2rem 2rem; */
-
-  /* width: 100vw; */
+  /* margin: 10rem 10rem; */
+  /* align-content: flex-end; */
+  /* justify-content: flex-end; */
 }
 .rows-container {
-  /* margin-top: 5rem; */
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-
-  /* position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
+  /* margin-top: 5rem; */
 }
 
 .row {
@@ -128,9 +116,7 @@ body {
   color: #fff;
   /* background: #555555; */
   background-color: #444;
-
   font-size: 4rem; /* 48 */
-  /* !!! look into inherti why .btn back in the css course needed this */
   font-family: inherit;
   display: inline-block;
 
@@ -194,16 +180,10 @@ body {
   /* &&&& */
 
   /* --keyboard-max-width: 50vw; */
-  /* width: 100vh; */
   width: var(--keyboard-max-width);
-  height: 100vh;
-  padding-top: 4vh;
-
-  /* position: fixed; */
-
-  /* padding-bottom: 4vh; */
-  /* min-height: calc(50vw / 2); */
-  /* flex-grow: 1; */
+  /* height: 100vh; */
+  /* padding-top: 4vh; */
+  padding-top: 19vh;
 
   /* prevent selection */
   -webkit-user-select: none; /* Safari */
