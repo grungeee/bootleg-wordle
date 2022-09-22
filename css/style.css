@@ -185,14 +185,15 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   /* align-items: center; */
-  /* justify-self: flex-end; */
-  justify-self: center;
+  justify-self: flex-end;
+  /* justify-self: center; */
 
   /* --keyboard-max-width: 50vw; */
+  width: 100vh;
   width: var(--keyboard-max-width);
   height: 100vh;
-  padding-top: 2vh;
-  padding-bottom: 10vh;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
   /* min-height: calc(50vw / 2); */
   /* flex-grow: 1; */
 
