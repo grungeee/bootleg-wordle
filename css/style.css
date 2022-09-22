@@ -379,7 +379,8 @@ body {
 /* . below 544px */
 /* : 544/16 = 34 */
 @media (max-width: 34em) {
-  html {
+  html,
+  body {
     font-size: 62.25%;
     height: var(--doc-height);
     /* margin: 0 0 0 0; */
@@ -387,6 +388,9 @@ body {
     /* font-size: 1rem; */
   }
 
+  .game-container {
+    height: var(--doc-height);
+  }
   .rows-container {
     padding-top: 4rem;
   }
