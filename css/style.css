@@ -382,7 +382,7 @@ body {
   }
 
   .game-container {
-    height: var(--doc-height);
+    /* height: var(--doc-height); */
   }
   .rows-container {
     /* padding-top: 4rem; */
@@ -396,7 +396,7 @@ body {
   .keyboard {
     --keyboard-width: 96vw;
 
-    height: var(--doc-height);
+    /* height: var(--doc-height); */
     margin-top: 4rem;
     /* padding-bottom: 10vh; */
 
