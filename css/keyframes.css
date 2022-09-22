@@ -1,0 +1,164 @@
+/**
+* * Animations 
+*/
+
+@keyframes ease {
+  from {
+    transform: scale(100%);
+    transform: scale(100%);
+  }
+  50% {
+    transform: scale(110%);
+    transform: scale(110%);
+  }
+  to {
+    transform: scale(100%);
+    transform: scale(100%);
+  }
+}
+
+@keyframes shake {
+  from {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: scaleY(100%);
+  }
+  10% {
+    transform: scaleY(80%);
+  }
+  20% {
+    transform: scaleY(60%);
+  }
+  30% {
+    transform: scaleY(40%);
+  }
+  40% {
+    transform: scaleY(20%);
+  }
+  50% {
+    transform: scaleY(0%);
+  }
+  60% {
+    transform: scaleY(20%);
+  }
+  70% {
+    transform: scaleY(40%);
+  }
+  80% {
+    transform: scaleY(60%);
+  }
+  90% {
+    transform: scaleY(80%);
+  }
+  to {
+    transform: scaleY(100%);
+  }
+}
+
+@keyframes rotateX {
+  from {
+    transform: scaleX(100%);
+    color: #4b4b4b;
+  }
+  50% {
+    transform: scaleX(0%);
+    color: #4b4b4b;
+  }
+  to {
+    transform: scaleX(100%);
+    color: #fff;
+  }
+}
+
+@keyframes rotateX-out {
+  from {
+    transform: scaleX(100%);
+    color: #fff;
+  }
+  50% {
+    transform: scaleX(0%);
+    color: #fff;
+  }
+  to {
+    transform: scaleX(100%);
+    color: #4b4b4b;
+  }
+}
+
+@keyframes move-in {
+  from {
+    top: 50%;
+    left: -50%;
+  }
+  to {
+    top: 50%;
+    left: 50%;
+  }
+}
+@keyframes move-out {
+  from {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    top: 50%;
+    left: 150%;
+  }
+}
+
+.move-in {
+  animation-name: move-in;
+  transition-delay: 250ms;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
+.move-out {
+  animation-name: move-out;
+  transition-delay: 250ms;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
+.move-in-out {
+  animation-name: move-in, move-out;
+  animation-delay: 0s, 2.2s;
+  animation-duration: 2s, 2s;
+  animation-iteration-count: 1, 1;
+  animation-timing-function: ease-out, ease-out;
+}
+.rotateX {
+  animation-name: rotateX;
+  transition-delay: 250ms;
+  animation-duration: 1.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
+.rotateX-out {
+  animation-name: rotateX-out;
+  transition-delay: 250ms;
+  animation-duration: 1.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
