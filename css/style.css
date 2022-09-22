@@ -10,9 +10,9 @@ html {
 
 :root {
   /* --keyboard-width: ; */
-  --game-container-max-width: 70rem;
-  --keyboard-max-height: calc();
-  --keyboard-max-width: 35vw;
+  --game-container-width: 80vw;
+  --keyboard-height: calc();
+  --keyboard-width: 35vw;
   --doc-height: 100%;
 }
 body {
@@ -65,8 +65,10 @@ body {
   flex-direction: column;
   margin: 0 auto;
   /* ~ these do not do anything */
-  /* max-width: var(--game-container-max-width); */
-  width: 80vw;
+  /* max-width: var(--game-container-width); */
+  /* --game-container-width: 80vw; */
+  /* width: var(--game-container-width); */
+  width: 90vw;
   /* ~ ---- ~ */
   /* height: 90vh; */
   align-items: center;
@@ -84,13 +86,13 @@ body {
 
 .board-container {
   display: flex;
-  flex-grow: 1;
   justify-content: center;
   flex-direction: column;
-  /* margin: 10rem 10rem; */
+
   /* align-content: flex-end; */
   /* justify-content: flex-end; */
 }
+
 .rows-container {
   display: flex;
   flex-direction: column;
@@ -98,6 +100,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   /* margin-top: 5rem; */
+  margin-top: 3rem;
 }
 
 .row {
@@ -118,10 +121,14 @@ body {
   background-color: #444;
   font-size: 4rem; /* 48 */
   font-family: inherit;
-  display: inline-block;
 
   border: 0.4rem solid rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
+
+  display: flex inline;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1;
 
   height: 6.4rem;
   width: 6.4rem;
@@ -173,17 +180,18 @@ body {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
+  /* justify-content: flex-end; */
   /* align-items: center; */
   /* justify-self: center; */
   /* justify-self: flex-end; */
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   /* &&&& */
 
-  /* --keyboard-max-width: 50vw; */
-  width: var(--keyboard-max-width);
+  /* --keyboard-width: 50vw; */
+  width: var(--keyboard-width);
   /* height: 100vh; */
   /* padding-top: 4vh; */
-  padding-top: 19vh;
+  /* padding-top: 19vh; */
 
   /* prevent selection */
   -webkit-user-select: none; /* Safari */
@@ -205,12 +213,9 @@ body {
   background-color: #4b4b4b;
   border: 0.3rem solid rgba(0, 0, 0, 0.15);
 
-  /* --keyboard-max-width: 50vw; */
-  height: calc(var(--keyboard-max-width) / 8);
-  /* max-height: var(--keyboard-max-height); */
-  /* max-height: 8rem; */
+  /* --keyboard-width: 50vw; */
+  height: calc(var(--keyboard-width) / 8);
 
-  /* width: 6rem; */
   border-radius: 1rem;
   cursor: pointer;
 
@@ -218,8 +223,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  flex: 1; /* grow + shrink */
-  flex-basis: 0%;
+  flex: 1 1; /* grow + shrink > 0% */
 
   touch-action: manipulation;
 }
@@ -242,19 +246,19 @@ body {
 }
 
 .k--Enter {
-  flex: 1.5;
+  flex: 1.5 1.5;
   /* flex-grow: 2; */
   /* width: 10rem; */
   font-size: 6rem;
 }
 
 .k--Backspace {
-  flex: 1.5;
+  flex: 1.5 1.5;
   font-size: 6rem;
 }
 
 .spacer {
-  flex: 0.5;
+  flex: 0.5 0.5;
 }
 
 /* * LOGO */
@@ -390,9 +394,10 @@ body {
   }
 
   .keyboard {
-    --keyboard-max-width: 96vw;
+    --keyboard-width: 96vw;
 
     height: var(--doc-height);
+    margin-top: 4rem;
     /* padding-bottom: 10vh; */
 
     /* padding: 0 2rem 8rem 2rem; */
