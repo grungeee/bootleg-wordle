@@ -67,7 +67,7 @@ body {
   /* max-width: var(--game-container-max-width); */
   width: 80vw;
   /* ~ ---- ~ */
-  height: 100vh;
+  height: 90vh;
   align-items: center;
   /* justify-content: center; */
   /* justify-content: space-between; */
@@ -231,7 +231,7 @@ body {
   flex: 1; /* grow + shrink */
   flex-basis: 0%;
 
-  /* touch-action: manipulation; */
+  touch-action: manipulation;
 }
 
 /**
