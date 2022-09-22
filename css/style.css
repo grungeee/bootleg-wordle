@@ -6,8 +6,6 @@
 
 html {
   font-size: 62.25%;
-
-  touch-action: manipulation;
 }
 
 :root {
@@ -93,6 +91,7 @@ body {
   justify-content: center;
   flex-direction: column;
 
+  touch-action: manipulation;
   /* align-content: flex-end; */
   /* justify-content: flex-end; */
 }
@@ -142,6 +141,7 @@ body {
   caret-color: transparent;
   outline: none;
 
+  touch-action: manipulation;
   /* transition: all ease-in-out 100ms; */
 
   /**
@@ -196,6 +196,8 @@ body {
   /* height: 100vh; */
   /* padding-top: 4vh; */
   /* padding-top: 19vh; */
+
+  touch-action: manipulation;
 
   /* prevent selection */
   -webkit-user-select: none; /* Safari */
