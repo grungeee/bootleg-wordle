@@ -194,7 +194,7 @@ body {
   width: var(--keyboard-max-width);
   height: 100vh;
   padding-top: 4vh;
-  padding-bottom: 4vh;
+  /* padding-bottom: 4vh; */
   /* min-height: calc(50vw / 2); */
   /* flex-grow: 1; */
 
