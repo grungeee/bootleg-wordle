@@ -70,6 +70,7 @@ body {
   /* ~ ---- ~ */
   height: 90vh;
   align-items: center;
+  justify-content: center;
   position: relative;
   /* justify-content: center; */
   /* justify-content: space-between; */
