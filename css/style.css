@@ -174,11 +174,13 @@ body {
 }
 
 .char--none {
+  text-align: center;
   color: var(--white) !important;
   background-color: var(--light-grey) !important;
 }
 
 .char--green {
+  text-align: center;
   /* color: #555555 !important; */
   color: var(--light-grey-char) !important;
   /* background-color: #a8ffae !important; */
@@ -186,11 +188,13 @@ body {
 }
 
 .char--yellow {
+  text-align: center;
   color: var(--light-grey-char) !important;
   background-color: var(--yellow) !important;
 }
 
 .char--transition {
+  text-align: center;
   border: 0.4rem solid rgba(0, 0, 0, 0.2);
   animation: ease-in-out 100ms ease forwards;
 }
@@ -444,7 +448,7 @@ body {
 
   .game-container {
     height: var(--doc-height);
-    justify-content: space-evenly;
+    justify-content: space-around;
   }
   .rows-container {
     margin-top: 0rem;
@@ -452,7 +456,7 @@ body {
   .keyboard {
     /* all: initial; */
     margin-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
   }
 
   .logo {
@@ -517,3 +521,4 @@ Instead, 1rem = 1em = 16px
 /* @media (max-width: 34em) { */
 
 /* &&& ================================================================= &&& */
+/
