@@ -37,6 +37,7 @@ html {
   touch-action: manipulation;
 }
 body {
+  height: var(--doc-heigh);
   /* font-family: 'Rubik', sans-serif; */
   font-family: 'Inter', sans-serif;
   line-height: 1;
@@ -466,12 +467,12 @@ body {
   }
   .keyboard {
     margin-top: 0;
-    /* justify-content: end; */
   }
 
   .game-container {
-    /* height: var(--doc-height); */
     justify-content: space-evenly;
+    /* height: var(--doc-height); */
+    /* justify-content: space-evenly; */
   }
 
   .logo {
