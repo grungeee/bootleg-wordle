@@ -30,6 +30,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+
+  touch-action: manipulation;
 }
 
 html {
@@ -39,7 +41,6 @@ html {
   /* height: 100%; */
 
   overflow: hidden;
-  touch-action: manipulation;
 }
 body {
   /* font-family: 'Rubik', sans-serif; */
@@ -451,6 +452,7 @@ body {
   .keyboard {
     /* all: initial; */
     margin-top: 0;
+    margin-bottom: 2rem;
   }
 
   .logo {
