@@ -462,15 +462,16 @@ body {
     height: var(--doc-height);
   }
   .rows-container {
-    margin-top: 6rem;
+    margin-top: 0rem;
   }
   .keyboard {
-    /* margin-top: 2rem; */
-    justify-content: end;
+    margin-top: 0;
+    /* justify-content: end; */
   }
 
   .game-container {
     /* height: var(--doc-height); */
+    justify-content: space-evenly;
   }
 
   .logo {
