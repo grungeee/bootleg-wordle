@@ -1,5 +1,28 @@
 /* ^! Look into this thing > */
+
 /* https://css-tricks.com/practical-css-scroll-snapping/ */
+:root {
+  --html-font-size: 62.25%;
+  /* --keyboard-width: ; */
+  --game-container-width: 80vw;
+  --keyboard-height: calc();
+  --keyboard-width: 35vw;
+  --doc-height: 100%;
+
+  /* - colors: */
+  --white: #fff;
+  --green: #8dff94;
+  --yellow: #f4ff61;
+  --purple: #9a93ff;
+  --blue: #0080ff;
+  --pink: #ea00ff;
+  --dark-blue: #0a0e27;
+  --light-grey: #6a6a6a;
+  --light-grey-char: #444;
+  --light-grey-key: #4b4b4b;
+  --dark-grey-key-active: #363636;
+  --black: #000;
+}
 
 * {
   padding: 0;
@@ -8,17 +31,10 @@
 }
 
 html {
-  font-size: 62.25%;
+  /* font-size: 62.25%; */
+  font-size: var(--html-font-size);
 
   touch-action: manipulation;
-}
-
-:root {
-  /* --keyboard-width: ; */
-  --game-container-width: 80vw;
-  --keyboard-height: calc();
-  --keyboard-width: 35vw;
-  --doc-height: 100%;
 }
 body {
   /* font-family: 'Rubik', sans-serif; */
@@ -28,7 +44,7 @@ body {
 
   text-transform: uppercase;
 
-  background-color: #9a93ff;
+  background-color: var(--purple);
 
   overflow: hidden;
   /* height: 100vh; */
@@ -42,7 +58,7 @@ body {
   justify-content: flex-start;
   height: 5rem;
 
-  background-color: #9a93ff;
+  background-color: var(--purple);
   /* box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1); */
 }
 
@@ -64,23 +80,22 @@ body {
   padding: 1rem 2rem;
 
   color: #fff;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--black);
 }
 
 .game-container {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  /* ~ these do not do anything */
-  /* max-width: var(--game-container-width); */
-  /* --game-container-width: 80vw; */
-  /* width: var(--game-container-width); */
-  width: 90vw;
-  /* ~ ---- ~ */
+
+  /* > -------------------------- < */
+  width: 100vw;
+  height: 100vh;
   /* height: 90vh; */
   align-items: center;
-  justify-content: center;
-  position: relative;
+  /* justify-content: center; */
+
+  /* position: relative; */
   /* justify-content: center; */
   /* justify-content: space-between; */
   /* max-height: 100% - header-height; */
@@ -126,7 +141,8 @@ body {
   color: #fff;
   /* background: #555555; */
   background-color: #444;
-  font-size: 4rem; /* 48 */
+  font-size: 4rem;
+  /* font-size: 40px; */
   font-family: inherit;
 
   border: 0.4rem solid rgba(0, 0, 0, 0.1);
@@ -153,16 +169,20 @@ body {
 }
 
 .char--none {
-  /* color: rgb(214, 214, 214) !important; */
-  color: #fff !important;
-  background-color: #6a6a6a !important;
+  color: var(--white) !important;
+  background-color: var(--light-grey) !important;
 }
 
 .char--green {
   /* color: #555555 !important; */
-  color: #444 !important;
+  color: var(--light-grey-char) !important;
   /* background-color: #a8ffae !important; */
-  background-color: #8dff94 !important;
+  background-color: var(--green) !important;
+}
+
+.char--yellow {
+  color: var(--light-grey-char) !important;
+  background-color: var(--yellow) !important;
 }
 
 .char--transition {
@@ -214,15 +234,17 @@ body {
 }
 
 .key {
-  font-size: 3rem;
+  /* font-size: 3rem; */
   font-weight: 600;
-  color: #ffffff;
+  color: var(--white);
   /* background-color: #555555; */
-  background-color: #4b4b4b;
+  background-color: var(--light-grey-key);
+
   border: 0.3rem solid rgba(0, 0, 0, 0.15);
 
   /* --keyboard-width: 50vw; */
   height: calc(var(--keyboard-width) / 8);
+  font-size: calc(var(--keyboard-width) / 20);
 
   border-radius: 1rem;
   cursor: pointer;
@@ -234,14 +256,11 @@ body {
   flex: 1 1; /* grow + shrink > 0% */
 }
 
-/**
-* ~  replace active with add+remove becuase animation shuld be activated on tap, not hold
+/*
+ o | replace active with add+remove becuase animation shuld be activated on tap, not hold
 */
 .key:active {
-  /* background-color: #444444; */
-  background-color: #363636;
-
-  /* animation: ease-in 100ms ease forwardr; */
+  background-color: var(--dark-grey-key-active);
 
   animation-name: ease;
   animation-duration: 100ms;
@@ -255,12 +274,12 @@ body {
   flex: 1.5 1.5;
   /* flex-grow: 2; */
   /* width: 10rem; */
-  font-size: 6rem;
+  /* font-size: 4rem; */
 }
 
 .k--Backspace {
   flex: 1.5 1.5;
-  font-size: 6rem;
+  /* font-size: 4rem; */
 }
 
 .spacer {
@@ -312,7 +331,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #9a93ff;
+  background-color: var(--purple);
   z-index: 5;
   /* background-color: rgba(0, 0, 0, 0.6); */
   /* backdrop-filter: blur(3px); */
@@ -334,9 +353,9 @@ body {
 
   color: rgb(235, 241, 255);
 
-  text-shadow: 0rem 0rem 2rem rgb(0, 0, 0), 0rem 0rem 3rem rgb(10, 14, 39),
-    0rem 0rem 5rem rgb(0, 128, 255), 0rem 0rem 2rem rgb(234, 0, 255),
-    0rem 0rem 2rem rgb(0, 128, 255);
+  text-shadow: 0rem 0rem 2rem var(--black), 0rem 0rem 3rem var(--dark-blue),
+    0rem 0rem 5rem var(--blue), 0rem 0rem 2rem var(--pink),
+    0rem 0rem 2rem var(--blue);
 }
 
 /* * MEDIA QUERIES */
@@ -372,24 +391,86 @@ body {
 }
 */
 
-/* - phone size */
+/* ------------------------------------ */
+/* - BELOW 1344px (Smaller desktops) -  */
+/* ------------------------------------ */
+@media (max-width: 84em) {
+  :root {
+    /* --html-font-size: 70%; */
+    --keyboard-width: 45vw;
+  }
+  .rows-container {
+    margin-top: 6rem;
+  }
+  .keyboard {
+    margin-top: 10rem;
+  }
+}
+
+/* ------------------------------------ */
+/* - BELOW 1200px (Landscape Tablets) - */
+/* ------------------------------------ */
+@media (max-width: 75em) {
+  :root {
+    --html-font-size: 70%;
+    --keyboard-width: 60vw;
+  }
+  html,
+  body {
+    height: var(--doc-heigh);
+  }
+  .rows-container {
+    margin-top: 2rem;
+  }
+  .keyboard {
+    margin-top: 6rem;
+  }
+}
+
+/* ------------------------- */
+/* - BELOW 944px (Tablets) - */
+/* ------------------------- */
+@media (max-width: 59em) {
+  :root {
+    --html-font-size: 80%;
+    --keyboard-width: 75vw;
+  }
+  html,
+  body {
+    height: var(--doc-heigh);
+  }
+  .rows-container {
+    margin-top: 8rem;
+  }
+  .keyboard {
+    margin-top: 16rem;
+  }
+}
+
+/* ------------------------ */
+/* - BELOW 544px (Phones) - */
+/* ------------------------ */
 /* . below 544px */
 /* : 544/16 = 34 */
 @media (max-width: 34em) {
+  :root {
+    --html-font-size: 62.25%;
+    --keyboard-width: 96vw;
+  }
   html,
   body {
-    font-size: 62.25%;
     height: var(--doc-height);
-    /* margin: 0 0 0 0; */
-    /* overflow-x: hidden; */
-    /* font-size: 1rem; */
+  }
+  .rows-container {
+    margin-top: 6rem;
+  }
+  .keyboard {
+    /* margin-top: 2rem; */
+    justify-content: flex-end;
   }
 
   .game-container {
     /* height: var(--doc-height); */
-  }
-  .rows-container {
-    margin-top: 2rem;
   }
 
   .logo {
@@ -397,28 +478,12 @@ body {
     /* margin-bottom: 2rem; */
   }
 
-  .keyboard {
-    --keyboard-width: 96vw;
-
-    /* height: var(--doc-height); */
-    margin-top: 2rem;
-    /* padding-bottom: 10vh; */
-
-    /* padding: 0 2rem 8rem 2rem; */
-    /* margin: 0 10rem; */
-    /* position: fixed; */
-    /* margin: 0 1rem; */
-    /* padding-bottom: 10rem; */
-    /* margin-top: 10rem; */
-    /* gap: 0.4rem; */
-  }
-
   .kb-row {
     /* gap: 0.4rem; */
   }
 
   .key {
-    font-size: 2.5rem;
+    /* font-size: 2.5rem; */
     /* -webkit-text-stroke-width: 0.1rem; */
   }
 
@@ -433,3 +498,40 @@ body {
     /* font-weight: 200; */
   }
 }
+
+/*
+rem and em do NOT depend on html font-size in media queries! 
+Instead, 1rem = 1em = 16px 
+*/
+
+/**************************/
+/* BELOW 1344px (Smaller desktops) */
+/**************************/
+/* x */
+/* @media (max-width: 84em) {} */
+
+/**************************/
+/* BELOW 1200px (Landscape Tablets) */
+/**************************/
+/* x */
+/* @media (max-width: 75em) {} */
+
+/**************************/
+/* BELOW 944px (Tablets) */
+/**************************/
+/* x */
+/* @media (max-width: 59em) {} */
+
+/**************************/
+/* BELOW 704px (Smaller tablets) */
+/**************************/
+/* o */
+/* @media (max-width: 44em) {} */
+
+/**************************/
+/* BELOW 544px (Phones) */
+/**************************/
+/* x */
+/* @media (max-width: 34em) { */
+
+/* &&& ================================================================= &&& */
