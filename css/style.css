@@ -38,6 +38,7 @@ html {
   /* height: var(--doc-heigh); */
   /* height: 100%; */
 
+  overflow: hidden;
   touch-action: manipulation;
 }
 body {
@@ -45,13 +46,10 @@ body {
   font-family: 'Inter', sans-serif;
   line-height: 1;
   font-weight: 400;
-
   text-transform: uppercase;
-
   background-color: var(--purple);
 
-  overflow: hidden;
-  /* height: 100vh; */
+  scroll-snap-align: top;
 
   /* touch-action: none; */
 }
