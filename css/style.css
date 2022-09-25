@@ -512,6 +512,10 @@ body {
     height: var(--doc-height);
   }
 
+  .modal {
+    height: var(--doc-height);
+  }
+
   .game-container {
     height: var(--doc-height);
     /* justify-content: space-around; */
