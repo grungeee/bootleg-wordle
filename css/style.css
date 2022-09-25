@@ -403,8 +403,8 @@ body {
   border-radius: 1rem;
 
   line-height: 1.2;
-  margin-top: 14rem;
   padding: 3rem 3rem 3rem 3rem;
+  /* margin-top: 14rem; */
   /* position: absolute; */
   width: 70%;
   font-size: 1.3rem;
@@ -514,6 +514,9 @@ body {
 
   .modal {
     height: var(--doc-height);
+  }
+  .modal-content {
+    margin-top: 0;
   }
 
   .game-container {
