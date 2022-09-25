@@ -324,6 +324,8 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
+
+  overflow: hidden;
 }
 .logo {
   font-size: 8rem;
@@ -512,6 +514,21 @@ body {
     height: var(--doc-height);
   }
 
+  .logo-container {
+    gap: 0;
+  }
+  .logo {
+    font-size: 3rem;
+    height: 5.1rem;
+    width: 5.1rem;
+    margin-right: 1rem;
+
+    color: #fff;
+    background: #4b4b4b;
+    border: 0.5rem solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+  }
+
   .modal {
     height: var(--doc-height);
   }
@@ -535,14 +552,12 @@ body {
   }
 
   .keyboard {
-    /* all: initial; */
-    margin-top: 14rem;
+    margin-top: 0rem;
     margin-bottom: 0rem;
-  }
-
-  .logo {
-    /* font-size: 6rem; */
-    /* margin-bottom: 2rem; */
+    /* all: initial; */
+    /* margin-top: 14rem; */
+    /* margin-bottom: 5rem; */
+    padding-top: 13rem;
   }
 
   .kb-row {
