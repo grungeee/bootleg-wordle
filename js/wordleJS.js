@@ -359,7 +359,7 @@ function gameKeydown(e) {
 
         //- adding colors to right letters
         //: chars included in both wordle and guess
-        const wordleArrFilterd = wordleArr.filter(w => guess.includes(w));
+        const wordleArrFiltered = wordleArr.filter(w => guess.includes(w));
 
         wordleArr.forEach((w, wIndex) => {
           const g = guess[wIndex];
@@ -372,7 +372,7 @@ function gameKeydown(e) {
             if (w === g) {
               //. input fields
               charArr[wIndex].classList.add('char--green');
-              wordleArrFilterd.splice(wordleArrFilterd.indexOf(g), 1);
+              wordleArrFiltered.splice(wordleArrFiltered.indexOf(g), 1);
 
               //. keyboard
               document
@@ -380,10 +380,10 @@ function gameKeydown(e) {
                 .classList.remove('char--yellow');
               document.querySelector(`.k--${g}`).classList.add('char--green');
             } //-
-            else if (wordleArrFilterd.includes(g)) {
+            else if (wordleArrFiltered.includes(g)) {
               //. input fields
               charArr[wIndex].classList.add('char--yellow');
-              wordleArrFilterd.splice(wordleArrFilterd.indexOf(g), 1);
+              wordleArrFiltered.splice(wordleArrFiltered.indexOf(g), 1);
 
               //. keyboard
               !document
