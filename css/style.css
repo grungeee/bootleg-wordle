@@ -23,6 +23,7 @@
   --light-grey-char: #444;
   --light-grey-key: #4b4b4b;
   --dark-grey-key-active: #363636;
+  --light-black: #121212;
   --black: #000;
 }
 
@@ -216,12 +217,65 @@ body {
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
 }
-/** 
-* * Keyboard 
+
+.key--green {
+  color: var(--light-grey-char) !important;
+  background-color: var(--green) !important;
+}
+
+.key--yellow {
+  color: var(--light-grey-char) !important;
+  background-color: var(--yellow) !important;
+}
+
+/* o | make a function to create a */
+/* .key */
+/* .key--green */
+/* .key--yellow */
+/* .key--none */
+/* o | make a function to create a */
+/* .char */
+/* .char--green */
+/* .char--yellow */
+/* .char--none */
+/* o | make a function to create a */
+/* .char-example */
+/* .char-example--green */
+/* .char-example--yellow */
+/* .char-example--none */
+
+button {
+  background-color: coral;
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 3rem;
+  font-size: 3rem;
+  border: none; /* Reset default button border */
+  font-family: inherit; /* Inherit font-family */
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: rgb(255, 166, 134);
+  transition: all 150ms ease-in-out;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+/**
+* * Keyboard
 */
 
 .keyboard {
-  /* o | - make dynamic padding  width relative to height (1:2 / 2:3 / ...)  */
+  /* o | make dynamic padding  width relative to height (1:2 / 2:3 / ...)  */
 
   display: flex;
   /* gap: 0.5rem; */
@@ -280,7 +334,7 @@ body {
 }
 
 /*
- o | replace active with add+remove becuase animation shuld be activated on tap, not hold
+o | replace active with add+remove becuase animation shuld be activated on tap, not hold
 */
 .key:active {
   background-color: var(--dark-grey-key-active);
@@ -400,7 +454,7 @@ body {
   background-color: #0000005e;
 }
 .modal-content {
-  background-color: var(--black);
+  background-color: var(--light-black);
   color: var(--white);
   border-radius: 1rem;
 
@@ -408,7 +462,7 @@ body {
   padding: 3rem 3rem 3rem 3rem;
   /* margin-top: 14rem; */
   /* position: absolute; */
-  width: 70%;
+  /* width: 70%; */
   font-size: 1.3rem;
 }
 .modal-content p {
@@ -430,10 +484,42 @@ body {
   color: var(--light-grey-char);
 }
 
+.char-example {
+  color: #fff;
+  background-color: #444;
+  font-family: inherit;
+  border: 0.2rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.3rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.1rem;
+  /* New sizing formula, smaller than .char */
+  font-size: calc((var(--keyboard-width) / 670) * 20 * 1.3); /* Smaller font */
+  height: calc((var(--keyboard-width) / 670) * 32 * 1.3); /* Smaller height */
+  width: calc((var(--keyboard-width) / 670) * 32 * 1.3); /* Smaller width */
+}
+
+.char-example.none {
+  color: var(--white) !important;
+  background-color: var(--light-grey) !important;
+}
+
+.char-example.green {
+  color: var(--light-grey-char) !important;
+  background-color: var(--green) !important;
+}
+
+.char-example.yellow {
+  color: var(--light-grey-char) !important;
+  background-color: var(--yellow) !important;
+}
+
 /* * MEDIA QUERIES */
 
 /* @media (min-width: 84em) {
-}*/
+} */
 /* - base size */
 /* . 944px */
 /* : 944/16 = 59 */
@@ -582,8 +668,8 @@ body {
 }
 
 /*
-rem and em do NOT depend on html font-size in media queries! 
-Instead, 1rem = 1em = 16px 
+rem and em do NOT depend on html font-size in media queries!
+Instead, 1rem = 1em = 16px
 */
 
 /**************************/

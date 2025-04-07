@@ -203,6 +203,9 @@ let currentRow = 0;
 //* Animation on game load
 const header = document.querySelector('.header');
 const modal = document.querySelector('.modal');
+
+const closeModalButton = document.querySelector('.closeModalButton');
+
 // o | need to add X to close the modal window
 
 function addLogoScreen() {
@@ -457,8 +460,9 @@ function click(e) {
   document.dispatchEvent(keyKB === 'Backspace' ? backspaceEvent : keydownEvent);
 
   // - remove modal window
-  e.target === modal && modal.classList.add('hidden');
+  e.target === closeModalButton && modal.classList.add('hidden');
 }
+//
 
 //: ==========================================================================
 

@@ -145,14 +145,36 @@ SHARAPA
           <p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
           <hr>
           <p><strong>Examples</strong></p>
-          <div class="example"><letter>[W]</letter>[E][A][R][Y]</div>
+          <div class="example">
+            <div class="char-example green">W</div>
+            <div class="char-example">E</div>
+            <div class="char-example">A</div>
+            <div class="char-example">R</div>
+            <div class="char-example">Y</div>
+          </div>
           <p><strong>The Letter W is in the word and in the correct spot</strong></p>
-          <div class="example">[P]<letter>[I]</letter>[L][L][S]</div>
+          <div class="example">
+            <div class="char-example">P</div>
+            <div class="char-example yellow">I</div>
+            <div class="char-example">L</div>
+            <div class="char-example">L</div>
+            <div class="char-example">S</div>
+          </div>
           <p><strong>The letter I is in the word but in the wrong spot.</strong></p>
-          <div class="example">[V][A][G]<letter>[U]</letter>[E]</div>
+          <div class="example">
+            <div class="char-example">V</div>
+            <div class="char-example">A</div>
+            <div class="char-example">G</div>
+            <div class="char-example none">U</div>
+            <div class="char-example">E</div>
+          </div>
           <p><strong>The letter U is not in the word in any spot.</strong></p>
           <hr>
           <p>A new WORDLE will be available each time you start a new game!</p>
+          <div class="button-container">
+            <button class="closeModalButton">PLAY</button>
+          </div>
+
         </div>
       </div>
 
