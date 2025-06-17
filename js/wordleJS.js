@@ -143,9 +143,9 @@ let wordle;
 let wordleArr;
 
 function pickWordle() {
-  const valuesLengthRNG = newRNG(0, values.length);
+  const valuesLengthRNG = newRNG(0, values.length - 1);
   const valuesWordsArr = values[valuesLengthRNG];
-  const valuesArrayLengthRNG = newRNG(0, valuesWordsArr.length);
+  const valuesArrayLengthRNG = newRNG(0, valuesWordsArr.length - 1);
   wordle = valuesWordsArr[valuesArrayLengthRNG];
   wordleArr = wordle.split('');
 
