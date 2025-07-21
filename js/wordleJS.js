@@ -205,6 +205,10 @@ const header = document.querySelector('.header');
 const modal = document.querySelector('.modal');
 
 const closeModalButton = document.querySelector('.closeModalButton');
+const endModal = document.querySelector('.end-modal');
+const endTitle = document.querySelector('.end-title');
+const endWord = document.querySelector('.end-word');
+const closeEndModalButton = document.querySelector('.closeEndModalButton');
 
 // o | need to add X to close the modal window
 
@@ -266,6 +270,17 @@ function startupAnimations() {
   }
 }
 startupAnimations();
+
+function showEndModal(win) {
+  endTitle.textContent = win ? 'You won!' : 'You lost!';
+  endWord.textContent = wordle.toUpperCase();
+  endModal.classList.remove('hidden');
+}
+
+closeEndModalButton.addEventListener('click', () => {
+  endModal.classList.add('hidden');
+  location.reload();
+});
 //> -----------------------------------------------------------------
 // document.addEventListener('click', function (e) {
 //   console.log(e);
@@ -382,8 +397,7 @@ function gameKeydown(e) {
                 .querySelector(`.k--${g}`)
                 .classList.remove('char--yellow');
               document.querySelector(`.k--${g}`).classList.add('char--green');
-            } //-
-            else if (wordleArrFiltered.includes(g)) {
+            } else if (wordleArrFiltered.includes(g)) {
               //. input fields
               charArr[wIndex].classList.add('char--yellow');
               wordleArrFiltered.splice(wordleArrFiltered.indexOf(g), 1);
@@ -399,11 +413,17 @@ function gameKeydown(e) {
               document.querySelector(`.k--${g}`).classList.add('char--none');
             }
           }, wIndex * 500);
-          if (wordle === guess)
-            setTimeout(() => {
-              logo.forEach(l => l.classList.add('char--green'));
-            }, 2500);
         });
+
+        if (wordle === guess)
+          setTimeout(() => {
+            logo.forEach(l => l.classList.add('char--green'));
+            showEndModal(true);
+          }, 2500);
+        else if (currentRow === rowsAllArr.length)
+          setTimeout(() => {
+            showEndModal(false);
+          }, 2500);
 
         // & <==========< end of game logic >==========>
 
@@ -461,6 +481,10 @@ function click(e) {
 
   // - remove modal window
   e.target === closeModalButton && modal.classList.add('hidden');
+  if (e.target === closeEndModalButton) {
+    endModal.classList.add('hidden');
+    location.reload();
+  }
 }
 //
 

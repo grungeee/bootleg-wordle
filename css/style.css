@@ -474,6 +474,31 @@ o | replace active with add+remove becuase animation shuld be activated on tap, 
   margin-bottom: 2rem;
 }
 
+/* End game modal */
+.end-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+
+  background-color: #0000005e;
+}
+.end-modal .modal-content {
+  background-color: var(--light-black);
+  color: var(--white);
+  border-radius: 1rem;
+
+  line-height: 1.2;
+  padding: 3rem 3rem 3rem 3rem;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
 .example:nth-of-type(1) letter {
   color: var(--green);
 }
@@ -616,6 +641,9 @@ o | replace active with add+remove becuase animation shuld be activated on tap, 
   }
 
   .modal {
+    height: var(--doc-height);
+  }
+  .end-modal {
     height: var(--doc-height);
   }
   .modal-content {
