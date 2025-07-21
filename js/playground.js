@@ -1,4 +1,4 @@
-'use strickt';
+'use strict';
 //* Tests for the wordle app
 const wordle1 = 'renos'.split('');
 const guess1 = 'rotno'.split('');

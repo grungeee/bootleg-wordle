@@ -50,7 +50,7 @@ const testDB = [
 // console.log(testDB);
 //* <=====< xxx end xxx >=====>
 
-//* Sortred DB
+//* Sorted DB
 //- Database Object
 const wordleDB = {
   a: [],
