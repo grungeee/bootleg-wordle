@@ -292,6 +292,9 @@ button:hover {
   width: var(--keyboard-width);
   margin-top: 14rem;
 
+  /* prevent double-tap zoom */
+  touch-action: manipulation;
+
   /* prevent selection */
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -329,6 +332,9 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* prevent double-tap zoom when pressing keys */
+  touch-action: manipulation;
 
   flex: 1 1; /* grow + shrink > 0% */
 }
