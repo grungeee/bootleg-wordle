@@ -277,10 +277,6 @@ function showEndModal(win) {
   endModal.classList.remove('hidden');
 }
 
-closeEndModalButton.addEventListener('click', () => {
-  endModal.classList.add('hidden');
-  location.reload();
-});
 //> -----------------------------------------------------------------
 // document.addEventListener('click', function (e) {
 //   console.log(e);
