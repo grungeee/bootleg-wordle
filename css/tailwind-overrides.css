@@ -19,6 +19,10 @@
   background-color: #f4ff61 !important;
   color: #444444 !important;
 }
+.key.char--none {
+  background-color: #FF7478 !important;
+  color: #ffffff !important;
+}
 .key:active {
   background-color: #363636;
   animation: ease 100ms ease-in 1;
@@ -31,7 +35,126 @@
   background-color: rgb(255, 166, 134);
 }
 
+.board-container,
+.keyboard {
+  transform: scale(1.3);
+  transform-origin: top center;
+}
+
+/* Tile input animations */
+.char--transition {
+  text-align: center;
+  border: 2px solid #000;
+  animation: ease-in-out 100ms ease forwards;
+}
+
+.char--rotate {
+  animation-name: rotate;
+  transition-delay: 125ms;
+  animation-duration: 250ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  border: 2px solid #000;
+}
+
 /* Remove underline from the end-of-game wiki link */
 .end-word-link {
   text-decoration: none;
+}
+
+/* Smaller text for rule explanations */
+.rules-desc {
+  font-size: 0.8em;
+}
+
+/* Startup logo animation styles */
+
+.logo-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.logo-container .logo {
+  font-size: 6rem;
+  font-weight: bold;
+  font-family: inherit;
+  user-select: none;
+  height: 10rem;
+  width: 10rem;
+  color: #fff;
+  background: #4b4b4b;
+  border: 0.4rem solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  transition: all 300ms;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #9a93ff;
+  z-index: 5;
+}
+
+/* Neon styled version text */
+.version {
+  font-family: 'neon_tubes_2regular';
+  font-weight: normal;
+  font-size: 3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem 4rem;
+  color: rgb(225, 251, 255);
+  text-shadow: 0 0 2rem #000, 0 0 3rem #0a0e27,
+    0 0 5rem #0080ff, 0 0 2rem #ea00ff, 0 0 2rem #0080ff;
+}
+
+/* Example word layout */
+.example {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.char-example {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 0.25rem;
+  background-color: #444;
+  color: #fff;
+}
+
+.char-example.char--green {
+  background-color: #8dff94;
+  color: #444;
+}
+
+.char-example.char--yellow {
+  background-color: #f4ff61;
+  color: #444;
+}
+
+.char-example.char--none {
+  background-color: #6a6a6a;
+  color: #fff;
 }
