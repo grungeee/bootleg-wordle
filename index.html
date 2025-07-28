@@ -30,8 +30,31 @@
     <!-- * JS . -->
 <!--  -->
     <link rel="stylesheet" href="css/webfontkit/stylesheet.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "brand-purple": "#9a93ff",
+              "brand-green": "#8dff94",
+              "brand-yellow": "#f4ff61",
+              "gray-char": "#444",
+              "gray-key": "#4b4b4b",
+              "light-grey": "#6a6a6a",
+              "dark-gray-key-active": "#363636",
+              "light-black": "#121212"
+            },
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+              bebas: ["Bebas Neue", "sans-serif"],
+              neon: ["neon_tubes_2regular", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/keyframes.css">
     <script defer src="js/wordle-words-list.js"></script>
     <script defer src="js/wordleJS.js"></script>
@@ -39,111 +62,111 @@
   </head>
 
   <body>
-    <header class="header">
-      <div class="sharapaio">
+    <header class="header flex justify-start h-20 z-50 bg-brand-purple">
+      <div class="sharapaio font-bebas text-4xl text-white underline ml-16 py-4 px-10">
 SHARAPA
       </div>
-      <div class="version">BETA 0.7.9</div>
+      <div class="version font-neon absolute top-0 right-0 m-4 text-3xl text-[#E1FBFF]">BETA 0.7.9</div>
     </header>
     <main>
 
-      <div class="game-container">
-        <div class="board-container">
-        <div class="rows-container">
-          <div class="r-0 row" data-row="0">
-            <input type="text" maxlength="1" class="c-0 char" data-char="0" required>
-            <input type="text" maxlength="1" class="c-1 char" data-char="1" required>
-            <input type="text" maxlength="1" class="c-2 char" data-char="2" required>
-            <input type="text" maxlength="1" class="c-3 char" data-char="3" required>
-            <input type="text" maxlength="1" class="c-4 char" data-char="4" required>
+      <div class="game-container flex flex-col items-center w-screen h-full">
+        <div class="board-container flex flex-col justify-center">
+        <div class="rows-container flex flex-col items-center justify-center gap-2 mt-12">
+          <div class="r-0 row flex gap-2" data-row="0">
+            <input type="text" maxlength="1" class="c-0 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="4" required>
           </div>
 
-          <div class="r-1 row" data-row="1">
-            <input type="text" maxlength="1" class="c-0 char" data-char="0" required>
-            <input type="text" maxlength="1" class="c-1 char" data-char="1" required>
-            <input type="text" maxlength="1" class="c-2 char" data-char="2" required>
-            <input type="text" maxlength="1" class="c-3 char" data-char="3" required>
-            <input type="text" maxlength="1" class="c-4 char" data-char="4" required>
+          <div class="r-1 row flex gap-2" data-row="1">
+            <input type="text" maxlength="1" class="c-0 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="4" required>
          </div>
 
-          <div class="r-2 row" data-row="2">
-            <input type="text" maxlength="1" class="c-0 char" data-char="0" required>
-            <input type="text" maxlength="1" class="c-1 char" data-char="1" required>
-            <input type="text" maxlength="1" class="c-2 char" data-char="2" required>
-            <input type="text" maxlength="1" class="c-3 char" data-char="3" required>
-            <input type="text" maxlength="1" class="c-4 char" data-char="4" required>
+          <div class="r-2 row flex gap-2" data-row="2">
+            <input type="text" maxlength="1" class="c-0 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="4" required>
          </div>
 
-          <div class="r-3 row" data-row="3">
-            <input type="text" maxlength="1" class="c-0 char" data-char="0" required>
-            <input type="text" maxlength="1" class="c-1 char" data-char="1" required>
-            <input type="text" maxlength="1" class="c-2 char" data-char="2" required>
-            <input type="text" maxlength="1" class="c-3 char" data-char="3" required>
-            <input type="text" maxlength="1" class="c-4 char" data-char="4" required> 
+          <div class="r-3 row flex gap-2" data-row="3">
+            <input type="text" maxlength="1" class="c-0 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="4" required> 
           </div>
 
-          <div class="r-4 row" data-row="4">
-            <input type="text" maxlength="1" class="c-0 char" data-char="0" required>
-            <input type="text" maxlength="1" class="c-1 char" data-char="1" required>
-            <input type="text" maxlength="1" class="c-2 char" data-char="2" required>
-            <input type="text" maxlength="1" class="c-3 char" data-char="3" required>
-            <input type="text" maxlength="1" class="c-4 char" data-char="4" required>
+          <div class="r-4 row flex gap-2" data-row="4">
+            <input type="text" maxlength="1" class="c-0 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="4" required>
           </div>
 
-          <div class="r-5 row" data-row="5">
-            <input type="text" maxlength="1" class="c-0 char" data-char="0" required>
-            <input type="text" maxlength="1" class="c-1 char" data-char="1" required>
-            <input type="text" maxlength="1" class="c-2 char" data-char="2" required>
-            <input type="text" maxlength="1" class="c-3 char" data-char="3" required>
-            <input type="text" maxlength="1" class="c-4 char" data-char="4" required>
+          <div class="r-5 row flex gap-2" data-row="5">
+            <input type="text" maxlength="1" class="c-0 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char text-white bg-gray-char text-4xl border-4 border-black/10 rounded-md text-center h-16 w-16 pointer-events-none outline-none font-inter caret-transparent" data-char="4" required>
           </div>
         </div>
         </div>
 
       <!-- * Keyboard  -->
-        <div class="keyboard">
-          <div class="kb-row kb-row-0">
-          <div class="key k--q">Q</div>
-          <div class="key k--w">W</div>
-          <div class="key k--e">E</div>
-          <div class="key k--r">R</div>
-          <div class="key k--t">T</div>
-          <div class="key k--y">Y</div>
-          <div class="key k--u">U</div>
-          <div class="key k--i">I</div>
-          <div class="key k--o">O</div>
-          <div class="key k--p">P</div>
+        <div class="keyboard flex flex-col w-[35vw] mt-36 select-none">
+          <div class="kb-row flex mb-1 kb-row-0">
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--q">Q</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--w">W</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--e">E</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--r">R</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--t">T</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--y">Y</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--u">U</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--i">I</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--o">O</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--p">P</div>
         </div>
 
-        <div class="kb-row kb-row--1">
-          <div class="spacer"></div>
-          <div class="key k--a">A</div>
-          <div class="key k--s">S</div>
-          <div class="key k--d">D</div>
-          <div class="key k--f">F</div>
-          <div class="key k--g">G</div>
-          <div class="key k--h">H</div>
-          <div class="key k--j">J</div>
-          <div class="key k--k">K</div>
-          <div class="key k--l">L</div>
-          <div class="spacer"></div>
+        <div class="kb-row flex mb-1 kb-row--1">
+          <div class="flex-[0.5]"></div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--a">A</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--s">S</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--d">D</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--f">F</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--g">G</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--h">H</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--j">J</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--k">K</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--l">L</div>
+          <div class="flex-[0.5]"></div>
         </div>
 
-        <div class="kb-row kb-row--2">
-          <div class="key k--Backspace">⌫</div>
-          <div class="key k--z">Z</div>
-          <div class="key k--x">X</div>
-          <div class="key k--c">C</div>
-          <div class="key k--v">V</div>
-          <div class="key k--b">B</div>
-          <div class="key k--n">N</div>
-          <div class="key k--m">M</div>
-          <div class="key k--Enter">↵</div>
+        <div class="kb-row flex mb-1 kb-row--2">
+          <div class="key flex-[1.5] font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--Backspace">⌫</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--z">Z</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--x">X</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--c">C</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--v">V</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--b">B</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--n">N</div>
+          <div class="key flex-1 font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--m">M</div>
+          <div class="key flex-[1.5] font-semibold text-white bg-gray-key border border-black/30 rounded-lg h-12 mx-1 flex items-center justify-center cursor-pointer active:bg-dark-gray-key-active text-lg k--Enter">↵</div>
       </div>  
       </div>
 
-      <div class="modal hidden">
-        <div class="modal-content">
+      <div class="modal hidden flex justify-center items-center absolute top-0 left-0 w-full h-full bg-black/35">
+        <div class="modal-content bg-light-black text-white rounded-xl p-12 text-lg">
           <h1>How to play</h1>
           <p>Guess the WORDLE in 6 tries.</p>
           <p>Each guess must be a valid 5-letter word. Hit the enter button to submit.</p>
@@ -151,48 +174,48 @@ SHARAPA
           <hr>
           <p><strong>Examples</strong></p>
           <div class="example">
-            <div class="char-example green">W</div>
-            <div class="char-example">E</div>
-            <div class="char-example">A</div>
-            <div class="char-example">R</div>
-            <div class="char-example">Y</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8 green">W</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">E</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">A</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">R</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">Y</div>
           </div>
           <p><strong>The Letter W is in the word and in the correct spot</strong></p>
           <div class="example">
-            <div class="char-example">P</div>
-            <div class="char-example yellow">I</div>
-            <div class="char-example">L</div>
-            <div class="char-example">L</div>
-            <div class="char-example">S</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">P</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8 yellow">I</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">L</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">L</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">S</div>
           </div>
           <p><strong>The letter I is in the word but in the wrong spot.</strong></p>
           <div class="example">
-            <div class="char-example">V</div>
-            <div class="char-example">A</div>
-            <div class="char-example">G</div>
-            <div class="char-example none">U</div>
-            <div class="char-example">E</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">V</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">A</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">G</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8 none">U</div>
+            <div class="char-example text-white bg-gray-char font-inter border border-black/10 rounded text-center inline-flex items-center justify-center mx-[0.1rem] my-0 text-xl h-8 w-8">E</div>
           </div>
           <p><strong>The letter U is not in the word in any spot.</strong></p>
           <hr>
           <p>A new WORDLE will be available each time you start a new game!</p>
-          <div class="button-container">
-            <button class="closeModalButton">PLAY</button>
+          <div class="button-container flex justify-center items-center mt-8">
+            <button class="closeModalButton bg-orange-400 text-black px-4 py-2 rounded font-bold text-3xl hover:bg-orange-300">PLAY</button>
           </div>
 
         </div>
       </div>
 
-      <div class="end-modal hidden">
-        <div class="modal-content">
-          <h1 class="end-title"></h1>
+      <div class="end-modal hidden flex justify-center items-center absolute top-0 left-0 w-full h-full bg-black/35">
+        <div class="modal-content bg-light-black text-white rounded-xl p-12 text-lg">
+          <h1 class="end-title text-4xl mb-8 text-orange-400"></h1>
           <p>The correct word was:<br>
             <a class="end-word-link" href="" target="_blank" rel="noopener noreferrer">
               <span class="end-word"></span>
             </a>
           </p>
-          <div class="button-container">
-            <button class="closeEndModalButton">OK</button>
+          <div class="button-container flex justify-center items-center mt-8">
+            <button class="closeEndModalButton bg-orange-400 text-black px-4 py-2 rounded font-bold text-3xl hover:bg-orange-300">OK</button>
           </div>
         </div>
       </div>
