@@ -156,7 +156,34 @@ function pickWordle() {
     `this is the word you need to guess: [ ${wordle.toUpperCase()} ]`
   );
 }
-pickWordle();
+
+function initGame() {
+  pickWordle();
+
+  guess = '';
+  guessArr = [];
+  count = -1;
+  currentRow = 0;
+
+  rowsAllArr.forEach(r => {
+    r.classList.remove('row--false');
+    Array.from(r.children).forEach(c => {
+      c.value = '';
+      c.classList.remove(
+        'char--transition',
+        'char--rotate',
+        'char--green',
+        'char--yellow'
+      );
+    });
+  });
+
+  document.querySelectorAll('.key').forEach(k => {
+    k.classList.remove('char--green', 'char--yellow', 'char--none');
+  });
+
+  logo.forEach(l => l.classList.remove('char--green'));
+}
 
 //* Matching word in the database
 const guessTest = 'hants';
@@ -212,6 +239,10 @@ const closeEndModalButton = document.querySelector('.closeEndModalButton');
 
 // o | need to add X to close the modal window
 
+let logoContainer;
+let logoLetters;
+let overlay;
+
 function addLogoScreen() {
   header.insertAdjacentHTML(
     'afterbegin',
@@ -227,18 +258,17 @@ function addLogoScreen() {
         <div class='overlay'></div>
 `
   );
+  logoContainer = document.querySelector('.logo-container');
+  logoLetters = [...document.querySelectorAll('.logo')];
+  overlay = document.querySelector('.overlay');
 }
+
 addLogoScreen();
 
-const logoContainer = document.querySelector('.logo-container');
-const logoLetters = [...document.querySelectorAll('.logo')];
-const overlay = document.querySelector('.overlay');
-
 function startupAnimations() {
-  document.addEventListener('DOMContentLoaded', runAnimation);
   function runAnimation() {
     logoContainer.classList.remove('move-in-out');
-    this.offsetWidth; //> returns read-only property of layout-width of element
+    logoContainer.offsetWidth; // force reflow
     logoContainer.classList.add('move-in-out');
 
     logoLetters.reverse().forEach((l, i) => {
@@ -259,13 +289,19 @@ function startupAnimations() {
     }, 2000);
   }
 
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAnimation);
+  } else {
+    runAnimation();
+  }
+
   logoContainer.addEventListener('animationend', removeLogoScreen);
   function removeLogoScreen() {
     setTimeout(() => {
       logoContainer.remove();
       overlay.remove();
       modal.classList.remove('hidden');
-      // ! only after animation end initiate the game function
+      initGame();
     }, 2000);
   }
 }
@@ -479,7 +515,8 @@ function click(e) {
   e.target === closeModalButton && modal.classList.add('hidden');
   if (e.target === closeEndModalButton) {
     endModal.classList.add('hidden');
-    location.reload();
+    addLogoScreen();
+    startupAnimations();
   }
 }
 //
