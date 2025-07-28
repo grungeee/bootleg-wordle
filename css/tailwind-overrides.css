@@ -35,3 +35,68 @@
 .end-word-link {
   text-decoration: none;
 }
+
+/* Startup logo animation styles */
+.logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 50;
+}
+
+.logo-container .logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 0.25rem;
+  background-color: #444;
+  color: #fff;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 40;
+}
+
+/* Example word layout */
+.example {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.char-example {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 0.25rem;
+  background-color: #444;
+  color: #fff;
+}
+
+.char-example.char--green {
+  background-color: #8dff94;
+  color: #444;
+}
+
+.char-example.char--yellow {
+  background-color: #f4ff61;
+  color: #444;
+}
+
+.char-example.char--none {
+  background-color: #6a6a6a;
+  color: #fff;
+}
