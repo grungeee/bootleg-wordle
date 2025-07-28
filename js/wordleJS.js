@@ -239,6 +239,7 @@ const endWord = document.querySelector('.end-word');
 const endWordLink = document.querySelector('.end-word-link');
 const closeEndModalButton = document.querySelector('.closeEndModalButton');
 const restartButton = document.getElementById('restartButton');
+const howToPlayButton = document.getElementById('howToPlayButton');
 
 // o | need to add X to close the modal window
 
@@ -563,6 +564,10 @@ function click(e) {
     restartGame();
     addLogoScreen();
     startupAnimations();
+    saveGameState();
+  }
+  if (e.target === howToPlayButton) {
+    modal.classList.remove('hidden');
     saveGameState();
   }
 }

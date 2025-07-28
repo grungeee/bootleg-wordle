@@ -1,7 +1,7 @@
 /* Custom classes for dynamic Wordle states */
 .char--none {
   background-color: #6a6a6a !important; /* light grey */
-  color: #ffffff !important;
+  color: #222222 !important;
 }
 .char--green {
   background-color: #8dff94 !important;
@@ -21,7 +21,7 @@
 }
 .key.char--none {
   background-color: #FF7478 !important;
-  color: #ffffff !important;
+  color: #222222 !important;
 }
 .key:active {
   background-color: #363636;
@@ -163,5 +163,5 @@
 
 .char-example.char--none {
   background-color: #6a6a6a;
-  color: #fff;
+  color: #222;
 }

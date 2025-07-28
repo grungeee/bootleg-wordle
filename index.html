@@ -36,7 +36,10 @@
 SHARAPA
       </div>
       <div class="version absolute top-0 right-0 m-4 text-3xl text-blue-50">BETA 0.8.0</div>
-      <button id="restartButton" class="absolute bottom-0 right-0 m-4 text-lg text-white underline">RESTART</button>
+      <nav class="game-menu absolute left-16 top-full mt-2 flex gap-4">
+        <button id="howToPlayButton" class="text-lg text-white underline">HOW TO PLAY</button>
+        <button id="restartButton" class="text-lg text-white underline">RESTART</button>
+      </nav>
     </header>
     <main>
 
@@ -94,7 +97,7 @@ SHARAPA
         </div>
 
       <!-- * Keyboard  -->
-        <div class="keyboard flex flex-col w-full max-w-xl mx-auto mt-36 select-none">
+        <div class="keyboard flex flex-col w-full max-w-xl mx-auto mt-60 select-none">
           <div class="kb-row kb-row-0 flex justify-center mb-1">
             <div class="key k--q flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-12">Q</div>
             <div class="key k--w flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-12">W</div>
@@ -135,8 +138,8 @@ SHARAPA
           </div>
         </div>
 
-      <div class="modal hidden fixed inset-0 flex items-center justify-center bg-black/40">
-        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem]">
+      <div class="modal hidden fixed inset-0 flex items-center justify-center bg-black/60">
+        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem] max-w-lg w-11/12">
           <h1>How to play</h1>
           <p class="rules-desc">Guess the WORDLE in six tries.</p>
           <p class="rules-desc">Each guess must be a valid five-letter word. Hit Enter to submit.</p>
@@ -176,8 +179,8 @@ SHARAPA
         </div>
       </div>
 
-      <div class="end-modal hidden fixed inset-0 flex items-center justify-center bg-black/40">
-        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem] text-center">
+      <div class="end-modal hidden fixed inset-0 flex items-center justify-center bg-black/60">
+        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem] text-center max-w-lg w-11/12">
           <h1 class="end-title"></h1>
           <p>The correct word was:<br>
             <a class="end-word-link" href="" target="_blank" rel="noopener noreferrer">
