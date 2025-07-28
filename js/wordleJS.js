@@ -235,6 +235,7 @@ const closeModalButton = document.querySelector('.closeModalButton');
 const endModal = document.querySelector('.end-modal');
 const endTitle = document.querySelector('.end-title');
 const endWord = document.querySelector('.end-word');
+const endWordLink = document.querySelector('.end-word-link');
 const closeEndModalButton = document.querySelector('.closeEndModalButton');
 
 // o | need to add X to close the modal window
@@ -309,6 +310,9 @@ startupAnimations();
 
 function showEndModal(win) {
   endTitle.textContent = win ? 'You won!' : 'You lost!';
+
+  // Update link to word definition
+  endWordLink.href = `https://en.wikipedia.org/wiki/${encodeURIComponent(wordle.toLowerCase())}`;
 
   // Clear any previous content
   endWord.innerHTML = '';
