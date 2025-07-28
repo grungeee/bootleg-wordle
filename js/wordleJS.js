@@ -183,6 +183,7 @@ function initGame() {
   });
 
   logo.forEach(l => l.classList.remove('char--green'));
+  saveGameState();
 }
 
 //* Matching word in the database
@@ -264,8 +265,6 @@ function addLogoScreen() {
   overlay = document.querySelector('.overlay');
 }
 
-addLogoScreen();
-
 function startupAnimations() {
   function runAnimation() {
     logoContainer.classList.remove('move-in-out');
@@ -301,12 +300,16 @@ function startupAnimations() {
     setTimeout(() => {
       logoContainer.remove();
       overlay.remove();
-      modal.classList.remove('hidden');
-      initGame();
+      const restored = loadGameState();
+      if (!restored) {
+        modal.classList.remove('hidden');
+        initGame();
+      }
+      saveGameState();
     }, 2000);
   }
 }
-startupAnimations();
+
 
 function showEndModal(win) {
   endTitle.textContent = win ? 'You won!' : 'You lost!';
@@ -329,9 +332,11 @@ function showEndModal(win) {
       span.classList.add('char-example');
 
       if (input.classList.contains('char--green')) {
-        span.classList.add('green');
+        span.classList.add('char--green');
       } else if (input.classList.contains('char--yellow')) {
-        span.classList.add('yellow');
+        span.classList.add('char--yellow');
+      } else if (input.classList.contains('char--none')) {
+        span.classList.add('char--none');
       }
 
       endWord.appendChild(span);
@@ -372,6 +377,7 @@ function keydown(e) {
   key = isPermitted(e);
   nextChar();
   gameKeydown(e);
+  saveGameState();
 }
 
 //- disabling keys
@@ -474,18 +480,18 @@ function gameKeydown(e) {
             } else {
               document.querySelector(`.k--${g}`).classList.add('char--none');
             }
-          }, wIndex * 500);
+          }, wIndex * 250);
         });
 
         if (wordle === guess)
           setTimeout(() => {
             logo.forEach(l => l.classList.add('char--green'));
             showEndModal(true);
-          }, 2500);
+          }, 1250);
         else if (currentRow === rowsAllArr.length)
           setTimeout(() => {
             showEndModal(false);
-          }, 2500);
+          }, 1250);
 
         // & <==========< end of game logic >==========>
 
@@ -542,11 +548,15 @@ function click(e) {
   document.dispatchEvent(keyKB === 'Backspace' ? backspaceEvent : keydownEvent);
 
   // - remove modal window
-  e.target === closeModalButton && modal.classList.add('hidden');
+  if (e.target === closeModalButton) {
+    modal.classList.add('hidden');
+    saveGameState();
+  }
   if (e.target === closeEndModalButton) {
     endModal.classList.add('hidden');
     addLogoScreen();
     startupAnimations();
+    saveGameState();
   }
 }
 //
@@ -567,3 +577,82 @@ window.addEventListener('resize', documentHeight);
 documentHeight();
 
 //: ==========================================================================
+
+function saveGameState() {
+  const rowsData = rowsAllArr.map(r =>
+    Array.from(r.children).map(c => ({
+      value: c.value,
+      classes: Array.from(c.classList).filter(cls => cls.startsWith('char--')),
+    }))
+  );
+
+  const keyboard = {};
+  document.querySelectorAll('.key').forEach(k => {
+    keyboard[k.textContent] = Array.from(k.classList).filter(cls =>
+      cls.startsWith('char--')
+    );
+  });
+
+  const state = {
+    wordle,
+    currentRow,
+    count,
+    rowsData,
+    keyboard,
+    modalHidden: modal.classList.contains('hidden'),
+    endModalHidden: endModal.classList.contains('hidden'),
+  };
+
+  localStorage.setItem('wordleState', JSON.stringify(state));
+}
+
+function loadGameState() {
+  const raw = localStorage.getItem('wordleState');
+  if (!raw) return false;
+
+  try {
+    const state = JSON.parse(raw);
+    if (!state.wordle) return false;
+
+    wordle = state.wordle;
+    wordleArr = wordle.split('');
+    currentRow = state.currentRow;
+    count = state.count;
+
+    state.rowsData.forEach((rowData, rIdx) => {
+      const rowEl = rowsAllArr[rIdx];
+      rowData.forEach((charData, cIdx) => {
+        const charEl = rowEl.children[cIdx];
+        charEl.value = charData.value;
+        charEl.classList.remove(
+          'char--transition',
+          'char--rotate',
+          'char--green',
+          'char--yellow'
+        );
+        charData.classes.forEach(cls => charEl.classList.add(cls));
+      });
+    });
+
+    document.querySelectorAll('.key').forEach(k => {
+      k.classList.remove('char--green', 'char--yellow', 'char--none');
+      const classes = state.keyboard[k.textContent];
+      classes && classes.forEach(cls => k.classList.add(cls));
+    });
+
+    modal.classList.toggle('hidden', state.modalHidden);
+    endModal.classList.toggle('hidden', state.endModalHidden);
+
+    return true;
+  } catch (err) {
+    console.error('Failed to load game state', err);
+    return false;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  addLogoScreen();
+  startupAnimations();
+});
+
+window.addEventListener('beforeunload', saveGameState);
