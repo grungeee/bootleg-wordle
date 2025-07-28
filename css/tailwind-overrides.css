@@ -19,6 +19,10 @@
   background-color: #f4ff61 !important;
   color: #444444 !important;
 }
+.key.char--none {
+  background-color: #FF7478 !important;
+  color: #ffffff !important;
+}
 .key:active {
   background-color: #363636;
   animation: ease 100ms ease-in 1;
@@ -31,6 +35,12 @@
   background-color: rgb(255, 166, 134);
 }
 
+.board-container,
+.keyboard {
+  transform: scale(1.3);
+  transform-origin: top center;
+}
+
 /* Tile input animations */
 .char--transition {
   text-align: center;
@@ -40,8 +50,8 @@
 
 .char--rotate {
   animation-name: rotate;
-  transition-delay: 250ms;
-  animation-duration: 500ms;
+  transition-delay: 125ms;
+  animation-duration: 250ms;
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
   border: 2px solid #000;

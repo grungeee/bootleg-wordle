@@ -480,18 +480,18 @@ function gameKeydown(e) {
             } else {
               document.querySelector(`.k--${g}`).classList.add('char--none');
             }
-          }, wIndex * 500);
+          }, wIndex * 250);
         });
 
         if (wordle === guess)
           setTimeout(() => {
             logo.forEach(l => l.classList.add('char--green'));
             showEndModal(true);
-          }, 2500);
+          }, 1250);
         else if (currentRow === rowsAllArr.length)
           setTimeout(() => {
             showEndModal(false);
-          }, 2500);
+          }, 1250);
 
         // & <==========< end of game logic >==========>
 
