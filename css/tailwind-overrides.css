@@ -1,0 +1,32 @@
+/* Custom classes for dynamic Wordle states */
+.char--none {
+  background-color: #6a6a6a !important; /* light grey */
+  color: #ffffff !important;
+}
+.char--green {
+  background-color: #8dff94 !important;
+  color: #444444 !important;
+}
+.char--yellow {
+  background-color: #f4ff61 !important;
+  color: #444444 !important;
+}
+.key--green {
+  background-color: #8dff94 !important;
+  color: #444444 !important;
+}
+.key--yellow {
+  background-color: #f4ff61 !important;
+  color: #444444 !important;
+}
+.key:active {
+  background-color: #363636;
+  animation: ease 100ms ease-in 1;
+}
+.row--false {
+  animation: shake 250ms cubic-bezier(0.075, 0.82, 0.165, 1) 2;
+}
+.button-container button:hover {
+  transition: all 150ms ease-in-out;
+  background-color: rgb(255, 166, 134);
+}
