@@ -36,6 +36,10 @@
 SHARAPA
       </div>
       <div class="version absolute top-0 right-0 m-4 text-3xl text-blue-50">BETA 0.8.0</div>
+      <nav class="game-menu absolute left-16 top-full mt-2 flex gap-4">
+        <button id="howToPlayButton" class="text-lg text-white underline">HOW TO PLAY</button>
+        <button id="restartButton" class="text-lg text-white underline">RESTART</button>
+      </nav>
     </header>
     <main>
 
@@ -93,7 +97,7 @@ SHARAPA
         </div>
 
       <!-- * Keyboard  -->
-        <div class="keyboard flex flex-col w-full max-w-xl mx-auto mt-36 select-none">
+        <div class="keyboard flex flex-col w-full max-w-xl mx-auto mt-72 select-none">
           <div class="kb-row kb-row-0 flex justify-center mb-1">
             <div class="key k--q flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-12">Q</div>
             <div class="key k--w flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-12">W</div>
@@ -134,16 +138,16 @@ SHARAPA
           </div>
         </div>
 
-      <div class="modal hidden fixed inset-0 flex items-center justify-center bg-black/40">
-        <div class="modal-content bg-light-black text-white rounded p-8 text-[1.3rem]">
+      <div class="modal hidden fixed inset-0 flex items-center justify-center bg-black">
+        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem] max-w-lg w-11/12">
           <h1>How to play</h1>
-          <p>Guess the WORDLE in 6 tries.</p>
-          <p>Each guess must be a valid 5-letter word. Hit the enter button to submit.</p>
-          <p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+          <p class="rules-desc">Guess the WORDLE in six tries.</p>
+          <p class="rules-desc">Each guess must be a valid five-letter word. Hit Enter to submit.</p>
+          <p class="rules-desc">After each guess, the tile colors show how close you were.</p>
           <hr>
           <p><strong>Examples</strong></p>
           <div class="example">
-            <div class="char-example green">W</div>
+            <div class="char-example char--green">W</div>
             <div class="char-example">E</div>
             <div class="char-example">A</div>
             <div class="char-example">R</div>
@@ -152,7 +156,7 @@ SHARAPA
           <p><strong>The Letter W is in the word and in the correct spot</strong></p>
           <div class="example">
             <div class="char-example">P</div>
-            <div class="char-example yellow">I</div>
+            <div class="char-example char--yellow">I</div>
             <div class="char-example">L</div>
             <div class="char-example">L</div>
             <div class="char-example">S</div>
@@ -162,12 +166,12 @@ SHARAPA
             <div class="char-example">V</div>
             <div class="char-example">A</div>
             <div class="char-example">G</div>
-            <div class="char-example none">U</div>
+            <div class="char-example char--none">U</div>
             <div class="char-example">E</div>
           </div>
           <p><strong>The letter U is not in the word in any spot.</strong></p>
           <hr>
-          <p>A new WORDLE will be available each time you start a new game!</p>
+          <p class="rules-desc">New WORDLE each time you start a game!</p>
           <div class="button-container flex justify-center mt-8">
             <button class="closeModalButton bg-[coral] text-black px-4 py-2 rounded font-bold text-3xl">PLAY</button>
           </div>
@@ -175,8 +179,8 @@ SHARAPA
         </div>
       </div>
 
-      <div class="end-modal hidden fixed inset-0 flex items-center justify-center bg-black/40">
-        <div class="modal-content bg-light-black text-white rounded p-8 text-[1.3rem] text-center">
+      <div class="end-modal hidden fixed inset-0 flex items-center justify-center bg-black">
+        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem] text-center max-w-lg w-11/12">
           <h1 class="end-title"></h1>
           <p>The correct word was:<br>
             <a class="end-word-link" href="" target="_blank" rel="noopener noreferrer">
@@ -184,7 +188,7 @@ SHARAPA
             </a>
           </p>
           <div class="button-container flex justify-center mt-8">
-            <button class="closeEndModalButton bg-[coral] text-black px-4 py-2 rounded font-bold text-3xl">OK</button>
+            <button class="closeEndModalButton bg-[coral] text-black px-4 py-2 rounded font-bold text-3xl">PLAY AGAIN</button>
           </div>
         </div>
       </div>
