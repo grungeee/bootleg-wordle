@@ -36,6 +36,7 @@
 SHARAPA
       </div>
       <div class="version absolute top-0 right-0 m-4 text-3xl text-blue-50">BETA 0.8.0</div>
+      <button id="restartButton" class="absolute bottom-0 right-0 m-4 text-lg text-white underline">RESTART</button>
     </header>
     <main>
 
@@ -135,7 +136,7 @@ SHARAPA
         </div>
 
       <div class="modal hidden fixed inset-0 flex items-center justify-center bg-black/40">
-        <div class="modal-content bg-light-black text-white rounded p-8 text-[1.3rem]">
+        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem]">
           <h1>How to play</h1>
           <p class="rules-desc">Guess the WORDLE in six tries.</p>
           <p class="rules-desc">Each guess must be a valid five-letter word. Hit Enter to submit.</p>
@@ -176,7 +177,7 @@ SHARAPA
       </div>
 
       <div class="end-modal hidden fixed inset-0 flex items-center justify-center bg-black/40">
-        <div class="modal-content bg-light-black text-white rounded p-8 text-[1.3rem] text-center">
+        <div class="modal-content bg-black/80 text-white rounded-lg p-8 text-[1.3rem] text-center">
           <h1 class="end-title"></h1>
           <p>The correct word was:<br>
             <a class="end-word-link" href="" target="_blank" rel="noopener noreferrer">
@@ -184,7 +185,7 @@ SHARAPA
             </a>
           </p>
           <div class="button-container flex justify-center mt-8">
-            <button class="closeEndModalButton bg-[coral] text-black px-4 py-2 rounded font-bold text-3xl">OK</button>
+            <button class="closeEndModalButton bg-[coral] text-black px-4 py-2 rounded font-bold text-3xl">PLAY AGAIN</button>
           </div>
         </div>
       </div>

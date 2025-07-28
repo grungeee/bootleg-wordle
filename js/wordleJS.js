@@ -238,6 +238,7 @@ const endTitle = document.querySelector('.end-title');
 const endWord = document.querySelector('.end-word');
 const endWordLink = document.querySelector('.end-word-link');
 const closeEndModalButton = document.querySelector('.closeEndModalButton');
+const restartButton = document.getElementById('restartButton');
 
 // o | need to add X to close the modal window
 
@@ -553,7 +554,13 @@ function click(e) {
     saveGameState();
   }
   if (e.target === closeEndModalButton) {
-    endModal.classList.add('hidden');
+    restartGame();
+    addLogoScreen();
+    startupAnimations();
+    saveGameState();
+  }
+  if (e.target === restartButton) {
+    restartGame();
     addLogoScreen();
     startupAnimations();
     saveGameState();
@@ -648,6 +655,13 @@ function loadGameState() {
     console.error('Failed to load game state', err);
     return false;
   }
+}
+
+function restartGame() {
+  localStorage.removeItem('wordleState');
+  modal.classList.add('hidden');
+  endModal.classList.add('hidden');
+  initGame();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
