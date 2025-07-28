@@ -1,0 +1,10 @@
+.char--none{background-color:#6a6a6a;color:#fff!important;}
+.char--green{background-color:#8dff94;color:#444!important;}
+.char--yellow{background-color:#f4ff61;color:#444!important;}
+.key--green{background-color:#8dff94;color:#444!important;}
+.key--yellow{background-color:#f4ff61;color:#444!important;}
+.key--none{background-color:#6a6a6a;color:#fff!important;}
+.char--transition{border:0.4rem solid rgba(0,0,0,0.2);animation:ease-in-out 100ms ease forwards;}
+.char--rotate{animation:rotate 500ms ease-out 1 250ms;}
+.hidden{display:none!important;}
+
