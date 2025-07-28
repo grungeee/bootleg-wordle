@@ -235,6 +235,7 @@ const closeModalButton = document.querySelector('.closeModalButton');
 const endModal = document.querySelector('.end-modal');
 const endTitle = document.querySelector('.end-title');
 const endWord = document.querySelector('.end-word');
+const endWordLink = document.querySelector('.end-word-link');
 const closeEndModalButton = document.querySelector('.closeEndModalButton');
 
 // o | need to add X to close the modal window
@@ -309,7 +310,36 @@ startupAnimations();
 
 function showEndModal(win) {
   endTitle.textContent = win ? 'You won!' : 'You lost!';
-  endWord.textContent = wordle.toUpperCase();
+
+  // Update link to word definition
+  endWordLink.href = `https://en.wikipedia.org/wiki/${encodeURIComponent(wordle.toLowerCase())}`;
+
+  // Clear any previous content
+  endWord.innerHTML = '';
+
+  // Determine the row that contains the last guess
+  const rowIndex = currentRow - 1;
+  const row = document.querySelector(`.r-${rowIndex}`);
+
+  if (row) {
+    const letters = wordle.toUpperCase().split('');
+    Array.from(row.children).forEach((input, i) => {
+      const span = document.createElement('span');
+      span.textContent = letters[i];
+      span.classList.add('char-example');
+
+      if (input.classList.contains('char--green')) {
+        span.classList.add('green');
+      } else if (input.classList.contains('char--yellow')) {
+        span.classList.add('yellow');
+      }
+
+      endWord.appendChild(span);
+    });
+  } else {
+    endWord.textContent = wordle.toUpperCase();
+  }
+
   endModal.classList.remove('hidden');
 }
 
