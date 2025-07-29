@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .char-example {
+    @apply inline-flex items-center justify-center mx-0.5 text-xl w-8 h-8 text-white bg-light-grey-char border-2 border-black rounded;
+  }
+  .char-example.none {
+    @apply bg-light-grey text-white;
+  }
+  .char-example.green {
+    @apply bg-green text-light-grey-char;
+  }
+  .char-example.yellow {
+    @apply bg-yellow text-light-grey-char;
+  }
+}
