@@ -240,6 +240,7 @@ const endWordLink = document.querySelector('.end-word-link');
 const closeEndModalButton = document.querySelector('.closeEndModalButton');
 const restartButton = document.getElementById('restartButton');
 const howToPlayButton = document.getElementById('howToPlayButton');
+const gameContainer = document.querySelector('.game-container');
 
 // o | need to add X to close the modal window
 
@@ -248,9 +249,10 @@ let logoLetters;
 let overlay;
 
 function addLogoScreen() {
-  header.insertAdjacentHTML(
+  document.body.insertAdjacentHTML(
     'afterbegin',
     `
+        <div class='overlay'></div>
         <div class="logo-container">
           <div class="logo">W</div>
           <div class="logo">O</div>
@@ -259,12 +261,12 @@ function addLogoScreen() {
           <div class="logo">L</div>
           <div class="logo">E</div>
         </div>
-        <div class='overlay'></div>
 `
   );
   logoContainer = document.querySelector('.logo-container');
   logoLetters = [...document.querySelectorAll('.logo')];
   overlay = document.querySelector('.overlay');
+  gameContainer.classList.add('hidden');
 }
 
 function startupAnimations() {
@@ -302,6 +304,7 @@ function startupAnimations() {
     setTimeout(() => {
       logoContainer.remove();
       overlay.remove();
+      gameContainer.classList.remove('hidden');
       const restored = loadGameState();
       if (!restored) {
         modal.classList.remove('hidden');
