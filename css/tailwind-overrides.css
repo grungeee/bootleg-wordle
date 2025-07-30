@@ -47,3 +47,16 @@
 .end-word-link {
   text-decoration: none;
 }
+
+/* Center the animated logo screen */
+.logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.logo-container .logo {
+  display: block;
+}
