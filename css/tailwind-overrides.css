@@ -11,6 +11,14 @@
   background-color: #f4ff61 !important;
   color: #444444 !important;
 }
+.char--transition {
+  /* Simple scale animation when characters are typed */
+  animation: ease 100ms ease-in-out;
+}
+.char--rotate {
+  /* Flip animation used when revealing results */
+  animation: rotate 300ms ease-out 1;
+}
 .key--green {
   background-color: #8dff94 !important;
   color: #444444 !important;

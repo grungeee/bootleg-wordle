@@ -474,7 +474,7 @@ function gameKeydown(e) {
             } else {
               document.querySelector(`.k--${g}`).classList.add('char--none');
             }
-          }, wIndex * 500);
+          }, wIndex * 150);
         });
 
         if (wordle === guess)
