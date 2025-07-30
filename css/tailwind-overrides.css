@@ -64,3 +64,18 @@
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* Styling for startup logo letters */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  font-size: 3rem;
+  color: #ffffff;
+  background-color: #444444;
+  border: 2px solid #000000;
+  border-radius: 0.25rem;
+}
+
