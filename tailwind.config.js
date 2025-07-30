@@ -8,7 +8,7 @@ module.exports = {
         purple: '#9a93ff',
         'light-grey': '#6a6a6a',
         'light-grey-char': '#444444',
-        'light-grey-key': '#4b4b4b',
+        'light-grey-key': '#444444',
         'dark-grey-key-active': '#363636',
       },
       fontFamily: {
