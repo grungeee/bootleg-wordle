@@ -50,9 +50,34 @@
   text-decoration: none;
 }
 
-/* Background color for modal content */
-.modal-content {
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: 2rem;
-  margin: 24rem;
+
+/* Center the startup logo in the viewport */
+.logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Overlay covers the entire screen during the startup animation */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Styling for startup logo letters */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  font-size: 3rem;
+  color: #ffffff;
+  background-color: #444444;
+  border: 2px solid #000000;
+  border-radius: 0.25rem;
 }
