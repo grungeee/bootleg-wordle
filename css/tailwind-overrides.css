@@ -2,22 +2,27 @@
 .char--none {
   background-color: #6a6a6a !important; /* light grey */
   color: #ffffff !important;
+  border-color: #6a6a6a !important;
 }
 .char--green {
   background-color: #8dff94 !important;
   color: #444444 !important;
+  border-color: #8dff94 !important;
 }
 .char--yellow {
   background-color: #f4ff61 !important;
   color: #444444 !important;
+  border-color: #f4ff61 !important;
 }
 .key--green {
   background-color: #8dff94 !important;
   color: #444444 !important;
+  border-color: #8dff94 !important;
 }
 .key--yellow {
   background-color: #f4ff61 !important;
   color: #444444 !important;
+  border-color: #f4ff61 !important;
 }
 .key:active {
   background-color: #363636;
