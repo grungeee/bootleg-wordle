@@ -15,4 +15,9 @@
   .char-example.yellow {
     @apply bg-yellow text-light-grey-char;
   }
+
+  /* Modal container styling */
+  .modal-content {
+    @apply bg-black/75 p-8 mx-4;
+  }
 }
