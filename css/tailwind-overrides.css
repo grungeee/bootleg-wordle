@@ -13,7 +13,9 @@
 }
 .char--transition {
   /* Simple scale animation when characters are typed */
-  animation: ease 100ms ease-in-out;
+  animation-name: ease;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
 }
 .char--rotate {
   /* Flip animation used when revealing results */
@@ -48,6 +50,7 @@
   text-decoration: none;
 }
 
+
 /* Center the startup logo in the viewport */
 .logo-container {
   position: fixed;
@@ -78,4 +81,3 @@
   border: 2px solid #000000;
   border-radius: 0.25rem;
 }
-
