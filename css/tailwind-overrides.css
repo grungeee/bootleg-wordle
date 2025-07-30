@@ -47,3 +47,10 @@
 .end-word-link {
   text-decoration: none;
 }
+
+/* Background color for modal content */
+.modal-content {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 2rem;
+  margin: 24rem;
+}
