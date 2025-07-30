@@ -47,3 +47,20 @@
 .end-word-link {
   text-decoration: none;
 }
+
+/* Center the startup logo in the viewport */
+.logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Overlay covers the entire screen during the startup animation */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
