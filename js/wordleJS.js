@@ -530,19 +530,21 @@ function gameKeydown(e) {
 document.addEventListener('click', click);
 
 function click(e) {
-  const keyKB = e.target.classList[1]?.slice(3);
-  const keydownEvent = new KeyboardEvent('keydown', {
-    key: keyKB,
-    event: keyKB,
-  });
-  const backspaceEvent = new KeyboardEvent('keydown', { key: 'Backspace' });
+  const keyElement = e.target.closest('.key');
+  if (keyElement) {
+    const keyKB = keyElement.classList[1]?.slice(3);
+    const keydownEvent = new KeyboardEvent('keydown', {
+      key: keyKB,
+    });
+    const backspaceEvent = new KeyboardEvent('keydown', { key: 'Backspace' });
 
-  // console.log(keyKB === 'Backspace' ? backspaceEvent : keydownEvent);
-
-  document.dispatchEvent(keyKB === 'Backspace' ? backspaceEvent : keydownEvent);
+    document.dispatchEvent(
+      keyKB === 'Backspace' ? backspaceEvent : keydownEvent
+    );
+  }
 
   // - remove modal window
-  e.target === closeModalButton && modal.classList.add('hidden');
+  if (e.target === closeModalButton) modal.classList.add('hidden');
   if (e.target === closeEndModalButton) {
     endModal.classList.add('hidden');
     addLogoScreen();
