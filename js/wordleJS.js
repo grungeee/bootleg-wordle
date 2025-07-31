@@ -297,7 +297,9 @@ function startupAnimations() {
   }
 
   logoContainer.addEventListener('animationend', removeLogoScreen);
-  function removeLogoScreen() {
+  function removeLogoScreen(e) {
+    if (e.target !== logoContainer || e.animationName !== 'move-out') return;
+
     setTimeout(() => {
       logoContainer.remove();
       overlay.remove();
