@@ -1,13 +1,10 @@
 import { markup } from './WordleMarkup';
 import LoginButton from '@/components/LoginButton';
 import Script from 'next/script';
-import { createClient } from '@/lib/supabase';
-import { redirect } from 'next/navigation';
+// Home page simply renders the game markup. Authentication is handled
+// client-side via the LoginButton component.
 
-export default async function HomePage() {
-  const supabase = createClient();
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) redirect('/login');
+export default function HomePage() {
   return (
     <div>
       <LoginButton />
