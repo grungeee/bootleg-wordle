@@ -1,36 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-    />
-    <title>Wordle and other projects</title>
-
-    <!-- * Fonts -->
-    <!-- - Rubik is good too -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@200;300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@200;300;400;500;700&display=swap" rel="stylesheet">
-
-   <!-- - CSS Font -->
-    <!-- * CSS * -->
-    <!-- * JS . -->
-<!--  -->
-    <link rel="stylesheet" href="css/webfontkit/stylesheet.css">
-    <link rel="stylesheet" href="css/keyframes.css">
-    <link rel="stylesheet" href="css/tailwind.css">
-    <link rel="stylesheet" href="css/tailwind-overrides.css">
-    <script defer src="js/wordle-words-list.js"></script>
-    <script defer src="js/wordleJS.js"></script>
-    <script defer src="js/no-double-tap.js"></script>
-  </head>
-
-  <body class="font-inter uppercase bg-purple">
+export const markup = `
     <header class="header flex justify-start h-16 md:h-20 bg-purple relative">
       <div class="sharapaio font-bebas text-3xl md:text-4xl underline bg-black text-white px-4 py-2 ml-4 md:ml-16 flex items-center">
 SHARAPA
@@ -190,6 +158,4 @@ SHARAPA
       </div>
 
     </main>
-  </body>
-</html>
-
+`;
