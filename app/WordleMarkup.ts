@@ -1,0 +1,161 @@
+export const markup = `
+    <header class="header flex justify-start h-16 md:h-20 bg-purple relative">
+      <div class="sharapaio font-bebas text-3xl md:text-4xl underline bg-black text-white px-4 py-2 ml-4 md:ml-16 flex items-center">
+SHARAPA
+      </div>
+      <div class="version absolute top-0 right-0 m-4 text-[0.75rem] md:text-[0.9375rem] text-blue-50" style="font-family: 'neon_tubes_2regular';">ALPHA 0.8.3</div>
+    </header>
+    <main>
+
+      <div class="game-container flex flex-col items-center w-full h-full">
+        <div class="board-container flex flex-col items-center">
+        <div class="rows-container flex flex-col items-center mt-6 md:mt-12 gap-2">
+          <div class="r-0 row flex gap-2" data-row="0">
+            <input type="text" maxlength="1" class="c-0 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="4" required>
+          </div>
+
+          <div class="r-1 row flex gap-2" data-row="1">
+            <input type="text" maxlength="1" class="c-0 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="4" required>
+         </div>
+
+          <div class="r-2 row flex gap-2" data-row="2">
+            <input type="text" maxlength="1" class="c-0 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="4" required>
+         </div>
+
+          <div class="r-3 row flex gap-2" data-row="3">
+            <input type="text" maxlength="1" class="c-0 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="4" required> 
+          </div>
+
+          <div class="r-4 row flex gap-2" data-row="4">
+            <input type="text" maxlength="1" class="c-0 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="4" required>
+          </div>
+
+          <div class="r-5 row flex gap-2" data-row="5">
+            <input type="text" maxlength="1" class="c-0 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="0" required>
+            <input type="text" maxlength="1" class="c-1 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="1" required>
+            <input type="text" maxlength="1" class="c-2 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="2" required>
+            <input type="text" maxlength="1" class="c-3 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="3" required>
+            <input type="text" maxlength="1" class="c-4 char w-12 h-12 text-3xl md:w-14 md:h-14 md:text-4xl text-white bg-light-grey-char border-2 border-black rounded text-center pointer-events-none caret-transparent outline-none" data-char="4" required>
+          </div>
+        </div>
+        </div>
+
+      <!-- * Keyboard  -->
+        <div class="keyboard flex flex-col w-full max-w-sm md:max-w-xl mx-auto mt-16 md:mt-36 select-none">
+          <div class="kb-row kb-row-0 flex justify-center mb-1">
+            <div class="key k--q flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">Q</div>
+            <div class="key k--w flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">W</div>
+            <div class="key k--e flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">E</div>
+            <div class="key k--r flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">R</div>
+            <div class="key k--t flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">T</div>
+            <div class="key k--y flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">Y</div>
+            <div class="key k--u flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">U</div>
+            <div class="key k--i flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">I</div>
+            <div class="key k--o flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">O</div>
+            <div class="key k--p flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">P</div>
+          </div>
+
+          <div class="kb-row kb-row--1 flex justify-center mb-1">
+            <div class="spacer flex-[0.5]"></div>
+            <div class="key k--a flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">A</div>
+            <div class="key k--s flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">S</div>
+            <div class="key k--d flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">D</div>
+            <div class="key k--f flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">F</div>
+            <div class="key k--g flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">G</div>
+            <div class="key k--h flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">H</div>
+            <div class="key k--j flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">J</div>
+            <div class="key k--k flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">K</div>
+            <div class="key k--l flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">L</div>
+            <div class="spacer flex-[0.5]"></div>
+          </div>
+
+          <div class="kb-row kb-row--2 flex justify-center">
+            <div class="key k--Backspace flex justify-center items-center flex-[1.5] font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">⌫</div>
+            <div class="key k--z flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">Z</div>
+            <div class="key k--x flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">X</div>
+            <div class="key k--c flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">C</div>
+            <div class="key k--v flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">V</div>
+            <div class="key k--b flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">B</div>
+            <div class="key k--n flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">N</div>
+            <div class="key k--m flex justify-center items-center flex-1 font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">M</div>
+            <div class="key k--Enter flex justify-center items-center flex-[1.5] font-semibold text-white bg-light-grey-key border-2 border-black rounded cursor-pointer h-10 md:h-12">↵</div>
+          </div>
+        </div>
+
+      <div class="modal hidden fixed inset-0 flex items-center justify-center bg-lavender/50">
+      <div class="modal-content text-white rounded text-base md:text-[1.3rem]">
+          <h1>How to play</h1>
+          <p>Guess the WORDLE in 6 tries.</p>
+          <p>Each guess must be a valid 5-letter word. Hit the enter button to submit.</p>
+          <p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+          <hr>
+          <p><strong>Examples</strong></p>
+          <div class="example">
+            <div class="char-example green">W</div>
+            <div class="char-example">E</div>
+            <div class="char-example">A</div>
+            <div class="char-example">R</div>
+            <div class="char-example">Y</div>
+          </div>
+          <p><strong>The Letter W is in the word and in the correct spot</strong></p>
+          <div class="example">
+            <div class="char-example">P</div>
+            <div class="char-example yellow">I</div>
+            <div class="char-example">L</div>
+            <div class="char-example">L</div>
+            <div class="char-example">S</div>
+          </div>
+          <p><strong>The letter I is in the word but in the wrong spot.</strong></p>
+          <div class="example">
+            <div class="char-example">V</div>
+            <div class="char-example">A</div>
+            <div class="char-example">G</div>
+            <div class="char-example none">U</div>
+            <div class="char-example">E</div>
+          </div>
+          <p><strong>The letter U is not in the word in any spot.</strong></p>
+          <hr>
+          <p>A new WORDLE will be available each time you start a new game!</p>
+          <div class="button-container flex justify-center mt-8">
+            <button class="closeModalButton bg-[coral] text-black px-4 py-2 rounded font-bold text-3xl border-2 border-black">PLAY</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="end-modal hidden fixed inset-0 flex items-center justify-center bg-lavender/50">
+        <div class="modal-content text-white rounded text-base md:text-[1.3rem] text-center">
+          <h1 class="end-title"></h1>
+          <p>The correct word was:<br>
+            <a class="end-word-link" href="" target="_blank" rel="noopener noreferrer">
+              <span class="end-word"></span>
+            </a>
+          </p>
+          <div class="button-container flex justify-center mt-8">
+            <button class="closeEndModalButton bg-[coral] text-black px-4 py-2 rounded font-bold text-3xl border-2 border-black">OK</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+`;
