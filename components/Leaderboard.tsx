@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase';
+import { cookies } from 'next/headers';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const revalidate = 30;
 
@@ -8,9 +9,10 @@ interface Row {
 }
 
 export default async function Leaderboard() {
-  const supabase = createClient();
-    const { data: sessionData } = await supabase.auth.getSession();
-  const session = sessionData?.session;
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
   if (!session) {
     return <p>Log in to see leaderboard</p>;
   }
