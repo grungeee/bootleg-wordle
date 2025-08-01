@@ -22,3 +22,15 @@ The UI now relies on [Tailwind CSS](https://tailwindcss.com/) built locally. Run
 `npm run build:css` to generate `css/tailwind.css` from `src/tailwind.css` using
 `tailwind.config.js`. Dynamic classes used by the game logic (for example
 `char--green`) are implemented in `css/tailwind-overrides.css`.
+
+## Development
+
+Bootleg Wordle now uses Next.js for its frontend. After installing dependencies you can start the dev server with:
+
+```bash
+npm run dev
+```
+
+Create a `.env.local` file with your Supabase credentials (see `.env.example`).
+
+Users must sign in before playing. Scores are stored in Supabase and the `/leaderboard` page lists the top results, refreshed every 30 seconds.
