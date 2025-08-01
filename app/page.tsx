@@ -1,13 +1,18 @@
 import { markup } from './WordleMarkup';
-import LoginButton from '@/components/LoginButton';
 import Script from 'next/script';
-// Home page simply renders the game markup. Authentication is handled
-// client-side via the LoginButton component.
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session) redirect('/login');
+
   return (
     <div>
-      <LoginButton />
       <main dangerouslySetInnerHTML={{ __html: markup }} />
       <Script src="/js/wordleJS.js" strategy="afterInteractive" />
     </div>

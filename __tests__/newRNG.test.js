@@ -1,4 +1,4 @@
-const newRNG = require('../js/rng');
+const newRNG = require('../public/js/rng');
 
 describe('newRNG', () => {
   test('returns numbers within the specified range', () => {
