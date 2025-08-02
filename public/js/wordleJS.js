@@ -513,9 +513,9 @@ function gameKeydown(e) {
     });
 
     //- sets a 'guess' word form characters
-    guess = Array.from([...r.children]).reduce((acc, cur, i, arr) => {
+    guess = Array.from(r.children).reduce((acc, cur) => {
       return acc + cur.value.toLowerCase();
-    }, Array.from([...r.children][0]));
+    }, '');
 
     guessArr = guess?.split('');
   });
