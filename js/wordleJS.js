@@ -437,6 +437,10 @@ function gameKeydown(e) {
       //- animation on field change
       if (c.value !== '') c.classList.add('char--transition');
       if (c.value === '') c.classList.remove('char--transition');
+      if (e.key === 'Backspace') {
+        c.classList.add('char--delete');
+        setTimeout(() => c.classList.remove('char--delete'), 100);
+      }
 
       //> ---------------------------------------------------------
       //- next row + game logic (on enter)

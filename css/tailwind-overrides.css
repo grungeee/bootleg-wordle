@@ -17,6 +17,12 @@
   animation-duration: 100ms;
   animation-timing-function: ease-in-out;
 }
+.char--delete {
+  /* Simple shrink animation when characters are deleted */
+  animation-name: ease-out;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+}
 .char--rotate {
   /* Flip animation used when revealing results */
   animation: rotate 400ms ease-out 1;
