@@ -299,8 +299,8 @@ function startupAnimations() {
     runAnimation();
   }
 
-  logoContainer.addEventListener('animationend', removeLogoScreen);
-  function removeLogoScreen() {
+  logoContainer.addEventListener('animationend', e => {
+    if (e.target !== logoContainer || e.animationName !== 'move-out') return;
     setTimeout(() => {
       logoContainer.remove();
       overlay.remove();
@@ -308,7 +308,7 @@ function startupAnimations() {
       modalContent.classList.add('modal-pop');
       initGame();
     }, 2000);
-  }
+  });
 }
 startupAnimations();
 
