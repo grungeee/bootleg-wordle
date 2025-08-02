@@ -59,14 +59,13 @@
   transform: translate(-50%, -50%);
   display: flex;
   gap: 0.25rem;
-  background-color: --var()
 }
 
 /* Overlay covers the entire screen during the startup animation */
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgb(--purple);
+  background-color: #7c76cc;
 }
 
 /* Styling for startup logo letters */

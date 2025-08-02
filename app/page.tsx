@@ -1,20 +1,14 @@
 import { markup } from './WordleMarkup';
 import Script from 'next/script';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import LoginModal from '@/components/LoginModal';
 
-export default async function HomePage() {
-  const supabase = createServerComponentClient({ cookies });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  if (!session) redirect('/login');
-
+export default function HomePage() {
   return (
     <div>
       <main dangerouslySetInnerHTML={{ __html: markup }} />
+      <Script src="/js/wordle-words-list.js" strategy="afterInteractive" />
       <Script src="/js/wordleJS.js" strategy="afterInteractive" />
+      <LoginModal />
     </div>
   );
 }
