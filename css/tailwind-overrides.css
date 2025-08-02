@@ -102,3 +102,14 @@
 .modal-pop {
   animation: modal-in 200ms ease-out forwards;
 }
+
+/* Slightly reposition the game elements on small screens */
+@media (max-width: 767px) {
+  .game-container {
+    margin-top: 1cm;
+  }
+
+  .keyboard {
+    margin-top: calc(1cm + 4rem);
+  }
+}
