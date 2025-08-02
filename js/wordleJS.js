@@ -230,6 +230,7 @@ let currentRow = 0;
 //* Animation on game load
 const header = document.querySelector('.header');
 const modal = document.querySelector('.modal');
+const modalContent = document.querySelector('.modal-content');
 
 const closeModalButton = document.querySelector('.closeModalButton');
 const endModal = document.querySelector('.end-modal');
@@ -243,6 +244,7 @@ const closeEndModalButton = document.querySelector('.closeEndModalButton');
 let logoContainer;
 let logoLetters;
 let overlay;
+let allowInput = false;
 
 function addLogoScreen() {
   header.insertAdjacentHTML(
@@ -262,6 +264,7 @@ function addLogoScreen() {
   logoContainer = document.querySelector('.logo-container');
   logoLetters = [...document.querySelectorAll('.logo')];
   overlay = document.querySelector('.overlay');
+  allowInput = false;
 }
 
 addLogoScreen();
@@ -302,11 +305,16 @@ function startupAnimations() {
       logoContainer.remove();
       overlay.remove();
       modal.classList.remove('hidden');
+      modalContent.classList.add('modal-pop');
       initGame();
     }, 2000);
   }
 }
 startupAnimations();
+
+modalContent.addEventListener('animationend', () => {
+  modalContent.classList.remove('modal-pop');
+});
 
 function showEndModal(win) {
   endTitle.textContent = win ? 'You won!' : 'You lost!';
@@ -341,6 +349,7 @@ function showEndModal(win) {
   }
 
   endModal.classList.remove('hidden');
+  allowInput = false;
 }
 
 //> -----------------------------------------------------------------
@@ -368,6 +377,7 @@ document.addEventListener('keydown', keydown);
 
 //* Keydown Callback
 function keydown(e) {
+  if (!allowInput) return;
   disableKey(e);
   key = isPermitted(e);
   nextChar();
@@ -544,7 +554,10 @@ function click(e) {
   }
 
   // - remove modal window
-  if (e.target === closeModalButton) modal.classList.add('hidden');
+  if (e.target === closeModalButton) {
+    modal.classList.add('hidden');
+    allowInput = true;
+  }
   if (e.target === closeEndModalButton) {
     endModal.classList.add('hidden');
     addLogoScreen();
