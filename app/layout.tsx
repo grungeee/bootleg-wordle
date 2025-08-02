@@ -1,5 +1,6 @@
 import '../css/tailwind.css'
 import '../css/tailwind-overrides.css'
+import '../css/keyframes.css'
 import type { ReactNode } from 'react'
 import SupabaseProvider from '@/components/SupabaseProvider'
 
