@@ -33,4 +33,6 @@ npm run dev
 
 Create a `.env.local` file with your Supabase credentials (see `.env.example`).
 
-Users must sign in before playing. Scores are stored in Supabase and the `/leaderboard` page lists the top results, refreshed every 30 seconds.
+These environment variables are required; the application will throw an error at startup if `NEXT_PUBLIC_SUPABASE_URL` or `NEXT_PUBLIC_SUPABASE_ANON_KEY` is missing.
+
+Signing in is optional. Create an account from the login modal to save scores and view the `/leaderboard`, which lists the top results refreshed every 30 seconds.
