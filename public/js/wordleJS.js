@@ -368,6 +368,7 @@ document.addEventListener('keydown', keydown);
 
 //* Keydown Callback
 function keydown(e) {
+  if (document.getElementById('auth-modal')) return;
   disableKey(e);
   key = isPermitted(e);
   nextChar();
