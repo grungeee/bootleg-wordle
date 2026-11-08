@@ -97,6 +97,29 @@ test("the former plaintext portfolio assets are no longer deployed", () => {
     assert.equal(fs.existsSync(path.join(root, file)), false, file);
 });
 
+test("one shared wordmark stylesheet is used on every branded route", () => {
+  for (const page of ["index.html", "play/index.html", "world/index.html"]) {
+    assert.match(read(page), /href="\/css\/brand\.css"/);
+  }
+  for (const file of ["css/style.css", "css/lock.css"]) {
+    assert.doesNotMatch(read(file), /\.brand\s*\{/);
+  }
+  assert.match(read("css/brand.css"), /Sharapa Display/);
+  assert.ok(fs.existsSync(path.join(root, "fonts/bebas-neue-latin.ttf")));
+});
+
+test("header controls have raised, hover, focus and pressed states", () => {
+  const css = read("css/public-game.css");
+  for (const selector of [".world-entry", ".topbar .ghost-btn"]) {
+    for (const state of [":hover", ":focus-visible", ":active"]) {
+      assert.ok(css.includes(selector + state), selector + state);
+    }
+  }
+  assert.match(css, /scale\(1\.04\)/);
+  assert.match(css, /scale\(0\.98\)/);
+  assert.match(css, /box-shadow: 5px 5px 0 #000/);
+});
+
 test("share URL still reaches the public game", () => {
   assert.match(read("js/game.js"), /location\.origin\s*\+\s*['"]\/play\/['"]/);
 });

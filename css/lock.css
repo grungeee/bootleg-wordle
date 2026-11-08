@@ -52,16 +52,6 @@ input:focus-visible {
   padding: 20px 5%;
   border-bottom: 3px solid #000;
 }
-.brand {
-  background: var(--ink);
-  color: white;
-  text-decoration: none;
-  font-size: 1.4rem;
-  font-weight: 900;
-  letter-spacing: -0.06em;
-  padding: 8px 13px;
-  box-shadow: 4px 4px 0 #000;
-}
 .back-link {
   font-size: 0.65rem;
   letter-spacing: 0.06em;
@@ -208,9 +198,6 @@ button:disabled {
     gap: 10px;
     padding: 16px 5%;
     min-height: 76px;
-  }
-  .brand {
-    font-size: 1.15rem;
   }
   .back-link {
     font-size: 0.5rem;

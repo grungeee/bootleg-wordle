@@ -14,8 +14,44 @@
   min-height: 40px;
   margin-left: auto;
 }
-.world-entry:hover {
+/* Raised controls share the same lift, colour change and pressed depth. */
+.topbar .ghost-btn {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 #000;
+}
+.topbar .ghost-btn--round {
+  background: var(--green);
+}
+.world-entry,
+.topbar .ghost-btn {
+  transform-origin: center;
+  transition:
+    background-color 120ms ease,
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+.world-entry:hover,
+.world-entry:focus-visible,
+.topbar .ghost-btn:hover,
+.topbar .ghost-btn:focus-visible {
   background: var(--yellow);
+  color: var(--ink);
+  transform: translate(-2px, -2px) scale(1.04);
+  box-shadow: 5px 5px 0 #000;
+}
+.world-entry:active,
+.topbar .ghost-btn:active {
+  background: var(--green);
+  color: var(--ink);
+  transform: translate(3px, 3px) scale(0.98);
+  box-shadow: 0 0 0 #000;
+}
+@media (prefers-reduced-motion: reduce) {
+  .world-entry,
+  .topbar .ghost-btn {
+    transition: none;
+  }
 }
 .topactions {
   margin-left: 0;
