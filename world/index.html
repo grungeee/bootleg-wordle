@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <meta name="theme-color" content="#7c76cc" />
+    <title>SHARAPA - locked world</title>
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/lock.css" />
+    <script src="/js/unlock.js" defer></script>
+  </head>
+  <body>
+    <header class="lock-header">
+      <a class="brand" href="/">SHARAPA</a
+      ><a class="back-link" href="/">← BACK TO THE GAME</a
+      ><button type="button" id="lock-again" hidden>LOCK WORLD</button>
+    </header>
+    <main id="gate">
+      <section class="lock-card" aria-labelledby="lock-title">
+        <div class="lock-symbol" aria-hidden="true">?</div>
+        <p class="eyebrow">BONUS LEVEL / INVITE ONLY</p>
+        <h1 id="lock-title">THERE'S MORE.<br />BUT NOT FOR EVERYONE.</h1>
+        <p>
+          The game is public. The rest of this little world needs a passcode.
+        </p>
+        <form id="unlock-form">
+          <label for="passcode">PASSCODE</label>
+          <div class="input-row">
+            <input
+              id="passcode"
+              name="passcode"
+              type="password"
+              inputmode="numeric"
+              pattern="[0-9]{5}"
+              minlength="5"
+              maxlength="5"
+              autocomplete="off"
+              required
+              aria-describedby="unlock-status"
+            /><button type="submit" id="unlock-button">UNLOCK ↗</button>
+          </div>
+          <p id="unlock-status" role="status" aria-live="polite">
+            Five digits. Ask me for an invitation.
+          </p>
+        </form>
+        <a class="public-game" href="/">OR JUST PLAY THE GAME →</a>
+        <p class="lock-note">
+          A casual-access lock, not a secure vault. Nothing is remembered after
+          a reload.
+        </p>
+      </section>
+    </main>
+    <section
+      id="unlocked-world"
+      hidden
+      aria-label="Unlocked portfolio"
+    ></section>
+    <noscript
+      ><p class="no-script">
+        Unlocking needs JavaScript. <a href="/">The game is back this way.</a>
+      </p></noscript
+    >
+  </body>
+</html>

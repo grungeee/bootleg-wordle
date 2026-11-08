@@ -1,62 +1,50 @@
-# Nikita Sharapa's interactive portfolio
+# SHARAPA word game and invite-only world
 
-Live: https://www.sharapa.io/
-Game: https://www.sharapa.io/play/
+The public front page is the word game. `/play/` remains a compatible game URL.
+The optional `/world/` page is an encrypted, passcode-gated portfolio experience.
 
-A small, static personal world. The homepage has a low-poly avatar study and
-four depth-sorted folders that orbit in front of and behind it. Drag horizontally,
-use arrow controls, or use the ordinary shortcut links. Reduced motion disables
-automatic rotation. With JavaScript disabled, folders remain ordinary links.
+## Site
 
-Only one project is currently featured: Nikita's first self-programmed word game.
-The original code and visual design were his own. Later versions include
-AI-assisted development and polish. The format is inspired by Wordle. No unrelated
-repositories, third-party work presented as his own, or GitHub directory is promoted.
+- `index.html`, `play/index.html`: public game only.
+- `css/style.css`, `css/public-game.css`, `js/core.js`, `js/game.js`, `js/words.js`: game.
+- `world/index.html`, `css/lock.css`, `js/unlock.js`: public lock screen.
+- `world/payload.json`: AES-256-GCM ciphertext, PBKDF2-SHA256, random salt/IV.
+- Private source and build tooling are kept outside this public repository.
+- `tests/*.test.cjs`: game rules, gate structure and public boundary tests.
 
-## Structure
-
-- `index.html`, `css/portfolio.css`, `js/orbit.js`: homepage and navigation.
-- `img/avatar-study.svg`: deliberately labelled stand-in, not a verified likeness.
-- `play/index.html`, `css/style.css`, `css/game-portfolio.css`, `js/game.js`: game.
-- `js/core.js`: pure scoring, local date seed and result grid logic.
-- `js/words.js`: allowed guesses and common-answer pool.
-- `tests/*.test.cjs`: logic, orbit interactions, attribution and internal-link checks.
-- `fonts/inter-latin.woff2`, `fonts/OFL.txt`: locally hosted Inter and its license.
-- `404.html`, `robots.txt`, `sitemap.xml`: navigation and search basics.
-
-## Run and verify
+## Run
 
 ```sh
 npm run serve
-# Open http://localhost:8080/ and http://localhost:8080/play/
 npm test
-node --check js/orbit.js
-node --check js/game.js
 ```
 
-No install or build step is needed for the site or tests. The homepage uses local
-assets only; the game currently also uses Google Fonts. No analytics is installed.
+No site build dependencies. HTTPS or localhost is required for Web Crypto.
+Google Fonts is used by the game. No analytics is installed.
 
-The daily answer uses `pickIndex('sharapa-' + YYYY-MM-DD, ANSWERS.length)` and the
-local calendar date. Daily progress and statistics retain the existing
-`sharapa.wordle.v1` localStorage key, so moving the game to `/play/` on the same
-origin does not discard them. Practice does not change daily statistics.
+## Access model and limits
 
-## Publishing
+The extras are encrypted rather than merely hidden by CSS or a JavaScript boolean.
+The code and decrypted document are not saved to cookies, localStorage or
+sessionStorage. Reload or LOCK WORLD discards the current unlocked document.
+Decrypted markup runs in an opaque-origin, sandboxed iframe with no network
+connections permitted by its embedded Content Security Policy.
 
-GitHub Pages serves the root of `master` with `CNAME` set to `www.sharapa.io`.
-The apex redirects to the canonical HTTPS hostname. Check the actual certificate,
-redirects and both routes after deploying, not only the Pages build status.
-GitHub Pages manages certificate renewal; no manual certbot installation is needed.
+This is a casual invitation lock, not authentication for sensitive material.
+A short numeric code can be brute-forced offline despite the deliberately costly
+key derivation. This public repository previously contained an unencrypted
+portfolio, so historical commits may retain previously public content. Encryption
+of the current site does not erase copies or repository history. Strong privacy
+requires a server-side authenticated service and a longer secret.
 
-## Intentional limits and next decisions
+## Deployment
 
-- The avatar is a generic geometric study until Nikita provides a reference.
-- The orbit uses CSS transforms and depth sorting, not a fully rendered 3D scene.
-- Other folders are story/about/contact, not invented portfolio projects.
-- Daily words and answers are available client-side; this is a casual game, not
-  a competitive anti-cheat system.
-- Statistics are browser-local and do not sync between devices.
-- No analytics, accounts, forms, cookies or tracking were added.
-- Actual iOS Safari, Android and screen-reader device checks remain useful after
-  the tested Chromium responsive, keyboard and reduced-motion checks.
+GitHub Pages serves `master`/root with CNAME `www.sharapa.io`. GitHub manages TLS
+issuance and renewal. Verify the exact deployed content and both hostnames after
+publishing. Do not install certbot for this Pages site.
+
+## Game persistence
+
+Keep the existing `sharapa.wordle.v1` localStorage key. Moving between `/` and
+`/play/` on the same origin must not discard daily progress. Statistics remain
+browser-local. Daily answers use the local calendar date and are client-visible.

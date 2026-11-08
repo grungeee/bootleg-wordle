@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /world/
 Sitemap: https://www.sharapa.io/sitemap.xml
