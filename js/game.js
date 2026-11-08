@@ -244,21 +244,23 @@
 
   // ------------------------------------------------------------------ input
 
+  let revealing = false;
+
   function addLetter(letter) {
-    if (state.status !== 'playing') return;
+    if (revealing || state.status !== 'playing') return;
     if (state.current.length >= WORD_LENGTH) return;
     state.current += letter;
     renderBoard();
   }
 
   function removeLetter() {
-    if (state.status !== 'playing') return;
+    if (revealing || state.status !== 'playing') return;
     state.current = state.current.slice(0, -1);
     renderBoard();
   }
 
   async function submit() {
-    if (state.status !== 'playing') return;
+    if (revealing || state.status !== 'playing') return;
 
     if (state.current.length < WORD_LENGTH) {
       toast('Not enough letters');
@@ -285,16 +287,21 @@
     states.forEach((s, i) => recordKey(word[i], s));
     renderKeyboard();
 
-    await revealRow(rowEl(row), states);
+    revealing = true;
+    try {
+      await revealRow(rowEl(row), states);
 
-    if (word === state.answer) {
-      state.status = 'won';
-      finish();
-    } else if (state.guesses.length === MAX_ROWS) {
-      state.status = 'lost';
-      finish();
-    } else {
-      renderBoard();
+      if (word === state.answer) {
+        state.status = 'won';
+        finish();
+      } else if (state.guesses.length === MAX_ROWS) {
+        state.status = 'lost';
+        finish();
+      } else {
+        renderBoard();
+      }
+    } finally {
+      revealing = false;
     }
   }
 
