@@ -536,8 +536,8 @@ button {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   display: grid;
   place-items: center;
   background: transparent;
