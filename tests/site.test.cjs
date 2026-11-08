@@ -99,7 +99,7 @@ test("the former plaintext portfolio assets are no longer deployed", () => {
 
 test("one shared wordmark stylesheet is used on every branded route", () => {
   for (const page of ["index.html", "play/index.html", "world/index.html"]) {
-    assert.match(read(page), /href="\/css\/brand\.css"/);
+    assert.match(read(page), /href="\/css\/brand\.css(?:\?[^"\s]*)?"/);
   }
   for (const file of ["css/style.css", "css/lock.css"]) {
     assert.doesNotMatch(read(file), /\.brand\s*\{/);
