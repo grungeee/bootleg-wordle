@@ -415,7 +415,7 @@
     const grid = shareGrid(state.guesses.map(g => g.states));
     const tries = state.status === 'won' ? state.guesses.length : 'X';
     const when = state.mode === 'daily' ? state.date : 'practice';
-    const text = 'SHARAPA ' + tries + '/6 (' + when + ')\n' + grid + '\n' + location.origin + '/';
+    const text = 'SHARAPA ' + tries + '/6 (' + when + ')\n' + grid + '\n' + location.origin + '/play/';
 
     const copied = await copyText(text);
     if (copied) {
@@ -460,17 +460,37 @@
 
   // ----------------------------------------------------------------- events
 
+  /** True for elements that handle Enter and Backspace themselves. */
+  function isInteractive(el) {
+    return (
+      el instanceof Element &&
+      !!el.closest('a, button, input, textarea, select, summary, [role="button"], [contenteditable="true"]')
+    );
+  }
+
+  /** True for elements that consume typed letters (so the game does not eat them). */
+  function isTextEntry(el) {
+    return (
+      el instanceof Element &&
+      !!el.closest('input, textarea, select, [contenteditable="true"]')
+    );
+  }
+
   document.addEventListener('keydown', event => {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (document.getElementById('splash')) return;
     if (document.querySelector('dialog[open]')) return;
     if (event.key === 'Enter') {
+      // A focused link, button or form control keeps its native activation.
+      if (isInteractive(event.target)) return;
       event.preventDefault();
       submit();
     } else if (event.key === 'Backspace') {
+      if (isInteractive(event.target)) return;
       event.preventDefault();
       removeLetter();
     } else if (/^[a-zA-Z]$/.test(event.key)) {
+      if (isTextEntry(event.target)) return;
       addLetter(event.key.toLowerCase());
     }
   });
@@ -482,6 +502,10 @@
     if (key === 'Enter') submit();
     else if (key === 'Backspace') removeLetter();
     else addLetter(key.toLowerCase());
+    // Pointer input should not leave a key focused, otherwise the next physical
+    // Enter would activate that key instead of submitting the guess. Keyboard
+    // and assistive-technology activation (event.detail === 0) keeps its focus.
+    if (event.detail > 0) button.blur();
   });
 
   document.getElementById('helpBtn').addEventListener('click', openHelp);
@@ -495,6 +519,12 @@
 
   document.querySelectorAll('[data-close]').forEach(button => {
     button.addEventListener('click', () => closeDialog(button.closest('dialog')));
+  });
+
+  // A hash link inside the result dialog should close the modal, then scroll.
+  resultDialog.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (link) closeDialog(resultDialog);
   });
 
   [helpDialog, statsDialog, resultDialog].forEach(dialog => {

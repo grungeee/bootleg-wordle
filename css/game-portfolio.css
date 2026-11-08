@@ -1,0 +1,253 @@
+/* Portfolio integration for /play/.
+ * Loaded after style.css. Adds the way back home, the origin story block,
+ * the end navigation and the result-dialog links. The game itself keeps the
+ * original lavender / charcoal / coral / green / yellow identity.
+ */
+
+:root {
+  --play-glow: rgba(141, 255, 148, 0.12);
+}
+
+/* --------------------------------------------------- back to the portfolio */
+
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.4rem;
+  padding: 0.4rem 0.6rem;
+  border: 2px solid #000;
+  background: rgba(0, 0, 0, 0.18);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.back-home::before {
+  content: '\2190';
+  margin-right: 0.45em;
+  font-size: 1em;
+  line-height: 1;
+}
+
+.back-home:hover,
+.back-home:focus-visible {
+  background: #000;
+  color: var(--green);
+}
+
+/* Anchors should clear the sticky top bar. */
+#play,
+#story,
+#more {
+  scroll-margin-top: 5rem;
+}
+
+/* --------------------------------------------------------------- the story */
+
+.story-copy {
+  max-width: 46rem;
+}
+
+.story-copy p {
+  color: rgba(244, 244, 248, 0.86);
+  margin: 0 0 1rem;
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+}
+
+.story-copy .lede {
+  margin-bottom: 1rem;
+}
+
+.story-now {
+  margin: 2.25rem 0 2.75rem;
+  padding: 1.25rem 1.35rem 1.4rem;
+  max-width: 46rem;
+  background: #2b2a36;
+  border: 2px solid #000;
+  border-left: 4px solid var(--green);
+}
+
+.story-now .eyebrow {
+  color: var(--yellow);
+  margin-bottom: 0.5rem;
+}
+
+.story-now h2 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin-bottom: 0.7rem;
+}
+
+.story-now p:last-child {
+  margin: 0;
+  color: rgba(244, 244, 248, 0.82);
+  font-size: 0.95rem;
+}
+
+/* ------------------------------------------------------------ end section */
+
+.play-end {
+  background: #1a1923;
+  border-top: 2px solid #000;
+  padding: clamp(2.25rem, 6vw, 4rem) clamp(1rem, 5vw, 2rem);
+}
+
+.play-end h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4.6vw, 2.9rem);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+  max-width: 40rem;
+}
+
+.end-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.6rem;
+}
+
+.end-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.9rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid #000;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 140ms ease, color 140ms ease, transform 80ms ease;
+}
+
+.end-link:hover,
+.end-link:focus-visible {
+  background: #000;
+  color: var(--green);
+}
+
+.end-link--primary {
+  background: var(--coral);
+  color: #1a1a1a;
+}
+
+.end-link--primary:hover,
+.end-link--primary:focus-visible {
+  background: var(--coral-soft);
+  color: #1a1a1a;
+}
+
+.end-link:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------- result dialog links */
+
+.result-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1.1rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-links .primary-btn,
+.result-links .ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.7rem;
+  text-decoration: none;
+}
+
+.result-links .ghost-btn {
+  border: 2px solid #000;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.result-links .ghost-btn:hover,
+.result-links .ghost-btn:focus-visible {
+  background: #000;
+  color: #fff;
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 900px) {
+  .topbar {
+    gap: 0.55rem;
+  }
+
+  .back-home {
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+@media (max-width: 720px) {
+  /* .topnav is hidden at this width by style.css; the back link is not. */
+  .back-home {
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar .chip {
+    display: none;
+  }
+
+  .back-home {
+    font-size: 0.53rem;
+    letter-spacing: 0.06em;
+  }
+
+  .story-now {
+    padding: 1rem 1rem 1.15rem;
+  }
+
+  .end-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .end-link {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .back-home::before {
+    display: none;
+  }
+}
+
+@media (max-width: 359px) {
+  /* Very narrow phones: give the back link its own row instead of overflowing. */
+  .topbar {
+    flex-wrap: wrap;
+    row-gap: 0.4rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .back-home {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+}

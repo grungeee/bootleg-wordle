@@ -1,2 +1,9 @@
 node_modules/
 .tmp/
+.env
+.env.*
+!.env.example
+.hermes/
+.DS_Store
+__pycache__/
+*.pyc

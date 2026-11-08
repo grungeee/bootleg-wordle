@@ -1,221 +1,287 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SHARAPA - a daily word game</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Nikita Sharapa - a little world of things I make</title>
     <meta
       name="description"
-      content="A daily five letter word game built in plain JavaScript by Nikita Sharapa. No framework, no build step, no tracking."
+      content="Get to know Nikita Sharapa through the things he makes. Start with his first self-programmed game, explore its story, or say hello."
     />
-    <meta name="theme-color" content="#7c76cc" />
+    <meta name="theme-color" content="#17161f" />
     <link rel="canonical" href="https://www.sharapa.io/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="SHARAPA - a daily word game" />
+    <meta
+      property="og:title"
+      content="Nikita Sharapa - a little world of things I make"
+    />
     <meta
       property="og:description"
-      content="Six tries, five letters, one word a day. Built in plain JavaScript by Nikita Sharapa."
+      content="A personal, playable portfolio. Start with the game that got me into programming."
     />
     <meta property="og:url" content="https://www.sharapa.io/" />
-    <meta property="og:image" content="https://www.sharapa.io/img/og.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="img/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
+    <meta
+      property="og:image"
+      content="https://www.sharapa.io/img/portfolio-og.png"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/portfolio.css" />
+    <script src="/js/orbit.js" defer></script>
   </head>
-
   <body>
-    <div id="splash" class="splash" aria-hidden="true">
-      <div class="splash-word">
-        <div class="splash-tile">W</div>
-        <div class="splash-tile">O</div>
-        <div class="splash-tile">R</div>
-        <div class="splash-tile">D</div>
-        <div class="splash-tile">L</div>
-        <div class="splash-tile">E</div>
-      </div>
-    </div>
-
-    <a class="skip-link" href="#build">Skip to build notes</a>
-
-    <header class="topbar">
-      <a class="brand" href="/">SHARAPA</a>
-      <nav class="topnav" aria-label="Sections">
-        <a href="#play">PLAY</a>
-        <a href="#build">BUILD</a>
-        <a href="#elsewhere">ELSEWHERE</a>
-      </nav>
-      <div class="topactions">
-        <span class="chip" id="modeChip">DAILY</span>
-        <button type="button" class="ghost-btn" id="statsBtn">STATS</button>
-        <button type="button" class="ghost-btn ghost-btn--round" id="helpBtn" aria-label="How to play">?</button>
-      </div>
+    <a class="skip-link" href="#chapters"
+      >Skip the orbit and explore the links</a
+    >
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label="Nikita Sharapa, home"
+        >SHARAPA<span class="brand-dot" aria-hidden="true">.</span></a
+      >
+      <span class="header-note">A PERSONAL SPACE ON THE INTERNET</span>
+      <a class="contact-link" href="mailto:nikita@sharapa.io"
+        >Say hello <span aria-hidden="true">↗</span></a
+      >
     </header>
-
     <main>
-      <section class="game" id="play" aria-label="Word game">
-        <div class="board" id="board"></div>
-        <div class="keyboard" id="keyboard" aria-label="On screen keyboard"></div>
-        <p class="hint">TYPE OR TAP · ENTER TO SUBMIT · BACKSPACE TO DELETE</p>
-      </section>
-
-      <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-      <section class="notes" id="build">
-        <div class="notes-inner">
-          <p class="eyebrow">01 / THE BUILD</p>
-          <h2>A word game in one static folder.</h2>
-          <p class="lede">
-            This page is written by hand in HTML, CSS and JavaScript. No framework, no bundler, no
-            tracking, no accounts. Open it, play it, share the grid. It is the smallest thing I
-            could build that still feels finished.
+      <section class="intro" aria-labelledby="home-title">
+        <div>
+          <p class="eyebrow">
+            <span class="status-dot" aria-hidden="true"></span> NIKITA SHARAPA /
+            AN OPEN INVITATION
           </p>
-
-          <div class="cards">
-            <article class="card">
-              <h3>Scoring</h3>
-              <p>
-                Repeated letters are where word games break. The check runs twice: exact matches
-                first, then everything else, so a green tile can never be stolen by an earlier
-                yellow one.
-              </p>
-            </article>
-            <article class="card">
-              <h3>State</h3>
-              <p>
-                Today's word is a hash of the date, so every visitor gets the same puzzle without a
-                server. Progress, streaks and the guess distribution stay in local storage on your
-                own device.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Interface</h3>
-              <p>
-                Playable from a physical keyboard or the on screen one. Native dialogs handle focus
-                and escape, motion respects your system setting, and every control is a real button.
-              </p>
-            </article>
+          <h1 id="home-title">
+            A little world of<br />things I <em>make.</em>
+          </h1>
+        </div>
+        <p class="intro-note">
+          An engineer with a curious side.<br />Come for a word game.<br />Stay
+          for the story behind it.
+        </p>
+      </section>
+      <section class="orbit-section" aria-label="Explore my world">
+        <div
+          class="scene"
+          id="orbit-scene"
+          tabindex="0"
+          aria-label="Orbit navigation. Drag the empty space, use the arrow controls, or press left and right arrow keys. Tab reaches each folder."
+        >
+          <div class="scene-grid" aria-hidden="true"></div>
+          <div class="orbit-ring orbit-ring--outer" aria-hidden="true"></div>
+          <div class="orbit-ring orbit-ring--inner" aria-hidden="true"></div>
+          <div class="scene-label" aria-hidden="true">
+            SMALL WORLD, MANY SIDES.
           </div>
-
-          <div class="limits">
-            <p class="eyebrow">KNOWN LIMITS</p>
-            <p>
-              Stats live in your browser, so they do not follow you between devices. The answer pool
-              is filtered down to common words: a puzzle should not be lost to an obscure one.
+          <div class="avatar" aria-hidden="true">
+            <img
+              src="/img/avatar-study.svg"
+              alt=""
+              width="300"
+              height="380"
+            /><span class="avatar-label">NIKITA / AVATAR STUDY 01</span>
+          </div>
+          <a class="orbit-folder orbit-folder--game" data-orbit href="/play/">
+            <span class="folder-tab">01 / PLAY</span>
+            <span class="folder-face"
+              ><span class="folder-icon tiles-icon" aria-hidden="true"
+                ><i>W</i><i>O</i><i>R</i><i>D</i><i>S</i></span
+              ><strong>The word game</strong
+              ><small>My first code. My own design.</small
+              ><span class="folder-open"
+                >OPEN &amp; PLAY <span aria-hidden="true">↗</span></span
+              ></span
+            >
+          </a>
+          <a
+            class="orbit-folder orbit-folder--story"
+            data-orbit
+            href="#first-project"
+          >
+            <span class="folder-tab">02 / THE STORY</span>
+            <span class="folder-face"
+              ><span class="folder-icon code-icon" aria-hidden="true"
+                >&lt; / &gt;</span
+              ><strong>Where it started</strong
+              ><small>From player to maker.</small
+              ><span class="folder-open"
+                >READ THE STORY <span aria-hidden="true">↗</span></span
+              ></span
+            >
+          </a>
+          <a class="orbit-folder orbit-folder--about" data-orbit href="#about">
+            <span class="folder-tab">03 / THE PERSON</span>
+            <span class="folder-face"
+              ><span class="folder-icon spark-icon" aria-hidden="true">✳</span
+              ><strong>A bit about me</strong
+              ><small>The person behind the pixels.</small
+              ><span class="folder-open"
+                >GET TO KNOW ME <span aria-hidden="true">↗</span></span
+              ></span
+            >
+          </a>
+          <a
+            class="orbit-folder orbit-folder--contact"
+            data-orbit
+            href="#contact"
+          >
+            <span class="folder-tab">04 / HELLO</span>
+            <span class="folder-face"
+              ><span class="folder-icon mail-icon" aria-hidden="true">↗</span
+              ><strong>Start a conversation</strong
+              ><small>No account. Just an email.</small
+              ><span class="folder-open"
+                >SAY HELLO <span aria-hidden="true">↗</span></span
+              ></span
+            >
+          </a>
+        </div>
+        <div class="orbit-toolbar" id="orbit-toolbar" hidden>
+          <p>
+            <span class="drag-icon" aria-hidden="true">↔</span> Drag to orbit
+            <span class="toolbar-divider">/</span> Open a folder to explore
+          </p>
+          <div class="orbit-controls">
+            <button
+              type="button"
+              id="orbit-prev"
+              aria-label="Rotate folders left"
+            >
+              ←</button
+            ><button type="button" id="orbit-toggle" aria-pressed="false">
+              Pause motion</button
+            ><button
+              type="button"
+              id="orbit-next"
+              aria-label="Rotate folders right"
+            >
+              →
+            </button>
+          </div>
+        </div>
+        <p class="avatar-note">
+          A low-poly stand-in for now. A personal likeness comes next.
+        </p>
+      </section>
+      <nav
+        class="chapter-index"
+        id="chapters"
+        aria-label="Explore without rotating"
+      >
+        <span class="eyebrow">PREFER THE SHORTCUT?</span
+        ><a href="/play/">Play the game <span aria-hidden="true">↗</span></a
+        ><a href="#first-project">Its story <span aria-hidden="true">↓</span></a
+        ><a href="#about">About me <span aria-hidden="true">↓</span></a
+        ><a href="#contact">Contact <span aria-hidden="true">↓</span></a>
+      </nav>
+      <section
+        class="story section"
+        id="first-project"
+        aria-labelledby="story-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">01 / THE FIRST CHAPTER</p>
+          <span class="section-number" aria-hidden="true">001</span>
+        </div>
+        <div class="story-layout">
+          <div>
+            <h2 id="story-title">
+              I liked a game.<br />So I built <em>my own.</em>
+            </h2>
+            <p class="section-lede">
+              The word game was the first project I programmed entirely myself.
+              The visual design was mine too.
             </p>
+            <p>
+              I enjoyed playing Wordle and wanted to make my own version. It
+              became a way to learn programming by making something I actually
+              wanted to use.
+            </p>
+            <p>
+              The lavender background, chunky tiles and bright colours are part
+              of that original identity. This is more than a demo to me. It is
+              where I started.
+            </p>
+            <a class="button button--coral" href="/play/"
+              >PLAY MY FIRST PROJECT <span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div class="project-card">
+            <div class="project-card-top">
+              <span class="eyebrow">THE WORD GAME</span
+              ><span class="project-badge">PLAYABLE</span>
+            </div>
+            <div class="sample-grid" aria-hidden="true">
+              <span class="tile-green">B</span><span>U</span
+              ><span class="tile-yellow">I</span><span>L</span><span>D</span
+              ><span>C</span><span class="tile-yellow">R</span><span>A</span
+              ><span>F</span><span class="tile-green">T</span
+              ><span class="tile-green">S</span><span class="tile-green">T</span
+              ><span class="tile-green">A</span><span class="tile-green">R</span
+              ><span class="tile-green">T</span>
+            </div>
+            <p>
+              Five letters. Six tries.<br />A small game with a personal story.
+            </p>
+            <span class="project-card-bottom"
+              >PERSONAL PROJECT / HTML + CSS + JAVASCRIPT</span
+            >
+          </div>
+        </div>
+        <div class="provenance">
+          <span class="eyebrow">A NOTE ON AUTHORSHIP</span>
+          <p>
+            The original code and visual design were my own. I later revisited
+            the game with AI-assisted development. The version you can play
+            today includes that later polish. The game format is inspired by
+            Wordle.
+          </p>
+        </div>
+      </section>
+      <section class="about section" id="about" aria-labelledby="about-title">
+        <div class="section-heading">
+          <p class="eyebrow">02 / THE PERSON</p>
+          <span class="section-number" aria-hidden="true">002</span>
+        </div>
+        <div class="about-layout">
+          <h2 id="about-title">Hi, I'm<br /><em>Nikita.</em></h2>
+          <div>
+            <p class="section-lede">
+              A mechanical engineer with a background in mechatronics and
+              automation. I like turning curiosity into something I can make,
+              test and improve.
+            </p>
+            <p>
+              This space is a way to get to know me through my own work, not a
+              directory of repositories. For now, the word game is the first
+              chapter. More projects can join this world when their stories are
+              ready.
+            </p>
+            <div class="about-tags">
+              <span>ENGINEERING</span><span>DESIGN</span
+              ><span>LEARNING BY MAKING</span>
+            </div>
           </div>
         </div>
       </section>
-
-      <section class="elsewhere" id="elsewhere">
-        <div class="notes-inner">
-          <p class="eyebrow">02 / ELSEWHERE</p>
-          <h2>Other things I build.</h2>
-          <ul class="project-list">
-            <li>
-              <a href="https://github.com/grungeee/oasis" rel="noopener">
-                <span class="project-name">OASIS</span>
-                <span class="project-desc">An open assistant that runs on your own machine.</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/grungeee/nxnative" rel="noopener">
-                <span class="project-name">NXNATIVE</span>
-                <span class="project-desc">Switch games running natively on iPhone, iPad and Mac.</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/grungeee/orderlist" rel="noopener">
-                <span class="project-name">ORDERLIST</span>
-                <span class="project-desc">Price calculation with item import into a shopping cart.</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/grungeee" rel="noopener">
-                <span class="project-name">ALL REPOSITORIES</span>
-                <span class="project-desc">Hardware, firmware and the rest of it.</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+      <section
+        class="contact section"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <p class="eyebrow">03 / THE NEXT CONVERSATION</p>
+        <h2 id="contact-title">Something<br />in <em>common?</em></h2>
+        <p>About the game, an idea, or something worth making.</p>
+        <a class="email-link" href="mailto:nikita@sharapa.io"
+          >nikita@sharapa.io <span aria-hidden="true">↗</span></a
+        ><a class="back-top" href="#home-title">Back to my world ↑</a>
       </section>
     </main>
-
-    <footer class="footer">
-      <p>Built by Nikita Sharapa. <a href="https://github.com/grungeee" rel="noopener">GitHub</a></p>
-      <p class="footer-meta">SHARAPA v1.0</p>
+    <footer class="site-footer">
+      <span>© Nikita Sharapa</span
+      ><span>ONE PROJECT. A WORLD TO GROW INTO.</span
+      ><span>No tracking. Just exploring.</span>
     </footer>
-
-    <dialog id="dialog-help" class="dialog" aria-labelledby="helpTitle">
-      <div class="dialog-inner">
-        <h2 id="helpTitle">How to play</h2>
-        <p>Guess the word in 6 tries.</p>
-        <p>Each guess must be a real 5 letter word. Hit enter to submit.</p>
-        <p>After each guess the tiles change colour to show how close you were.</p>
-        <div class="examples">
-          <div class="example-row">
-            <div class="mini-tile" data-state="correct">W</div>
-            <div class="mini-tile">E</div>
-            <div class="mini-tile">A</div>
-            <div class="mini-tile">R</div>
-            <div class="mini-tile">Y</div>
-          </div>
-          <p>W is in the word and in the right spot.</p>
-          <div class="example-row">
-            <div class="mini-tile">P</div>
-            <div class="mini-tile" data-state="present">I</div>
-            <div class="mini-tile">L</div>
-            <div class="mini-tile">L</div>
-            <div class="mini-tile">S</div>
-          </div>
-          <p>I is in the word but in the wrong spot.</p>
-          <div class="example-row">
-            <div class="mini-tile">V</div>
-            <div class="mini-tile">A</div>
-            <div class="mini-tile">G</div>
-            <div class="mini-tile" data-state="absent">U</div>
-            <div class="mini-tile">E</div>
-          </div>
-          <p>U is not in the word at all.</p>
-        </div>
-        <p class="dialog-note">One word a day for everyone. Practice words are extra.</p>
-        <div class="dialog-actions">
-          <button type="button" class="primary-btn" data-close>PLAY</button>
-        </div>
-      </div>
-    </dialog>
-
-    <dialog id="dialog-stats" class="dialog" aria-labelledby="statsTitle">
-      <div class="dialog-inner">
-        <h2 id="statsTitle">Statistics</h2>
-        <div data-stats></div>
-        <div class="dialog-actions">
-          <button type="button" class="primary-btn" data-close>CLOSE</button>
-        </div>
-      </div>
-    </dialog>
-
-    <dialog id="dialog-result" class="dialog" aria-labelledby="resultTitle">
-      <div class="dialog-inner">
-        <button type="button" class="dialog-close" data-close aria-label="Close">&#215;</button>
-        <h2 id="resultTitle">Result</h2>
-        <p id="resultWord" class="result-word"></p>
-        <div data-stats></div>
-        <div class="dialog-actions">
-          <button type="button" class="primary-btn" id="shareBtn">SHARE RESULT</button>
-          <button type="button" class="ghost-btn ghost-btn--wide" id="againBtn">PLAY A PRACTICE WORD</button>
-        </div>
-      </div>
-    </dialog>
-
-    <script src="js/words.js"></script>
-    <script src="js/core.js"></script>
-    <script src="js/game.js"></script>
   </body>
 </html>

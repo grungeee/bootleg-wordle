@@ -1,55 +1,62 @@
-# SHARAPA word game
+# Nikita Sharapa's interactive portfolio
 
-A daily five letter word game that runs as a static site. Plain HTML, CSS and
-JavaScript: no framework, no bundler, no dependencies, no tracking.
+Live: https://www.sharapa.io/
+Game: https://www.sharapa.io/play/
 
-Live at [sharapa.io](https://www.sharapa.io).
+A small, static personal world. The homepage has a low-poly avatar study and
+four depth-sorted folders that orbit in front of and behind it. Drag horizontally,
+use arrow controls, or use the ordinary shortcut links. Reduced motion disables
+automatic rotation. With JavaScript disabled, folders remain ordinary links.
 
-## What it does
-
-- One word a day for every visitor, picked from a hash of the date, so no server is needed.
-- Six guesses, five letters, colour coded feedback on the tiles and the keyboard.
-- Statistics, streaks and a guess distribution stored in local storage on the player's device.
-- Shareable result grid, copied to the clipboard in one click.
-- Practice words once the daily puzzle is finished, without touching the streak.
-- Playable from a physical keyboard or the on screen one, with dialogs that handle focus and escape.
-- Respects `prefers-reduced-motion` and keeps a readable contrast ratio on every state.
+Only one project is currently featured: Nikita's first self-programmed word game.
+The original code and visual design were his own. Later versions include
+AI-assisted development and polish. The format is inspired by Wordle. No unrelated
+repositories, third-party work presented as his own, or GitHub directory is promoted.
 
 ## Structure
 
-```
-index.html          markup, dialogs, the portfolio sections below the game
-css/style.css       all styling, one file
-js/words.js         ANSWERS (daily pool) and ALLOWED (accepted guesses)
-js/core.js          pure logic: scoring, date hash, share grid
-js/game.js          the interface
-tests/core.test.cjs tests for the scoring rules
-```
+- `index.html`, `css/portfolio.css`, `js/orbit.js`: homepage and navigation.
+- `img/avatar-study.svg`: deliberately labelled stand-in, not a verified likeness.
+- `play/index.html`, `css/style.css`, `css/game-portfolio.css`, `js/game.js`: game.
+- `js/core.js`: pure scoring, local date seed and result grid logic.
+- `js/words.js`: allowed guesses and common-answer pool.
+- `tests/*.test.cjs`: logic, orbit interactions, attribution and internal-link checks.
+- `fonts/inter-latin.woff2`, `fonts/OFL.txt`: locally hosted Inter and its license.
+- `404.html`, `robots.txt`, `sitemap.xml`: navigation and search basics.
 
-`js/core.js` has no DOM access and is imported by the test suite, which is why the
-tricky part (repeated letters) is covered by tests instead of by eye.
-
-## Run it
+## Run and verify
 
 ```sh
-python3 -m http.server 8099   # or: npm run serve
-npm test                      # node --test, nothing to install
+npm run serve
+# Open http://localhost:8080/ and http://localhost:8080/play/
+npm test
+node --check js/orbit.js
+node --check js/game.js
 ```
 
-## How the daily word works
+No install or build step is needed for the site or tests. The homepage uses local
+assets only; the game currently also uses Google Fonts. No analytics is installed.
 
-`pickIndex('sharapa-' + YYYY-MM-DD, ANSWERS.length)` hashes the local calendar date
-into an index. Every visitor on the same day gets the same word, the puzzle rolls
-over at local midnight, and nothing is fetched from a server.
+The daily answer uses `pickIndex('sharapa-' + YYYY-MM-DD, ANSWERS.length)` and the
+local calendar date. Daily progress and statistics retain the existing
+`sharapa.wordle.v1` localStorage key, so moving the game to `/play/` on the same
+origin does not discard them. Practice does not change daily statistics.
 
-## Scoring
+## Publishing
 
-A guess is scored in two passes. Exact matches are marked first and their tiles are
-removed from the pool, then the remaining letters are marked present only if a tile
-is still free. That is what stops a repeated letter from borrowing a tile that is
-already green.
+GitHub Pages serves the root of `master` with `CNAME` set to `www.sharapa.io`.
+The apex redirects to the canonical HTTPS hostname. Check the actual certificate,
+redirects and both routes after deploying, not only the Pages build status.
+GitHub Pages manages certificate renewal; no manual certbot installation is needed.
 
-## History
+## Intentional limits and next decisions
 
-Grew out of a prototype built while learning JavaScript. Rewritten with a tested
-scoring core, a daily seed, saved progress and an accessible interface.
+- The avatar is a generic geometric study until Nikita provides a reference.
+- The orbit uses CSS transforms and depth sorting, not a fully rendered 3D scene.
+- Other folders are story/about/contact, not invented portfolio projects.
+- Daily words and answers are available client-side; this is a casual game, not
+  a competitive anti-cheat system.
+- Statistics are browser-local and do not sync between devices.
+- No analytics, accounts, forms, cookies or tracking were added.
+- Actual iOS Safari, Android and screen-reader device checks remain useful after
+  the tested Chromium responsive, keyboard and reduced-motion checks.
