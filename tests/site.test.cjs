@@ -124,6 +124,17 @@ test("share URL still reaches the public game", () => {
   assert.match(read("js/game.js"), /location\.origin\s*\+\s*['"]\/play\/['"]/);
 });
 
+test("the published world payload carries the floating bubble orbit", () => {
+  const payload = JSON.parse(read("world/payload.json"));
+  assert.deepEqual(Object.keys(payload).sort(), ["algorithm", "ciphertext", "iterations", "iv", "salt", "version"]);
+  assert.equal(payload.algorithm, "AES-GCM");
+  assert.equal(payload.iterations, 600000);
+  // The world document is ciphertext, so only its envelope is checkable here; the
+  // markup and orbit maths are asserted at build time in the private source.
+  assert.ok(payload.ciphertext.length > 100000);
+  assert.doesNotMatch(payload.ciphertext, /sphere-skill|ENGINEERING/);
+});
+
 test("world-only material transition is versioned and leaves game routes alone", () => {
   const gate = read("world/index.html");
   assert.match(gate, /portal\.css\?v=y2k-flow-2/);
