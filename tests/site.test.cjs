@@ -123,3 +123,26 @@ test("header controls have raised, hover, focus and pressed states", () => {
 test("share URL still reaches the public game", () => {
   assert.match(read("js/game.js"), /location\.origin\s*\+\s*['"]\/play\/['"]/);
 });
+
+test("world-only material transition is versioned and leaves game routes alone", () => {
+  const gate = read("world/index.html");
+  assert.match(gate, /portal\.css\?v=y2k-flow-1/);
+  assert.match(gate, /unlock\.js\?v=y2k-flow-1/);
+  assert.match(gate, /portal-cue/);
+  for (const page of ["index.html", "play/index.html"])
+    assert.doesNotMatch(read(page), /portal\.css|portal-open|y2k-flow/);
+  const css = read("css/portal.css");
+  assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /body\.portal-crossing \.lock-card/);
+  assert.match(css, /body\.portal-open \.lock-header/);
+});
+
+test("unlock transition guards asynchronous completion and waits for frame load", () => {
+  const source = read("js/unlock.js");
+  assert.match(source, /attempt !== generation/);
+  assert.match(source, /generation\+\+/);
+  assert.match(source, /frame\.addEventListener\("load"/);
+  assert.match(source, /gate\.inert = true/);
+  assert.match(source, /classList\.remove\("portal-preparing", "portal-open", "portal-crossing"\)/);
+  assert.doesNotMatch(source, /eval\(|innerHTML\s*=/);
+});

@@ -1,0 +1,24 @@
+/* The invitation gate is the material transition, not a separate redesign. */
+body{transition:background-color .8s,color .8s}
+.lock-header{position:relative;z-index:20;transition:background .75s,border-color .75s,box-shadow .75s}
+.lock-card{transition:opacity .55s,transform .8s,border-radius .8s,box-shadow .8s,background .8s,border-color .8s}
+.portal-cue{display:flex;align-items:center;gap:11px;margin:0 0 20px;font-size:.61rem;letter-spacing:.1em;color:#485075}
+.portal-cue i{width:19px;height:19px;display:block;background:var(--purple);border:1px solid #17161f;box-shadow:3px 3px 0 #17161f}
+.portal-cue i:nth-child(2){border-radius:7px;background:linear-gradient(135deg,#cfc7f6,#a9c6e0 46%,#eef7ff);box-shadow:2px 3px 0 #56688a,inset 0 1px 0 #fff}
+.portal-cue i:nth-child(3){border-radius:50%;background:linear-gradient(#fff 0 9%,#e6f7ff 22%,#5b7699 47%,#fff 51%,#9db4d0 66%,#f2fbff 100%);box-shadow:inset 0 1px 1px #fff,0 2px 4px #384e7866;border-color:#6f87a6}
+#unlocked-world{opacity:0;transition:opacity .7s ease;position:relative}
+#unlocked-world iframe{background:#7c76cc}
+body.portal-preparing #unlocked-world{position:fixed;inset:84px 0 0;z-index:2}
+body.portal-preparing #unlocked-world iframe{height:100%}
+body.portal-preparing #gate{position:relative;z-index:3;pointer-events:none}
+body.portal-open{background:#cfd5f0;color:#182249;overflow:hidden}
+body.portal-open .lock-header{background:linear-gradient(170deg,#ffffffed,#b9c4e9 48%,#e5f5ff 52%,#d5dcf1);border-bottom:1px solid #899bb8;box-shadow:inset 0 1px 0 #fff,0 2px 8px #3e537b20;min-height:84px}
+body.portal-open .back-link{color:#253c62}
+body.portal-open .lock-header button{border:1px solid #7890ad;border-radius:30px;background:linear-gradient(#fcffff,#c6daec);box-shadow:inset 0 1px 0 #fff,0 2px 4px #3d537d35;color:#1b3155}
+body.portal-open #unlocked-world{opacity:1}
+body.portal-crossing .lock-card{opacity:0;transform:translateY(-18px) scale(.96);border-radius:60px;border-color:#9baec4;box-shadow:inset 0 2px 1px #fff,0 15px 45px #4c619d25;background:linear-gradient(150deg,#fff,#cddcf3)}
+body.portal-crossing .lock-symbol{border-radius:50%;background:linear-gradient(#fff,#90a2c2 48%,#edfbff 54%,#d0dff4);box-shadow:inset 0 1px 0 #fff;border-color:#7a8ead;transition:all .75s}
+body.portal-open #unlocked-world iframe{height:calc(100dvh - 84px)}
+body.portal-open .brand{background:#17161f}
+@media(max-width:480px){body.portal-preparing #unlocked-world{top:76px}body.portal-open .lock-header{min-height:76px}body.portal-open #unlocked-world iframe{height:calc(100dvh - 76px)}}
+@media(prefers-reduced-motion:reduce){body,.lock-header,.lock-card,#unlocked-world{transition:none!important}body.portal-crossing .lock-card{transform:none}}
