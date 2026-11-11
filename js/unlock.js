@@ -96,7 +96,7 @@
       lock.hidden = false;
       document.title = "SHARAPA - unlocked world";
       window.scrollTo(0, 0);
-      await pause(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 820);
+      await pause(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700);
       if (attempt !== generation) return;
       gate.hidden = true;
       gate.inert = false;

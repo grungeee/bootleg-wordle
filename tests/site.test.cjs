@@ -126,8 +126,8 @@ test("share URL still reaches the public game", () => {
 
 test("world-only material transition is versioned and leaves game routes alone", () => {
   const gate = read("world/index.html");
-  assert.match(gate, /portal\.css\?v=y2k-flow-1/);
-  assert.match(gate, /unlock\.js\?v=y2k-flow-1/);
+  assert.match(gate, /portal\.css\?v=y2k-flow-2/);
+  assert.match(gate, /unlock\.js\?v=y2k-flow-2/);
   assert.match(gate, /portal-cue/);
   for (const page of ["index.html", "play/index.html"])
     assert.doesNotMatch(read(page), /portal\.css|portal-open|y2k-flow/);
