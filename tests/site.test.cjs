@@ -129,8 +129,11 @@ test("world-only material transition is versioned and leaves game routes alone",
   assert.match(gate, /portal\.css\?v=y2k-flow-2/);
   assert.match(gate, /unlock\.js\?v=y2k-flow-2/);
   assert.match(gate, /portal-cue/);
-  for (const page of ["index.html", "play/index.html"])
-    assert.doesNotMatch(read(page), /portal\.css|portal-open|y2k-flow/);
+  for (const page of ["index.html", "play/index.html"]) {
+    const html = read(page);
+    assert.doesNotMatch(html, /portal\.css|portal-open|y2k-flow/);
+    assert.doesNotMatch(html, /chrome-shell|glass-spheres|sphere-link|game-cards/);
+  }
   const css = read("css/portal.css");
   assert.match(css, /prefers-reduced-motion/);
   assert.match(css, /body\.portal-crossing \.lock-card/);
