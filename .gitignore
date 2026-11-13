@@ -7,3 +7,14 @@ node_modules/
 .DS_Store
 __pycache__/
 *.pyc
+
+# Local credentials, databases, and runtime logs
+auth.json
+*_auth.json
+*.db*
+*.sqlite*
+*.pem
+*.key
+sessions/
+logs/
+cache/

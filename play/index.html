@@ -27,8 +27,8 @@
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/style.css?v=cream-1" />
-    <link rel="stylesheet" href="/css/public-game.css?v=cream-1" />
+    <link rel="stylesheet" href="/css/style.css?v=privacy-1" />
+    <link rel="stylesheet" href="/css/public-game.css?v=privacy-1" />
     <link rel="stylesheet" href="/css/brand.css?v=cream-1" />
   </head>
 
@@ -78,6 +78,19 @@
       </section>
 
       <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <aside class="privacy-note" id="privacyNotice" role="region" aria-labelledby="privacyTitle" hidden>
+        <div class="privacy-note__heading">
+          <span aria-hidden="true">✦</span>
+          <h2 id="privacyTitle">YOUR DATA STAYS YOURS</h2>
+          <button type="button" class="primary-btn" id="privacyOkay">GOT IT</button>
+        </div>
+        <p>Local only: daily guesses, game stats, theme, and dismissal. No site-visit tracking, tracking cookies, ads, or fingerprinting.</p>
+        <details class="privacy-note__details">
+          <summary>What else is stored?</summary>
+          <p>The intro uses a temporary tab-only flag. This game stores no accounts, highscores, or visitor analytics on a server. GitHub Pages and Google Fonts process ordinary web requests; their service logs may include your IP address.</p>
+        </details>
+      </aside>
 
       <section class="bonus-level" aria-labelledby="bonus-title">
         <p class="eyebrow">THAT WAS THE GAME.</p>
@@ -175,6 +188,6 @@
 
     <script src="/js/words.js"></script>
     <script src="/js/core.js"></script>
-    <script src="/js/game.js"></script>
+    <script src="/js/game.js?v=privacy-1"></script>
   </body>
 </html>

@@ -8,6 +8,7 @@
   const STORAGE_KEY = 'sharapa.wordle.v1';
   const SPLASH_KEY = 'sharapa.wordle.splash';
   const THEME_KEY = 'sharapa.wordle.theme';
+  const PRIVACY_KEY = 'sharapa.privacy.notice.v1';
 
   const boardEl = document.getElementById('board');
   const keyboardEl = document.getElementById('keyboard');
@@ -74,6 +75,20 @@
     const next = document.body.classList.contains('theme-cream') ? 'lavender' : 'cream';
     try { localStorage.setItem(THEME_KEY, next); } catch (err) { /* optional preference */ }
     applyTheme(next);
+  }
+
+  function initPrivacyNotice() {
+    const notice = document.getElementById('privacyNotice');
+    const dismiss = document.getElementById('privacyOkay');
+    if (!notice || !dismiss) return;
+    try {
+      if (localStorage.getItem(PRIVACY_KEY) === '1') return;
+    } catch (err) { /* show notice if browser storage is unavailable */ }
+    notice.hidden = false;
+    dismiss.addEventListener('click', () => {
+      notice.hidden = true;
+      try { localStorage.setItem(PRIVACY_KEY, '1'); } catch (err) { /* page-only dismissal */ }
+    });
   }
 
   // ------------------------------------------------------------- game start
@@ -592,6 +607,7 @@
   buildBoard();
   buildKeyboard();
   startDaily(true);
+  initPrivacyNotice();
   splash();
   if (state.status !== 'playing') {
     renderStats();

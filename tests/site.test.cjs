@@ -174,3 +174,25 @@ test("cream theme keeps dark brown keys and pastel absent letters", () => {
   assert.match(js, /theme-cream/);
   assert.match(js, /applyTheme/);
 });
+
+test("header keeps MY WORLD beside the logo and centers the daily date on desktop", () => {
+  const css = read("css/public-game.css");
+  assert.match(css, /\.topbar \.world-entry\s*\{\s*margin-left:\s*0/);
+  assert.match(css, /\.topbar #modeChip\s*\{[^}]*left:\s*50%/s);
+  assert.match(css, /@media \(max-width: 560px\)[\s\S]*?\.topbar \.chip\s*\{\s*display:\s*none/s);
+});
+
+test("privacy note accurately describes local storage and has a persistent dismiss control", () => {
+  for (const page of ["index.html", "play/index.html"]) {
+    const html = read(page);
+    assert.match(html, /id="privacyNotice"/);
+    assert.match(html, /id="privacyOkay"/);
+    assert.match(html, /No site-visit tracking, tracking cookies, ads, or fingerprinting/);
+    assert.match(html, /Google Fonts[\s\S]*IP address/);
+  }
+  const game = read("js/game.js");
+  assert.match(game, /sharapa\.privacy\.notice\.v1/);
+  assert.match(game, /function initPrivacyNotice\(\)/);
+  assert.match(game, /localStorage\.setItem\(PRIVACY_KEY, '1'\)/);
+  assert.doesNotMatch(game, /document\.cookie|navigator\.sendBeacon|canvas\.toDataURL/i);
+});
