@@ -18,3 +18,8 @@ auth.json
 sessions/
 logs/
 cache/
+
+# API deployment artifacts
+.secrets/
+.venv-api/
+api/data/*.mmdb

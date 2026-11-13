@@ -11,6 +11,7 @@
   --green: #8dff94;
   --yellow: #f4ff61;
   --paper: #f4f4f8;
+  --font-display: "Sharapa Display", Inter, sans-serif;
 }
 * {
   box-sizing: border-box;

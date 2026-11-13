@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Player Hub / SHARAPA</title>
+    <meta name="description" content="Create a SHARAPA player account, save daily results and view the high scores." />
+    <meta name="theme-color" content="#7c76cc" />
+    <link rel="canonical" href="https://www.sharapa.io/scores/" />
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css?v=accounts-1" />
+    <link rel="stylesheet" href="/css/public-game.css?v=accounts-1" />
+    <link rel="stylesheet" href="/css/brand.css?v=cream-1" />
+    <link rel="stylesheet" href="/css/account.css?v=accounts-1" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to player hub</a>
+    <header class="sitebar">
+      <a class="brand" href="/">SHARAPA</a>
+      <nav aria-label="Main navigation">
+        <a href="/play/">PLAY</a>
+        <a href="/privacy/">DATA NOTICE</a>
+      </nav>
+    </header>
+
+    <main class="account-shell" id="main">
+      <section class="account-hero" aria-labelledby="pageTitle">
+        <p class="eyebrow">THE DAILY WORD GAME / PLAYER HUB</p>
+        <h1 id="pageTitle">HIGH SCORES.<br />YOUR NAME.</h1>
+        <p>Accounts are optional. Sign up with an email, username and password. No confirmation email is required or sent.</p>
+        <a class="primary-btn" href="/play/">BACK TO THE GAME ↗</a>
+      </section>
+
+      <section class="account-panel" aria-labelledby="accountTitle">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">OPTIONAL ACCOUNT</p>
+            <h2 id="accountTitle">PLAYER ACCOUNT</h2>
+          </div>
+          <span class="panel-stamp" aria-hidden="true">01 / PLAY</span>
+        </div>
+        <p id="accountStatus" class="service-status" role="status" aria-live="polite">Connecting to the score service...</p>
+
+        <div class="auth-grid" id="authForms">
+          <form class="form-card" id="registerForm">
+            <h3>CREATE ACCOUNT</h3>
+            <label>Email
+              <input name="email" type="email" autocomplete="email" maxlength="254" required />
+            </label>
+            <label>Username
+              <input name="username" type="text" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9_.-]{3,24}" title="3 to 24 letters, numbers, dots, underscores, or hyphens" required />
+            </label>
+            <label>Password
+              <input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required />
+            </label>
+            <p class="form-hint">Use at least 12 characters. Password recovery is not available yet.</p>
+            <label class="check-row">
+              <input name="leaderboard_public" type="checkbox" />
+              <span>Allow my username and scores to appear on the public leaderboard. Off by default.</span>
+            </label>
+            <button class="primary-btn" type="submit">CREATE PLAYER ACCOUNT</button>
+          </form>
+
+          <form class="form-card" id="loginForm">
+            <h3>WELCOME BACK</h3>
+            <label>Email or username
+              <input name="login" type="text" autocomplete="username" maxlength="254" required />
+            </label>
+            <label>Password
+              <input name="password" type="password" autocomplete="current-password" maxlength="128" required />
+            </label>
+            <p class="form-hint">Your session is kept in a secure, HttpOnly cookie for up to 30 days.</p>
+            <button class="primary-btn" type="submit">SIGN IN</button>
+          </form>
+        </div>
+
+        <section id="accountPanel" class="signed-in" aria-labelledby="welcomeTitle" hidden>
+          <h3 id="welcomeTitle">WELCOME, <span id="accountUsername"></span></h3>
+          <p class="account-email">Signed in as <span id="accountEmail"></span></p>
+          <label class="check-row check-row--profile">
+            <input id="publicToggle" type="checkbox" />
+            <span>Show my username and scores on the public leaderboard. Email is never displayed.</span>
+          </label>
+          <div class="button-row">
+            <button class="primary-btn" type="button" id="saveVisibility">SAVE SCORE PRIVACY</button>
+            <a class="ghost-btn account-button" href="/play/">BACK TO GAME + SYNC RESULT</a>
+            <button class="ghost-btn account-button" type="button" id="logoutButton">SIGN OUT</button>
+          </div>
+          <details class="delete-account">
+            <summary>Delete account and saved scores</summary>
+            <form id="deleteForm">
+              <label>Enter your password to confirm deletion
+                <input name="password" type="password" autocomplete="current-password" maxlength="128" required />
+              </label>
+              <button class="danger-btn" type="submit">DELETE ACCOUNT AND SCORES</button>
+            </form>
+          </details>
+        </section>
+      </section>
+
+      <section class="leaderboard-panel" aria-labelledby="leaderboardTitle">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">PUBLIC PLAYERS ONLY</p>
+            <h2 id="leaderboardTitle">THE LEADERBOARD</h2>
+          </div>
+          <label class="period-select">PERIOD
+            <select id="periodSelect" aria-label="Leaderboard period">
+              <option value="7">7 DAYS</option>
+              <option value="30" selected>30 DAYS</option>
+              <option value="365">365 DAYS</option>
+            </select>
+          </label>
+        </div>
+        <p id="leaderboardStatus" class="service-status" role="status" aria-live="polite">Loading scores...</p>
+        <div class="table-scroll">
+          <table>
+            <caption class="visually-hidden">Public player scores for the selected period</caption>
+            <thead><tr><th scope="col">RANK</th><th scope="col">PLAYER</th><th scope="col">POINTS</th><th scope="col">WINS</th><th scope="col">AVG. GUESSES</th></tr></thead>
+            <tbody id="leaderboardRows"><tr><td colspan="5">Waiting for the score service.</td></tr></tbody>
+          </table>
+        </div>
+        <p class="scoring-note">One result per account per day. A win earns 7 minus guesses. Scores are private until a player opts in. Results are browser-submitted and honor-based, not tamper-proof.</p>
+      </section>
+    </main>
+
+    <aside class="privacy-note" id="privacyNotice" role="region" aria-labelledby="privacyTitle" hidden>
+      <div class="privacy-note__heading"><span aria-hidden="true">✦</span><h2 id="privacyTitle">YOUR VISIT DATA, YOUR CHOICE</h2></div>
+      <p>Optional visit stats: device type, OS, country from your IP, page time and feature counts. No ads, fingerprinting or analytics cookies. Raw IPs are not saved.</p>
+      <div class="privacy-note__actions">
+        <button type="button" class="ghost-btn" data-privacy-choice="essential">ONLY ESSENTIAL</button>
+        <button type="button" class="primary-btn" data-privacy-choice="allow">ALLOW VISIT STATS</button>
+      </div>
+      <details class="privacy-note__details">
+        <summary>What is stored, and for how long?</summary>
+        <p>Game progress, personal stats and theme stay in this browser. Accounts store your email, username and Argon2id password hash. Sign-in uses a necessary Secure, HttpOnly cookie for up to 30 days; it is not used for analytics. Public scores show your username only if you opt in. Optional analytics store coarse device, OS, country, page time and feature counts. Session detail lasts 30 days; daily summaries last 396 days. Raw IPs and full browser strings are discarded. GitHub Pages and Google Fonts handle ordinary requests and may process or log IP addresses. Country lookup uses <a href="https://db-ip.com/" rel="noopener noreferrer" target="_blank">DB-IP Lite data</a>. <a href="/privacy/">Full privacy notice</a>.</p>
+      </details>
+    </aside>
+
+    <footer class="footer account-footer">
+      <p>Built by Nikita Sharapa.</p>
+      <p class="footer-meta">PLAY / SHARAPA</p>
+      <nav class="footer-links" aria-label="Site information">
+        <a href="/">GAME</a>
+        <a href="/privacy/">DATA NOTICE</a>
+        <button type="button" data-privacy-settings>PRIVACY SETTINGS</button>
+      </nav>
+    </footer>
+
+    <script src="/js/analytics.js?v=accounts-1"></script>
+    <script src="/js/scores.js?v=accounts-1"></script>
+  </body>
+</html>

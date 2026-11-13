@@ -42,6 +42,8 @@ test("every local HTML link and asset has a real target", () => {
   for (const page of [
     "index.html",
     "play/index.html",
+    "scores/index.html",
+    "privacy/index.html",
     "world/index.html",
     "404.html",
   ]) {
@@ -139,8 +141,10 @@ test("the published world payload carries the floating bubble orbit", () => {
 
 test("world-only material transition is versioned and leaves game routes alone", () => {
   const gate = read("world/index.html");
-  assert.match(gate, /portal\.css\?v=y2k-flow-2/);
-  assert.match(gate, /unlock\.js\?v=y2k-flow-2/);
+  assert.match(gate, /portal\.css\?v=analytics-1/);
+  assert.match(gate, /unlock\.js\?v=analytics-1/);
+  assert.match(gate, /analytics\.js\?v=analytics-1/);
+  assert.match(gate, /id="privacyNotice"/);
   assert.match(gate, /portal-cue/);
   for (const page of ["index.html", "play/index.html"]) {
     const html = read(page);
@@ -159,6 +163,7 @@ test("unlock transition guards asynchronous completion and waits for frame load"
   assert.match(source, /generation\+\+/);
   assert.match(source, /frame\.addEventListener\("load"/);
   assert.match(source, /gate\.inert = true/);
+  assert.match(source, /sharapa-world-sphere/);
   assert.match(source, /classList\.remove\("portal-preparing", "portal-open", "portal-crossing"\)/);
   assert.doesNotMatch(source, /eval\(|innerHTML\s*=/);
 });
@@ -182,17 +187,32 @@ test("header keeps MY WORLD beside the logo and centers the daily date on deskto
   assert.match(css, /@media \(max-width: 560px\)[\s\S]*?\.topbar \.chip\s*\{\s*display:\s*none/s);
 });
 
-test("privacy note accurately describes local storage and has a persistent dismiss control", () => {
-  for (const page of ["index.html", "play/index.html"]) {
+test("privacy choice is explicit, withdrawable and gates analytics", () => {
+  for (const page of ["index.html", "play/index.html", "scores/index.html", "privacy/index.html"]) {
     const html = read(page);
     assert.match(html, /id="privacyNotice"/);
-    assert.match(html, /id="privacyOkay"/);
-    assert.match(html, /No site-visit tracking, tracking cookies, ads, or fingerprinting/);
+    assert.match(html, /data-privacy-choice="essential"/);
+    assert.match(html, /data-privacy-choice="allow"/);
+    assert.match(html, /No ads, fingerprinting or analytics cookies/);
     assert.match(html, /Google Fonts[\s\S]*IP address/);
+    assert.match(html, /data-privacy-settings/);
   }
-  const game = read("js/game.js");
-  assert.match(game, /sharapa\.privacy\.notice\.v1/);
-  assert.match(game, /function initPrivacyNotice\(\)/);
-  assert.match(game, /localStorage\.setItem\(PRIVACY_KEY, '1'\)/);
-  assert.doesNotMatch(game, /document\.cookie|navigator\.sendBeacon|canvas\.toDataURL/i);
+  const analytics = read("js/analytics.js");
+  assert.match(analytics, /consent !== 'allow'/);
+  assert.match(analytics, /sharapa\.analytics\.consent\.v1/);
+  assert.match(analytics, /function openSettings\(\)/);
+  assert.match(analytics, /navigator\.sendBeacon/);
+  assert.doesNotMatch(analytics, /document\.cookie|canvas\.toDataURL/i);
+  assert.match(read("privacy/index.html"), /nikita@sharapa\.io/);
+});
+
+test("player hub uses optional registration and public scores are opt-in", () => {
+  const html = read("scores/index.html");
+  assert.match(html, /id="registerForm"/);
+  assert.match(html, /id="loginForm"/);
+  assert.match(html, /No confirmation email is required or sent/);
+  assert.match(html, /leaderboard_public/);
+  assert.match(html, /id="deleteForm"/);
+  assert.match(read("js/scores.js"), /credentials: 'include'/);
+  assert.match(read("api/app.py"), /@app\.post\("\/api\/v1\/account\/leaderboard"\)/);
 });

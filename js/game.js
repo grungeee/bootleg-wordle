@@ -8,7 +8,7 @@
   const STORAGE_KEY = 'sharapa.wordle.v1';
   const SPLASH_KEY = 'sharapa.wordle.splash';
   const THEME_KEY = 'sharapa.wordle.theme';
-  const PRIVACY_KEY = 'sharapa.privacy.notice.v1';
+  const ACCOUNT_MARKER = 'sharapa.account.signedIn.v1';
 
   const boardEl = document.getElementById('board');
   const keyboardEl = document.getElementById('keyboard');
@@ -22,6 +22,10 @@
 
   const reduceMotion = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function track(feature) {
+    if (window.sharapaAnalytics) window.sharapaAnalytics.track(feature);
+  }
 
   const state = {
     mode: 'daily',
@@ -75,20 +79,7 @@
     const next = document.body.classList.contains('theme-cream') ? 'lavender' : 'cream';
     try { localStorage.setItem(THEME_KEY, next); } catch (err) { /* optional preference */ }
     applyTheme(next);
-  }
-
-  function initPrivacyNotice() {
-    const notice = document.getElementById('privacyNotice');
-    const dismiss = document.getElementById('privacyOkay');
-    if (!notice || !dismiss) return;
-    try {
-      if (localStorage.getItem(PRIVACY_KEY) === '1') return;
-    } catch (err) { /* show notice if browser storage is unavailable */ }
-    notice.hidden = false;
-    dismiss.addEventListener('click', () => {
-      notice.hidden = true;
-      try { localStorage.setItem(PRIVACY_KEY, '1'); } catch (err) { /* page-only dismissal */ }
-    });
+    track('theme_toggle');
   }
 
   // ------------------------------------------------------------- game start
@@ -126,6 +117,7 @@
       word = ANSWERS[Math.floor(Math.random() * ANSWERS.length)];
     }
     state.mode = 'practice';
+    track('practice_start');
     state.answer = word;
     state.guesses = [];
     state.current = '';
@@ -311,6 +303,7 @@
     const row = state.guesses.length;
     const word = state.current;
     const states = scoreGuess(state.answer, word);
+    if (state.mode === 'daily' && row === 0) track('daily_start');
     state.guesses.push({ word, states });
     state.current = '';
 
@@ -349,11 +342,46 @@
   }
 
   function finish() {
+    track('game_finish');
     if (state.mode === 'daily') {
       updateStats(state.status === 'won', state.guesses.length);
     }
     renderStats();
     showResult();
+    syncCompletedDailyScore();
+  }
+
+  async function syncCompletedDailyScore() {
+    if (state.mode !== 'daily' || state.status === 'playing' || !state.guesses.length) return;
+    let signedIn = false;
+    try { signedIn = localStorage.getItem(ACCOUNT_MARKER) === '1'; } catch (err) { /* optional marker */ }
+    if (!signedIn) return;
+    const status = document.getElementById('scoreSyncStatus');
+    try {
+      const response = await fetch('https://api.sharapa.io/api/v1/scores', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          day: state.date,
+          guesses: state.guesses.length,
+          won: state.status === 'won',
+        }),
+      });
+      if (response.status === 401) {
+        try { localStorage.removeItem(ACCOUNT_MARKER); } catch (err) { /* optional marker */ }
+        if (status) status.textContent = 'Your sign-in expired. Sign in again to save scores.';
+        return;
+      }
+      if (!response.ok) throw new Error('Score request failed');
+      const result = await response.json();
+      if (status) status.textContent = result.duplicate
+        ? 'This daily result is already saved.'
+        : 'Your daily result is saved.';
+    } catch (err) {
+      if (status) status.textContent = 'Score sync is unavailable. Your game remains saved in this browser.';
+    }
   }
 
   function updateStats(won, tries) {
@@ -388,10 +416,12 @@
   }
 
   function openHelp() {
+    track('help_open');
     showDialog(helpDialog);
   }
 
   function openStats() {
+    track('stats_open');
     renderStats();
     showDialog(statsDialog);
   }
@@ -432,6 +462,7 @@
     const sub = document.getElementById('resultWord');
     const shareBtn = document.getElementById('shareBtn');
     const againBtn = document.getElementById('againBtn');
+    const scoreStatus = document.getElementById('scoreSyncStatus');
 
     title.textContent = won ? 'YOU GOT IT' : 'OUT OF TRIES';
     if (won) {
@@ -443,6 +474,16 @@
     shareBtn.disabled = false;
     shareBtn.textContent = 'SHARE RESULT';
     againBtn.textContent = state.mode === 'daily' ? 'PLAY A PRACTICE WORD' : 'NEW PRACTICE WORD';
+    if (scoreStatus) {
+      scoreStatus.hidden = state.mode !== 'daily';
+      if (state.mode === 'daily') {
+        let signedIn = false;
+        try { signedIn = localStorage.getItem(ACCOUNT_MARKER) === '1'; } catch (err) { /* optional marker */ }
+        scoreStatus.textContent = signedIn
+          ? 'Checking your saved score...'
+          : 'Sign in on High Scores / Account to save this daily result.';
+      }
+    }
     showDialog(resultDialog);
   }
 
@@ -607,11 +648,11 @@
   buildBoard();
   buildKeyboard();
   startDaily(true);
-  initPrivacyNotice();
   splash();
   if (state.status !== 'playing') {
     renderStats();
     showResult();
+    syncCompletedDailyScore();
   }
 
   // Exposed for the test suite and for curious visitors in devtools.

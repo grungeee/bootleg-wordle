@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy / SHARAPA</title>
+    <meta name="description" content="What SHARAPA stores for accounts, scores and optional visit statistics." />
+    <meta name="theme-color" content="#7c76cc" />
+    <link rel="canonical" href="https://www.sharapa.io/privacy/" />
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css?v=accounts-1" />
+    <link rel="stylesheet" href="/css/public-game.css?v=accounts-1" />
+    <link rel="stylesheet" href="/css/brand.css?v=cream-1" />
+    <link rel="stylesheet" href="/css/account.css?v=accounts-1" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to privacy notice</a>
+    <header class="sitebar">
+      <a class="brand" href="/">SHARAPA</a>
+      <nav aria-label="Main navigation"><a href="/play/">PLAY</a><a href="/scores/">HIGH SCORES</a></nav>
+    </header>
+
+    <main class="privacy-page" id="main">
+      <section class="account-hero">
+        <p class="eyebrow">CLEAR BY DESIGN</p>
+        <h1>YOUR DATA.<br />YOUR CHOICE.</h1>
+        <p>This notice explains the game, optional visitor statistics and player accounts.</p>
+      </section>
+
+      <article class="privacy-article">
+        <p class="notice-label">DATA NOTICE / SHARAPA WORD GAME</p>
+        <h2>Who is responsible?</h2>
+        <p>Nikita Sharapa, Austria, is responsible for the SHARAPA word game and player account service. Contact: <a href="mailto:nikita@sharapa.io">nikita@sharapa.io</a>.</p>
+
+        <h2>Game data stored in your browser</h2>
+        <p>Daily guesses, personal game statistics, theme preference and your privacy choice are kept locally in your browser storage. They are not sent to the score server. Clearing site data removes them.</p>
+        <p>The analytics choice is stored in local storage. A temporary visit ID is stored in session storage for the current tab. Analytics do not use cookies. Signing in uses a necessary Secure, HttpOnly, SameSite=Lax cookie for up to 30 days so the account remains signed in; that cookie is not used for analytics.</p>
+
+        <h2>Optional visit statistics</h2>
+        <p>Visitor analytics start only if you choose ALLOW VISIT STATS. If you choose ONLY ESSENTIAL, no analytics events are sent. You can change this choice at any time with the PRIVACY SETTINGS control. Withdrawal stops future analytics; records already collected remain until their stated deletion date.</p>
+        <p>When enabled, the server records a random tab-only visit identifier, page views, visible time on each page, coarse exploration counts, device category, operating system category and country derived from the network IP address. It does not record your guesses, full browser string, advertising identifiers or raw IP address in the analytics database. The raw IP is processed in memory for country lookup and short-lived abuse controls. Analytics session detail is deleted after 30 days and aggregate totals after 396 days.</p>
+        <p>Analytics do not use cookies, advertising, cross-site tracking or fingerprinting. The consent choice is stored in browser local storage. The temporary visit ID is stored in session storage for the current tab only. Country lookup uses the DB-IP Lite country database (CC BY 4.0) on the server. <a href="https://db-ip.com/" rel="noopener noreferrer" target="_blank">DB-IP data and licensing</a>.</p>
+
+        <h2>Player accounts and scores</h2>
+        <p>Accounts are optional. Registration stores your email, username, an Argon2id password hash and account creation time. Passwords are not stored in plain text. No email confirmation is sent. Sign-in uses a secure, HttpOnly, SameSite session cookie that lasts up to 30 days.</p>
+        <p>When signed in, a completed daily result can be saved as the date, number of guesses, win or loss and points. Results are submitted by the browser and are not cryptographically verified, so the leaderboard is for casual play. By default, your results are private. If you opt in to the public leaderboard, your username and aggregate score are visible to visitors. Your email is never shown on the leaderboard. You can turn public display off in your account settings.</p>
+        <p>You can delete your account from the player hub by entering your password. Deletion removes the account, its sessions and its scores. Password recovery is not currently available, so keep your password safe.</p>
+
+        <h2>Request and service providers</h2>
+        <p>The website is served by GitHub Pages and uses Google Fonts. When your browser requests these files, those providers receive ordinary connection information such as your IP address and may keep service logs under their own privacy terms. The score API is hosted on a self-managed server. The application's analytics database stores only the country code, not the raw IP address.</p>
+
+        <h2>Your choices and rights</h2>
+        <p>You can decline optional analytics, withdraw consent, access or correct account details, make your leaderboard private, or delete your account. You may also request access, correction, deletion, restriction or portability where applicable. Contact <a href="mailto:nikita@sharapa.io">nikita@sharapa.io</a> for a request. You may lodge a complaint with the Austrian Data Protection Authority (<a href="https://dsb.gv.at/" rel="noopener noreferrer" target="_blank">Datenschutzbehörde</a>).</p>
+        <p>This page is a plain-language summary, not legal advice. The details may change when the service changes.</p>
+        <a class="primary-btn" href="/scores/">PLAYER HUB ↗</a>
+        <a class="primary-btn" href="/play/">BACK TO THE GAME ↗</a>
+      </article>
+    </main>
+
+    <aside class="privacy-note" id="privacyNotice" role="region" aria-labelledby="privacyTitle" hidden>
+      <div class="privacy-note__heading"><span aria-hidden="true">✦</span><h2 id="privacyTitle">YOUR VISIT DATA, YOUR CHOICE</h2></div>
+      <p>Optional visit stats: device type, OS, country from your IP, page time and feature counts. No ads, fingerprinting or analytics cookies. Raw IPs are not saved.</p>
+      <div class="privacy-note__actions">
+        <button type="button" class="ghost-btn" data-privacy-choice="essential">ONLY ESSENTIAL</button>
+        <button type="button" class="primary-btn" data-privacy-choice="allow">ALLOW VISIT STATS</button>
+      </div>
+      <details class="privacy-note__details">
+        <summary>What is stored, and for how long?</summary>
+        <p>Game progress, personal stats and theme stay in this browser. Accounts store your email, username and Argon2id password hash. Public scores show your username only if you opt in. Optional analytics store coarse device, OS, country, page time and feature counts. Session detail lasts 30 days; daily summaries last 396 days. Raw IPs and full browser strings are discarded. GitHub Pages and Google Fonts handle ordinary requests and may process or log IP addresses. Country lookup uses <a href="https://db-ip.com/" rel="noopener noreferrer" target="_blank">DB-IP Lite data</a>. <a href="/privacy/">Full privacy notice</a>.</p>
+      </details>
+    </aside>
+
+    <footer class="footer account-footer">
+      <p>Built by Nikita Sharapa.</p><p class="footer-meta">PLAY / SHARAPA</p>
+      <nav class="footer-links" aria-label="Site information"><a href="/">GAME</a><a href="/scores/">HIGH SCORES</a><button type="button" data-privacy-settings>PRIVACY SETTINGS</button></nav>
+    </footer>
+    <script src="/js/analytics.js?v=accounts-1"></script>
+  </body>
+</html>

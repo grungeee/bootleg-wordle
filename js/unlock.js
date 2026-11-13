@@ -9,6 +9,7 @@
   const world = document.getElementById("unlocked-world");
   const lock = document.getElementById("lock-again");
   let pending = false, failures = 0, generation = 0;
+  let activeFrame = null;
   const pause = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   const decode = text => Uint8Array.from(atob(text), c => c.charCodeAt(0));
 
@@ -33,6 +34,7 @@
     button.disabled = false;
     gate.inert = false;
     document.body.classList.remove("portal-preparing", "portal-open", "portal-crossing");
+    activeFrame = null;
     world.replaceChildren();
     world.hidden = true;
     gate.hidden = false;
@@ -86,6 +88,7 @@
       frame.addEventListener("load", () => finishLoad(), { once: true });
       frame.srcdoc = html;
       html = "";
+      activeFrame = frame;
       document.body.classList.add("portal-preparing");
       world.replaceChildren(frame);
       world.hidden = false;
@@ -101,6 +104,7 @@
       gate.hidden = true;
       gate.inert = false;
       document.body.classList.remove("portal-preparing", "portal-crossing");
+      if (window.sharapaAnalytics) window.sharapaAnalytics.track("world_unlock");
       lock.focus();
     } catch (error) {
       if (attempt !== generation) return;
@@ -116,6 +120,11 @@
     lockWorld();
     status.textContent = "World locked. Enter the invitation code to open it again.";
     status.className = ""; input.focus();
+  });
+  window.addEventListener("message", event => {
+    if (!activeFrame || event.source !== activeFrame.contentWindow || event.origin !== "null") return;
+    if (event.data && event.data.type === "sharapa-world-sphere" && window.sharapaAnalytics)
+      window.sharapaAnalytics.track("world_sphere");
   });
   window.addEventListener("pagehide", lockWorld);
   window.addEventListener("pageshow", event => { if (event.persisted) lockWorld(); });

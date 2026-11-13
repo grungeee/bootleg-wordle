@@ -1,0 +1,41 @@
+[Unit]
+Description=SHARAPA portfolio API (accounts, scores, privacy-minimised analytics)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sharapa-api
+Group=sharapa-api
+WorkingDirectory=/opt/sharapa-api/app
+Environment="PYTHONUNBUFFERED=1"
+Environment="PYTHONDONTWRITEBYTECODE=1"
+EnvironmentFile=/etc/sharapa-api/api.env
+ExecStart=/opt/sharapa-api/venv/bin/uvicorn api.app:app \
+  --app-dir /opt/sharapa-api/app \
+  --host 127.0.0.1 --port 8760 \
+  --proxy-headers --forwarded-allow-ips 127.0.0.1 \
+  --no-server-header --no-date-header --timeout-keep-alive 30
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/sharapa-api
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+CapabilityBoundingSet=
+AmbientCapabilities=
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

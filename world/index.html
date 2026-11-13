@@ -7,10 +7,12 @@
     <meta name="theme-color" content="#7c76cc" />
     <title>SHARAPA - locked world</title>
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/css/lock.css?v=header-2" />
+    <link rel="stylesheet" href="/css/lock.css?v=analytics-1" />
     <link rel="stylesheet" href="/css/brand.css?v=header-2" />
-    <link rel="stylesheet" href="/css/portal.css?v=y2k-flow-2" />
-    <script src="/js/unlock.js?v=y2k-flow-2" defer></script>
+    <link rel="stylesheet" href="/css/portal.css?v=analytics-1" />
+    <link rel="stylesheet" href="/css/public-game.css?v=analytics-1" />
+    <script src="/js/analytics.js?v=analytics-1" defer></script>
+    <script src="/js/unlock.js?v=analytics-1" defer></script>
   </head>
   <body>
     <header class="lock-header">
@@ -54,6 +56,19 @@
         </p>
       </section>
     </main>
+    <button type="button" class="privacy-float" data-privacy-settings>PRIVACY SETTINGS</button>
+    <aside class="privacy-note" id="privacyNotice" role="region" aria-labelledby="privacyTitle" hidden>
+      <div class="privacy-note__heading"><span aria-hidden="true">✦</span><h2 id="privacyTitle">YOUR VISIT DATA, YOUR CHOICE</h2></div>
+      <p>Optional visit stats: device type, OS, country from your IP, page time and feature counts. No ads, fingerprinting or analytics cookies. Raw IPs are not saved.</p>
+      <div class="privacy-note__actions">
+        <button type="button" class="ghost-btn" data-privacy-choice="essential">ONLY ESSENTIAL</button>
+        <button type="button" class="primary-btn" data-privacy-choice="allow">ALLOW VISIT STATS</button>
+      </div>
+      <details class="privacy-note__details">
+        <summary>What is stored, and for how long?</summary>
+        <p>Game progress, personal stats and theme stay in this browser. Accounts store your email, username and Argon2id password hash. Public scores show your username only if you opt in. Optional analytics store coarse device, OS, country, page time and feature counts. Session detail lasts 30 days; daily summaries last 396 days. Raw IPs and full browser strings are discarded. GitHub Pages and Google Fonts handle ordinary requests and may process or log IP addresses. Country lookup uses <a href="https://db-ip.com/" rel="noopener noreferrer" target="_blank">DB-IP Lite data</a>. <a href="/privacy/">Full privacy notice</a>.</p>
+      </details>
+    </aside>
     <section
       id="unlocked-world"
       hidden
