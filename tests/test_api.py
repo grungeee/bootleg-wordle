@@ -50,6 +50,16 @@ class ApiTests(unittest.TestCase):
         self.assertNotIn("a sufficiently long test phrase", stored)
         self.assertTrue(stored.startswith("$argon2id$"))
 
+    def test_logout_clears_the_session_and_ends_access(self):
+        self.assertEqual(self.register().status_code, 201)
+        self.assertEqual(self.client.get("/api/v1/me").status_code, 200)
+        logout = self.client.post("/api/v1/logout", headers=ORIGIN)
+        self.assertEqual(logout.status_code, 204, logout.text)
+        cleared = logout.headers.get("set-cookie", "").lower()
+        self.assertIn("sharapa_session=", cleared)
+        self.assertIn("httponly", cleared)
+        self.assertEqual(self.client.get("/api/v1/me", headers=ORIGIN).status_code, 401)
+
     def test_login_and_duplicate_registration(self):
         self.assertEqual(self.register().status_code, 201)
         duplicate = self.register()

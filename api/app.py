@@ -409,7 +409,7 @@ async def set_leaderboard_visibility(request: Request):
 
 
 @app.post("/api/v1/logout", status_code=204)
-def logout(request: Request, response: Response):
+def logout(request: Request) -> Response:
     _require_origin(request)
     token = request.cookies.get(COOKIE_NAME, "")
     if token:
@@ -419,8 +419,11 @@ def logout(request: Request, response: Response):
             conn.commit()
         finally:
             conn.close()
-    response.delete_cookie(COOKIE_NAME, path="/", secure=True, httponly=True, samesite="lax")
-    return response
+    # Returning the injected Response leaves its status_code as None, which the
+    # ASGI server rejects with an empty reply; build the response explicitly.
+    out = Response(status_code=204)
+    out.delete_cookie(COOKIE_NAME, path="/", secure=True, httponly=True, samesite="lax")
+    return out
 
 
 @app.post("/api/v1/account/delete")
