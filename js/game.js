@@ -7,11 +7,13 @@
   const ALLOWED_SET = new Set(ALLOWED);
   const STORAGE_KEY = 'sharapa.wordle.v1';
   const SPLASH_KEY = 'sharapa.wordle.splash';
+  const THEME_KEY = 'sharapa.wordle.theme';
 
   const boardEl = document.getElementById('board');
   const keyboardEl = document.getElementById('keyboard');
   const toastEl = document.getElementById('toast');
   const modeChip = document.getElementById('modeChip');
+  const themeBtn = document.getElementById('themeBtn');
   const helpDialog = document.getElementById('dialog-help');
   const statsDialog = document.getElementById('dialog-stats');
   const resultDialog = document.getElementById('dialog-result');
@@ -55,6 +57,24 @@
 
   let store = loadStore();
   store.stats = Object.assign(defaultStats(), store.stats || {});
+
+  // ------------------------------------------------------------- optional theme
+
+  function applyTheme(theme) {
+    const cream = theme === 'cream';
+    document.body.classList.toggle('theme-cream', cream);
+    if (themeBtn) {
+      themeBtn.textContent = cream ? 'LAVENDER' : 'CREAM';
+      themeBtn.setAttribute('aria-pressed', String(cream));
+      themeBtn.setAttribute('aria-label', cream ? 'Switch to lavender theme' : 'Switch to cream theme');
+    }
+  }
+
+  function toggleTheme() {
+    const next = document.body.classList.contains('theme-cream') ? 'lavender' : 'cream';
+    try { localStorage.setItem(THEME_KEY, next); } catch (err) { /* optional preference */ }
+    applyTheme(next);
+  }
 
   // ------------------------------------------------------------- game start
 
@@ -507,6 +527,11 @@
     // and assistive-technology activation (event.detail === 0) keeps its focus.
     if (event.detail > 0) button.blur();
   });
+
+  let savedTheme = 'lavender';
+  try { savedTheme = localStorage.getItem(THEME_KEY) || 'lavender'; } catch (err) { /* optional preference */ }
+  applyTheme(savedTheme);
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
 
   document.getElementById('helpBtn').addEventListener('click', openHelp);
   document.getElementById('statsBtn').addEventListener('click', openStats);

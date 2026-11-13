@@ -33,6 +33,8 @@ test("both public game routes contain the same working game structure", () => {
     assert.match(text, /href="\/world\/"/);
     assert.match(text, /\/js\/game.js/);
     assert.match(text, /\/css\/style.css/);
+    assert.match(text, /id="themeBtn"/);
+    assert.match(read("css/style.css"), /theme-cream/);
   }
 });
 
@@ -159,4 +161,16 @@ test("unlock transition guards asynchronous completion and waits for frame load"
   assert.match(source, /gate\.inert = true/);
   assert.match(source, /classList\.remove\("portal-preparing", "portal-open", "portal-crossing"\)/);
   assert.doesNotMatch(source, /eval\(|innerHTML\s*=/);
+});
+
+
+test("cream theme keeps dark brown keys and pastel absent letters", () => {
+  const css = read("css/style.css");
+  const js = read("js/game.js");
+  assert.match(css, /body\.theme-cream/);
+  assert.match(css, /--tile: #4a2b20/);
+  assert.match(css, /--absent: #e8bfa9/);
+  assert.match(js, /THEME_KEY/);
+  assert.match(js, /theme-cream/);
+  assert.match(js, /applyTheme/);
 });

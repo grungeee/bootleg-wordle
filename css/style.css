@@ -157,6 +157,43 @@ button {
   letter-spacing: 0;
 }
 
+
+/* Optional cream theme: the board stays neo-brutalist, only the material changes. */
+body.theme-cream {
+  --purple: #efe4d2;
+  --purple-deep: #e2d3bd;
+  --ink: #24140e;
+  --panel: #332019;
+  --tile: #4a2b20;
+  --tile-empty: #3c2118;
+  --absent: #e8bfa9;
+  --green: #b8e7c5;
+  --yellow: #f4dda0;
+  --coral: #df8668;
+  --coral-soft: #efac8e;
+  --paper: #fff6e9;
+  --muted: #b98774;
+}
+
+body.theme-cream .tile[data-state='absent'] {
+  color: #3a2019;
+}
+
+body.theme-cream .theme-toggle {
+  background: #4a2b20;
+  color: #fff6e9;
+}
+
+body.theme-cream .bonus-level {
+  background: #dfc3a6;
+}
+
+body.theme-cream .hint,
+body.theme-cream .footer,
+body.theme-cream .chip {
+  color: #5d392b;
+}
+
 /* ---------------------------------------------------------------- game */
 
 .game {
