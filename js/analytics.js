@@ -14,6 +14,8 @@
   let timer = 0;
   let pendingSeconds = 0;
   let active = false;
+  // One page_view per page load, even if the visitor withdraws and re-consents.
+  let announced = false;
 
   function makeId() {
     if (window.crypto && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
@@ -58,7 +60,10 @@
       sessionId = makeId();
       try { sessionStorage.setItem(SESSION_KEY, sessionId); } catch (_) { /* memory-only this page */ }
     }
-    send('page_view');
+    if (!announced) {
+      announced = true;
+      send('page_view');
+    }
     timer = window.setInterval(() => {
       if (document.visibilityState !== 'visible') return;
       pendingSeconds += 1;

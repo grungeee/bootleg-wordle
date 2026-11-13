@@ -20,17 +20,33 @@
 
   async function request(path, options = {}) {
     const headers = { Accept: 'application/json', ...(options.body ? { 'Content-Type': 'application/json' } : {}) };
-    const response = await fetch(API + path, {
-      mode: 'cors',
-      credentials: 'include',
-      ...options,
-      headers: { ...headers, ...(options.headers || {}) },
-    });
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 12000);
+    let response;
+    try {
+      response = await fetch(API + path, {
+        mode: 'cors',
+        credentials: 'include',
+        signal: controller.signal,
+        ...options,
+        headers: { ...headers, ...(options.headers || {}) },
+      });
+    } finally {
+      clearTimeout(timer);
+    }
     let body = null;
     if (response.status !== 204) {
       try { body = await response.json(); } catch (_) { body = null; }
     }
-    if (!response.ok) throw new Error((body && body.detail) || `Score service returned ${response.status}.`);
+    if (!response.ok) {
+      const detail = body && body.detail;
+      const message = typeof detail === 'string' ? detail
+        : Array.isArray(detail) && detail.length ? 'Please check the values and try again.'
+          : `Score service returned ${response.status}.`;
+      const error = new Error(message);
+      error.status = response.status;
+      throw error;
+    }
     return body;
   }
 
@@ -56,12 +72,12 @@
       setStatus(accountStatus, 'Signed in. Your username is private until you opt in.', 'ok');
     } catch (error) {
       showSignedOut();
-      if (error.message === 'Failed to fetch' || error instanceof TypeError) {
-        setStatus(accountStatus, 'The score service is not reachable yet. You can still play without an account.', 'error');
-      } else if (!error.message.includes('401')) {
-        setStatus(accountStatus, error.message, 'error');
-      } else {
+      if (error.status === 401) {
         setStatus(accountStatus, 'Create an account or sign in. No confirmation email is sent.', '');
+      } else if (error instanceof TypeError || error.name === 'AbortError') {
+        setStatus(accountStatus, 'The score service is not reachable yet. You can still play without an account.', 'error');
+      } else {
+        setStatus(accountStatus, error.message, 'error');
       }
     }
   }
@@ -158,7 +174,12 @@
         : 'Your leaderboard profile is private.', 'ok');
       await loadLeaderboard();
     } catch (error) {
-      setStatus(accountStatus, error.message, 'error');
+      if (error.status === 401) {
+        showSignedOut();
+        setStatus(accountStatus, 'Your session ended. Sign in again to save this setting.', 'error');
+      } else {
+        setStatus(accountStatus, error.message, 'error');
+      }
     } finally {
       button.disabled = false;
     }
@@ -170,7 +191,12 @@
       showSignedOut();
       setStatus(accountStatus, 'Signed out.', 'ok');
     } catch (error) {
-      setStatus(accountStatus, error.message, 'error');
+      if (error.status === 401) {
+        showSignedOut();
+        setStatus(accountStatus, 'You were already signed out.', 'ok');
+      } else {
+        setStatus(accountStatus, error.message, 'error');
+      }
     }
   });
 
@@ -189,7 +215,12 @@
       setStatus(accountStatus, 'Account and scores deleted.', 'ok');
       await loadLeaderboard();
     } catch (error) {
-      setStatus(accountStatus, error.message, 'error');
+      if (error.status === 401) {
+        showSignedOut();
+        setStatus(accountStatus, 'Your session ended. Sign in again to delete the account.', 'error');
+      } else {
+        setStatus(accountStatus, error.message, 'error');
+      }
     } finally {
       button.disabled = false;
     }

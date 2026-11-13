@@ -624,11 +624,15 @@
 
   function splash() {
     const el = document.getElementById('splash');
-    if (!el || sessionStorage.getItem(SPLASH_KEY) || reduceMotion()) {
+    let seen = false;
+    try { seen = sessionStorage.getItem(SPLASH_KEY) === '1'; } catch (err) { seen = false; }
+    if (!el || seen || reduceMotion()) {
       if (el) el.remove();
       return;
     }
-    sessionStorage.setItem(SPLASH_KEY, '1');
+    // Storage can throw in locked-down profiles; a splash that fails to record
+    // itself must still be removed, or it covers the board and the consent card.
+    try { sessionStorage.setItem(SPLASH_KEY, '1'); } catch (err) { /* optional */ }
     const done = () => {
       el.classList.add('splash--out');
       setTimeout(() => el.remove(), 260);

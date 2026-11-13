@@ -29,6 +29,9 @@ ORIGINS = tuple(x.strip() for x in os.environ.get(
     "SHARAPA_ALLOWED_ORIGINS", "https://www.sharapa.io,https://sharapa.io"
 ).split(",") if x.strip())
 ANALYTICS_HMAC_KEY = os.environ.get("SHARAPA_ANALYTICS_HMAC_KEY", secrets.token_hex(32)).encode()
+# Rate limiting and analytics use deliberately separate keys, so a leak of one
+# cannot be used to confirm the other's digests.
+RATE_LIMIT_KEY = hmac.new(ANALYTICS_HMAC_KEY, b"rate-limit-v1", hashlib.sha256).digest()
 SESSION_DAYS = 30
 ANALYTICS_SESSION_DAYS = 30
 ANALYTICS_AGGREGATE_DAYS = 396
@@ -94,7 +97,9 @@ def init_db() -> None:
         pass
     conn = connect_db()
     try:
-        conn.execute("PRAGMA journal_mode = DELETE")
+        # WAL keeps readers running while a writer commits; DELETE mode blocks them.
+        conn.execute("PRAGMA journal_mode = WAL")
+        conn.execute("PRAGMA synchronous = NORMAL")
         conn.executescript(
             """
             CREATE TABLE IF NOT EXISTS users (
@@ -114,6 +119,7 @@ def init_db() -> None:
                 created_at TEXT NOT NULL
             );
             CREATE INDEX IF NOT EXISTS auth_sessions_user ON auth_sessions(user_id);
+            CREATE INDEX IF NOT EXISTS auth_sessions_expires ON auth_sessions(expires_at);
             CREATE TABLE IF NOT EXISTS scores (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -180,6 +186,7 @@ def purge_expired_analytics() -> None:
     try:
         conn.execute("DELETE FROM analytics_sessions WHERE day < date('now','-30 day')")
         conn.execute("DELETE FROM analytics_daily WHERE day < date('now','-396 day')")
+        conn.execute("DELETE FROM auth_sessions WHERE expires_at < ?", (int(time.time()),))
         conn.commit()
     finally:
         conn.close()
@@ -187,7 +194,7 @@ def purge_expired_analytics() -> None:
 
 async def _analytics_cleanup_loop() -> None:
     while True:
-        await asyncio.sleep(86_400)
+        await asyncio.sleep(3_600)
         try:
             purge_expired_analytics()
         except Exception:
@@ -227,7 +234,7 @@ def _require_origin(request: Request) -> None:
 
 def _rate_limit(request: Request, bucket: str, maximum: int, window: int) -> None:
     host = request.client.host if request.client else "unknown"
-    digest = hmac.new(ANALYTICS_HMAC_KEY, host.encode("utf-8", "ignore"), hashlib.sha256).hexdigest()
+    digest = hmac.new(RATE_LIMIT_KEY, host.encode("utf-8", "ignore"), hashlib.sha256).hexdigest()
     key = (bucket, digest)
     now = time.monotonic()
     attempts = LOGIN_ATTEMPTS[key]
@@ -429,6 +436,7 @@ def logout(request: Request) -> Response:
 @app.post("/api/v1/account/delete")
 async def delete_account(request: Request, response: Response):
     _require_origin(request)
+    _rate_limit(request, "account-delete", 5, 3_600)
     data = await _read_json(request)
     password = _body_string(data, "password", 128)
     conn = connect_db()
@@ -456,7 +464,9 @@ async def save_score(request: Request, response: Response):
     except ValueError:
         raise HTTPException(status_code=422, detail="Invalid game date.")
     today = datetime.now(timezone.utc).date()
-    if score_day < today - timedelta(days=7) or score_day > today + timedelta(days=1):
+    # Yesterday absorbs timezone skew; nothing older, so a new account cannot
+    # backfill a week of wins on day one.
+    if score_day < today - timedelta(days=1) or score_day > today:
         raise HTTPException(status_code=422, detail="That game date is outside the accepted range.")
     guesses = data.get("guesses")
     won = data.get("won")
@@ -552,7 +562,7 @@ def _increment(mapping: dict[str, int], key: str, amount: int = 1) -> None:
 @app.post("/api/v1/analytics", status_code=204)
 async def record_analytics(request: Request):
     _require_origin(request)
-    _rate_limit(request, "analytics", 240, 3_600)
+    _rate_limit(request, "analytics", 900, 3_600)
     data = await _read_json(request)
     if data.get("consent") is not True:
         raise HTTPException(status_code=403, detail="Analytics consent is required.")
@@ -584,8 +594,6 @@ async def record_analytics(request: Request):
     conn = connect_db()
     try:
         conn.execute("BEGIN IMMEDIATE")
-        conn.execute("DELETE FROM analytics_sessions WHERE day < date('now','-30 day')")
-        conn.execute("DELETE FROM analytics_daily WHERE day < date('now','-396 day')")
         row = conn.execute(
             "SELECT page_views,seconds,explorations,pages_json,durations_json,features_json "
             "FROM analytics_sessions WHERE session_key=? AND day=?", (session_key, day)

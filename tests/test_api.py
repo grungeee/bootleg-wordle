@@ -50,6 +50,16 @@ class ApiTests(unittest.TestCase):
         self.assertNotIn("a sufficiently long test phrase", stored)
         self.assertTrue(stored.startswith("$argon2id$"))
 
+    def test_score_date_window_rejects_backfill_and_future_days(self):
+        from datetime import timedelta
+        self.assertEqual(self.register().status_code, 201)
+        today = datetime.now(timezone.utc).date()
+        for offset, expected in ((-1, 200), (-2, 422), (1, 422)):
+            response = self.client.post("/api/v1/scores", headers=ORIGIN, json={
+                "day": (today + timedelta(days=offset)).isoformat(), "guesses": 2, "won": True,
+            })
+            self.assertEqual(response.status_code, expected, f"offset {offset}: {response.text}")
+
     def test_logout_clears_the_session_and_ends_access(self):
         self.assertEqual(self.register().status_code, 201)
         self.assertEqual(self.client.get("/api/v1/me").status_code, 200)
