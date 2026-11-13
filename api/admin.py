@@ -1,13 +1,15 @@
 """Private read-only dashboard. Run bound to the server's Tailscale address."""
 from __future__ import annotations
 
+import hmac
 import ipaddress
 import json
+import os
 import sqlite3
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse, Response
 
 from .app import DB_PATH
 
@@ -17,6 +19,8 @@ TAILSCALE_NETWORKS = (
     ipaddress.ip_network("fd7a:115c:a1e0::/48"),
 )
 ADMIN_HTML = Path(__file__).with_name("admin.html")
+ADMIN_TOKEN = os.environ.get("SHARAPA_ADMIN_TOKEN", "").strip()
+ADMIN_COOKIE = "sharapa_admin"
 
 
 def _require_tailnet(request: Request) -> None:
@@ -27,6 +31,21 @@ def _require_tailnet(request: Request) -> None:
         raise HTTPException(status_code=403, detail="Tailscale access only.")
     if not any(address in network for network in TAILSCALE_NETWORKS):
         raise HTTPException(status_code=403, detail="Tailscale access only.")
+
+
+def _presented_token(request: Request) -> str:
+    header = request.headers.get("authorization", "")
+    if header.lower().startswith("bearer "):
+        return header[7:].strip()
+    return request.cookies.get(ADMIN_COOKIE, "")
+
+
+def _require_token(request: Request) -> None:
+    """The tailnet is a network boundary, not an identity: ask for the token too."""
+    if len(ADMIN_TOKEN) < 24:
+        raise HTTPException(status_code=503, detail="Admin token is not configured.")
+    if not hmac.compare_digest(_presented_token(request), ADMIN_TOKEN):
+        raise HTTPException(status_code=401, detail="Admin token required.")
 
 
 def _read_db() -> sqlite3.Connection:
@@ -49,14 +68,25 @@ async def no_cache(request: Request, call_next):
 
 
 @app.get("/")
-def admin_home(request: Request):
+def admin_home(request: Request, token: str = ""):
     _require_tailnet(request)
+    if token:
+        if len(ADMIN_TOKEN) < 24:
+            raise HTTPException(status_code=503, detail="Admin token is not configured.")
+        if not hmac.compare_digest(token, ADMIN_TOKEN):
+            raise HTTPException(status_code=401, detail="Admin token required.")
+        out = RedirectResponse("/", status_code=303)
+        out.set_cookie(ADMIN_COOKIE, ADMIN_TOKEN, max_age=8 * 3600, httponly=True,
+                       samesite="strict", secure=False, path="/")
+        return out
+    _require_token(request)
     return FileResponse(ADMIN_HTML, media_type="text/html; charset=utf-8")
 
 
 @app.get("/api/overview")
 def overview(request: Request):
     _require_tailnet(request)
+    _require_token(request)
     conn = _read_db()
     try:
         totals = {

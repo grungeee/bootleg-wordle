@@ -28,7 +28,15 @@ GEOIP_PATH = Path(os.environ.get("SHARAPA_GEOIP_DATABASE", "/var/lib/sharapa-api
 ORIGINS = tuple(x.strip() for x in os.environ.get(
     "SHARAPA_ALLOWED_ORIGINS", "https://www.sharapa.io,https://sharapa.io"
 ).split(",") if x.strip())
-ANALYTICS_HMAC_KEY = os.environ.get("SHARAPA_ANALYTICS_HMAC_KEY", secrets.token_hex(32)).encode()
+# The key must come from the environment. A silent per-process fallback would
+# invalidate every stored analytics digest on each restart, so refuse to start.
+_HMAC_ENV = os.environ.get("SHARAPA_ANALYTICS_HMAC_KEY", "").strip()
+if len(_HMAC_ENV) < 32:
+    raise RuntimeError(
+        "SHARAPA_ANALYTICS_HMAC_KEY must be set to at least 32 characters; "
+        "generate one with deploy/generate-secrets.sh"
+    )
+ANALYTICS_HMAC_KEY = _HMAC_ENV.encode()
 # Rate limiting and analytics use deliberately separate keys, so a leak of one
 # cannot be used to confirm the other's digests.
 RATE_LIMIT_KEY = hmac.new(ANALYTICS_HMAC_KEY, b"rate-limit-v1", hashlib.sha256).digest()

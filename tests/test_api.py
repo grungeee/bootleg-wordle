@@ -1,4 +1,5 @@
 import json
+import os
 import tempfile
 import unittest
 from contextlib import closing
@@ -6,6 +7,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from fastapi.testclient import TestClient
+
+# The API refuses to start without a key; tests supply a fixed throwaway one.
+os.environ.setdefault("SHARAPA_ANALYTICS_HMAC_KEY", "test-only-key-" + "0" * 48)
 
 from api import app as api
 

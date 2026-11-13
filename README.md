@@ -106,6 +106,19 @@ sudo systemctl restart sharapa-api
 
 Without the file the API records `ZZ` and never fails.
 
+### Admin dashboard
+
+`api/admin.py` is a read-only dashboard for account, score and visit totals. It
+refuses any client outside the Tailscale ranges, and additionally requires
+`SHARAPA_ADMIN_TOKEN` (written by `deploy/generate-secrets.sh`) as either
+`?token=...` on first open, which then sets a session cookie, or an
+`Authorization: Bearer ...` header. It is not exposed publicly and has no
+systemd unit; run it bound to the Tailscale address when it is needed:
+
+```bash
+SHARAPA_ADMIN_TOKEN=... /opt/sharapa-api/venv/bin/python -m uvicorn api.admin:app --host 100.89.206.81 --port 8790
+```
+
 ### Operating
 
 ```bash
@@ -115,6 +128,6 @@ curl -fsS https://api.sharapa.io/api/v1/healthz
 ```
 
 Tests: `npm test` for the static site, and
-`/opt/sharapa-api/venv/bin/python -m unittest discover -s tests -p 'test_api.py'`
+`/opt/sharapa-api/venv/bin/python -m unittest discover -s tests -p 'test_*.py'`
 from the repository root for the API (the venv has the runtime dependencies; the
 system interpreter does not).
