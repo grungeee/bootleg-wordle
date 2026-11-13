@@ -104,8 +104,10 @@ fi
 echo "api healthy on 127.0.0.1:8760"
 
 echo
-PUBLIC_IP="$(curl -fsS -m 5 https://api.ipify.org || true)"
-PUBLIC_IP6="$(curl -fsS -m 5 https://api64.ipify.org || true)"
+# Read the addresses off the interface, not an external echo service: outbound
+# HTTPS to those services is blocked on this host, which used to hang the script.
+PUBLIC_IP="$(ip -4 -brief addr show scope global | awk '$2!="tailscale0"{print $3}' | cut -d/ -f1 | head -1)"
+PUBLIC_IP6="$(ip -6 -brief addr show scope global | awk '$2!="tailscale0"{print $3}' | cut -d/ -f1 | head -1)"
 RESOLVED="$(getent ahostsv4 "$DOMAIN" | awk 'NR==1{print $1}')"
 echo "this host IPv4: ${PUBLIC_IP:-unknown}"
 echo "this host IPv6: ${PUBLIC_IP6:-unknown}"
