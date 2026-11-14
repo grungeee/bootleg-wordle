@@ -69,9 +69,9 @@
     const cream = theme === 'cream';
     document.body.classList.toggle('theme-cream', cream);
     if (themeBtn) {
-      themeBtn.textContent = cream ? 'LAVENDER' : 'CREAM';
+      themeBtn.textContent = cream ? 'EVA-01' : 'CREAM';
       themeBtn.setAttribute('aria-pressed', String(cream));
-      themeBtn.setAttribute('aria-label', cream ? 'Switch to lavender theme' : 'Switch to cream theme');
+      themeBtn.setAttribute('aria-label', cream ? 'Switch to EVA-01 theme' : 'Switch to cream theme');
     }
   }
 

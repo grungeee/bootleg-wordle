@@ -258,7 +258,7 @@ test("tiles close before they colour in, then the row bounces", () => {
   for (const page of ["index.html", "play/index.html"]) {
     const html = read(page);
     assert.match(html, /style\.css\?v=win-1/);
-    assert.match(html, /game\.js\?v=win-1/);
+    assert.match(html, /game\.js\?v=win-2/);
   }
 });
 
@@ -306,4 +306,13 @@ test("the how-to-play panel is darker than the default dialog", () => {
   assert.match(css, /:root\s*\{[^}]*--panel-deep:\s*#17161f/s);
   assert.match(css, /body\.theme-cream\s*\{[^}]*--panel-deep:\s*#241610/s);
   assert.match(css, /#dialog-help\s*\{\s*background:\s*var\(--panel-deep\)/);
+});
+
+test("the lavender theme is called EVA-01", () => {
+  const game = read("js/game.js");
+  assert.match(game, /themeBtn\.textContent = cream \? 'EVA-01' : 'CREAM';/);
+  assert.match(game, /Switch to EVA-01 theme/);
+  assert.doesNotMatch(game, /'LAVENDER'/);
+  // The stored preference key stays "lavender" so saved themes keep working.
+  assert.match(game, /localStorage\.getItem\(THEME_KEY\) \|\| 'lavender'/);
 });
