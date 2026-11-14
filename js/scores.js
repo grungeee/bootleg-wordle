@@ -10,6 +10,7 @@
   const rows = document.getElementById('leaderboardRows');
   const publicToggle = document.getElementById('publicToggle');
   const periodSelect = document.getElementById('periodSelect');
+  const registerForm = document.getElementById('registerForm');
 
   function setStatus(element, text, state) {
     if (!element) return;
@@ -135,9 +136,31 @@
       form.reset();
       await loadLeaderboard();
     } catch (error) {
-      setStatus(accountStatus, error instanceof TypeError
-        ? 'The score service is not reachable yet. Your game remains available.'
-        : error.message, 'error');
+      if (endpoint.endsWith('/login') && error.status === 401) {
+        const identifier = String(new FormData(form).get('login') || '').trim();
+        const email = registerForm.elements.email;
+        const username = registerForm.elements.username;
+        const password = form.elements.password;
+        if (identifier.includes('@')) {
+          if (!email.value) email.value = identifier;
+        } else if (!username.value) {
+          username.value = identifier;
+        }
+        password.value = '';
+        const target = !email.value ? email : !username.value ? username : registerForm.elements.password;
+        setStatus(accountStatus,
+          'We could not sign you in. If you are new, enter your email, username and password below to create an account. Password recovery is not available yet.',
+          'error');
+        registerForm.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'center',
+        });
+        target.focus({ preventScroll: true });
+      } else {
+        setStatus(accountStatus, error instanceof TypeError
+          ? 'The score service is not reachable yet. Your game remains available.'
+          : error.message, 'error');
+      }
     } finally {
       button.disabled = false;
     }

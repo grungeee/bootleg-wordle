@@ -195,6 +195,8 @@
     }
     const step = 220;
     const gap = 150;
+    const revealDuration = (WORD_LENGTH - 1) * step + gap + 180;
+    const bounceDuration = 260;
     tiles.forEach((tile, i) => {
       setTimeout(() => tile.classList.add('flip-out'), i * step);
       setTimeout(() => {
@@ -204,7 +206,8 @@
       }, i * step + gap);
       setTimeout(() => tile.classList.remove('flip-in'), i * step + gap + 260);
     });
-    return new Promise(resolve => setTimeout(resolve, (WORD_LENGTH - 1) * step + gap + 300));
+    setTimeout(() => row.classList.add('row--bounce'), revealDuration);
+    return new Promise(resolve => setTimeout(resolve, revealDuration + bounceDuration));
   }
 
   // --------------------------------------------------------------- keyboard

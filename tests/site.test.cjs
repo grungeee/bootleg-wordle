@@ -211,8 +211,31 @@ test("player hub uses optional registration and public scores are opt-in", () =>
   assert.match(html, /id="registerForm"/);
   assert.match(html, /id="loginForm"/);
   assert.match(html, /No confirmation email is required or sent/);
+  assert.match(html, /scores\.js\?v=accounts-2/);
   assert.match(html, /leaderboard_public/);
   assert.match(html, /id="deleteForm"/);
   assert.match(read("js/scores.js"), /credentials: 'include'/);
   assert.match(read("api/app.py"), /@app\.post\("\/api\/v1\/account\/leaderboard"\)/);
+});
+
+test("failed sign-in directs new players to email, username and password registration", () => {
+  const source = read("js/scores.js");
+  assert.match(source, /endpoint\.endsWith\('\/login'\) && error\.status === 401/);
+  assert.match(source, /registerForm\.elements\.email/);
+  assert.match(source, /registerForm\.elements\.username/);
+  assert.match(source, /Password recovery is not available yet/);
+});
+
+test("guess tiles reveal first and the row bounces after the final letter", () => {
+  const css = read("css/style.css");
+  const game = read("js/game.js");
+  assert.match(css, /\.tile\.flip-in\s*\{\s*animation:\s*tile-reveal/);
+  assert.match(css, /\.row--bounce\s+\.tile\s*\{\s*animation:\s*tile-pop/);
+  assert.match(game, /row\.classList\.add\('row--bounce'\), revealDuration\)/);
+  assert.match(game, /setTimeout\(resolve, revealDuration \+ bounceDuration\)/);
+  for (const page of ["index.html", "play/index.html"]) {
+    const html = read(page);
+    assert.match(html, /style\.css\?v=reveal-bounce-1/);
+    assert.match(html, /game\.js\?v=reveal-bounce-1/);
+  }
 });
