@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/style.css?v=accounts-1" />
     <link rel="stylesheet" href="/css/public-game.css?v=accounts-1" />
     <link rel="stylesheet" href="/css/brand.css?v=cream-1" />
-    <link rel="stylesheet" href="/css/account.css?v=accounts-1" />
+    <link rel="stylesheet" href="/css/account.css?v=accounts-3" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to player hub</a>
@@ -43,10 +43,26 @@
           <span class="panel-stamp" aria-hidden="true">01 / PLAY</span>
         </div>
         <p id="accountStatus" class="service-status" role="status" aria-live="polite">Connecting to the score service...</p>
+        <button type="button" class="secondary-btn retry-btn" id="retryService" hidden>RETRY CONNECTION</button>
 
         <div class="auth-grid" id="authForms">
-          <form class="form-card" id="registerForm">
-            <h3>CREATE ACCOUNT</h3>
+          <form class="form-card" id="loginForm" aria-labelledby="loginTitle">
+            <h3 id="loginTitle">WELCOME BACK</h3>
+            <label>Email or username
+              <input name="login" type="text" autocomplete="username" maxlength="254" required />
+            </label>
+            <label>Password
+              <input name="password" type="password" autocomplete="current-password" maxlength="128" required />
+            </label>
+            <p class="form-hint">Your session is kept in a secure, HttpOnly cookie for up to 30 days.</p>
+            <button class="primary-btn" type="submit">SIGN IN</button>
+            <p class="form-switch">New here?
+              <button class="link-btn" type="button" data-auth-switch="register">Create an account</button>
+            </p>
+          </form>
+
+          <form class="form-card" id="registerForm" aria-labelledby="registerTitle" hidden>
+            <h3 id="registerTitle">CREATE ACCOUNT</h3>
             <label>Email
               <input name="email" type="email" autocomplete="email" maxlength="254" required />
             </label>
@@ -56,24 +72,15 @@
             <label>Password
               <input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required />
             </label>
-            <p class="form-hint">Use at least 12 characters. Password recovery is not available yet.</p>
+            <p class="form-hint">Use at least 12 characters. No confirmation email is sent.</p>
             <label class="check-row">
               <input name="leaderboard_public" type="checkbox" />
               <span>Allow my username and scores to appear on the public leaderboard. Off by default.</span>
             </label>
             <button class="primary-btn" type="submit">CREATE PLAYER ACCOUNT</button>
-          </form>
-
-          <form class="form-card" id="loginForm">
-            <h3>WELCOME BACK</h3>
-            <label>Email or username
-              <input name="login" type="text" autocomplete="username" maxlength="254" required />
-            </label>
-            <label>Password
-              <input name="password" type="password" autocomplete="current-password" maxlength="128" required />
-            </label>
-            <p class="form-hint">Your session is kept in a secure, HttpOnly cookie for up to 30 days.</p>
-            <button class="primary-btn" type="submit">SIGN IN</button>
+            <p class="form-switch">Already have an account?
+              <button class="link-btn" type="button" data-auth-switch="login">Sign in</button>
+            </p>
           </form>
         </div>
 
@@ -151,6 +158,6 @@
     </footer>
 
     <script src="/js/analytics.js?v=accounts-1"></script>
-    <script src="/js/scores.js?v=accounts-2"></script>
+    <script src="/js/scores.js?v=accounts-3"></script>
   </body>
 </html>

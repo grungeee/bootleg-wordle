@@ -115,8 +115,9 @@
 .service-status[data-state="ok"] { color: #176b31; }
 .auth-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
+  max-width: 34rem;
 }
 .form-card {
   display: grid;
@@ -224,6 +225,44 @@
 }
 .signed-in[hidden],
 .auth-grid[hidden] { display: none; }
+.form-card[hidden] { display: none; }
+.form-switch {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #4b449c;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.link-btn:hover { color: var(--ink); }
+.link-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.retry-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.4rem;
+  margin: 0 0 1rem;
+  padding: 0.45rem 0.8rem;
+  border: 3px solid #000;
+  border-radius: 0;
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 #000;
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.retry-btn[hidden] { display: none; }
+.retry-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
 .signed-in h3 span { color: #5b54ad; overflow-wrap: anywhere; }
 .account-email { font-size: 0.82rem; }
 .check-row--profile { margin: 1rem 0; }

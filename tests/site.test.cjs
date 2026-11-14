@@ -211,19 +211,32 @@ test("player hub uses optional registration and public scores are opt-in", () =>
   assert.match(html, /id="registerForm"/);
   assert.match(html, /id="loginForm"/);
   assert.match(html, /No confirmation email is required or sent/);
-  assert.match(html, /scores\.js\?v=accounts-2/);
+  assert.match(html, /scores\.js\?v=accounts-3/);
   assert.match(html, /leaderboard_public/);
   assert.match(html, /id="deleteForm"/);
   assert.match(read("js/scores.js"), /credentials: 'include'/);
   assert.match(read("api/app.py"), /@app\.post\("\/api\/v1\/account\/leaderboard"\)/);
 });
 
-test("failed sign-in directs new players to email, username and password registration", () => {
+test("sign-in and registration share one card instead of stacking two", () => {
+  const html = read("scores/index.html");
   const source = read("js/scores.js");
+  const css = read("css/account.css");
+  const login = html.slice(html.indexOf('id="loginForm"'), html.indexOf('id="registerForm"'));
+  const register = html.slice(html.indexOf('id="registerForm"'), html.indexOf('id="accountPanel"'));
+  assert.doesNotMatch(login, /\shidden[\s>]/, "the sign-in card is the default view");
+  assert.match(register, /id="registerForm"[^>]*hidden|hidden[^>]*id="registerForm"/,
+    "the registration card starts hidden");
+  assert.match(html, /data-auth-switch="register"/);
+  assert.match(html, /data-auth-switch="login"/);
+  assert.match(css, /\.auth-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s);
+  assert.match(css, /\.form-card\[hidden\]\s*\{\s*display:\s*none/);
+  assert.match(source, /function showAuth\(view\)/);
+  assert.match(source, /loginForm\.hidden = register/);
+  assert.match(source, /registerForm\.hidden = !register/);
   assert.match(source, /endpoint\.endsWith\('\/login'\) && error\.status === 401/);
-  assert.match(source, /registerForm\.elements\.email/);
-  assert.match(source, /registerForm\.elements\.username/);
-  assert.match(source, /Password recovery is not available yet/);
+  assert.match(source, /showAuth\('register'\)/);
+  assert.doesNotMatch(source, /scrollIntoView/);
 });
 
 test("guess tiles reveal first and the row bounces after the final letter", () => {

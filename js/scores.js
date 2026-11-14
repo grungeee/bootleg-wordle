@@ -10,7 +10,9 @@
   const rows = document.getElementById('leaderboardRows');
   const publicToggle = document.getElementById('publicToggle');
   const periodSelect = document.getElementById('periodSelect');
+  const loginForm = document.getElementById('loginForm');
   const registerForm = document.getElementById('registerForm');
+  const retryService = document.getElementById('retryService');
 
   function setStatus(element, text, state) {
     if (!element) return;
@@ -54,6 +56,7 @@
   function showAccount(user) {
     authForms.hidden = true;
     accountPanel.hidden = false;
+    retryService.hidden = true;
     document.getElementById('accountUsername').textContent = '@' + user.username;
     document.getElementById('accountEmail').textContent = user.email;
     publicToggle.checked = Boolean(user.leaderboard_public);
@@ -66,6 +69,17 @@
     try { localStorage.removeItem(SIGNED_IN_KEY); } catch (_) { /* optional */ }
   }
 
+  // One card at a time: the sign-in form is the default view, and the failed
+  // sign-in path swaps this same card to account creation instead of stacking both.
+  function showAuth(view) {
+    const register = view === 'register';
+    loginForm.hidden = register;
+    registerForm.hidden = !register;
+    const form = register ? registerForm : loginForm;
+    const first = register ? form.elements.email : form.elements.login;
+    if (first) first.focus({ preventScroll: true });
+  }
+
   async function loadAccount() {
     try {
       const result = await request('/me');
@@ -75,10 +89,13 @@
       showSignedOut();
       if (error.status === 401) {
         setStatus(accountStatus, 'Create an account or sign in. No confirmation email is sent.', '');
+        retryService.hidden = true;
       } else if (error instanceof TypeError || error.name === 'AbortError') {
-        setStatus(accountStatus, 'The score service is not reachable yet. You can still play without an account.', 'error');
+        setStatus(accountStatus, 'The account service cannot be reached right now. Sign-in and scores are paused; the game still works.', 'error');
+        retryService.hidden = false;
       } else {
         setStatus(accountStatus, error.message, 'error');
+        retryService.hidden = false;
       }
     }
   }
@@ -130,6 +147,7 @@
       const data = transform(new FormData(form));
       const result = await request(endpoint, { method: 'POST', body: JSON.stringify(data) });
       showAccount(result.user);
+      retryService.hidden = true;
       setStatus(accountStatus, endpoint.endsWith('register')
         ? 'Account created. No confirmation email was sent.'
         : 'You are signed in.', 'ok');
@@ -140,26 +158,24 @@
         const identifier = String(new FormData(form).get('login') || '').trim();
         const email = registerForm.elements.email;
         const username = registerForm.elements.username;
-        const password = form.elements.password;
         if (identifier.includes('@')) {
           if (!email.value) email.value = identifier;
         } else if (!username.value) {
           username.value = identifier;
         }
-        password.value = '';
-        const target = !email.value ? email : !username.value ? username : registerForm.elements.password;
+        form.elements.password.value = '';
+        showAuth('register');
+        if (email.value) username.focus({ preventScroll: true });
         setStatus(accountStatus,
-          'We could not sign you in. If you are new, enter your email, username and password below to create an account. Password recovery is not available yet.',
+          'That email or username and password did not match an account. Finish the three fields to create one now.',
           'error');
-        registerForm.scrollIntoView({
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-          block: 'center',
-        });
-        target.focus({ preventScroll: true });
+        retryService.hidden = true;
+      } else if (error instanceof TypeError || error.name === 'AbortError') {
+        setStatus(accountStatus, 'The account service cannot be reached right now. Sign-in and scores are paused; the game still works.', 'error');
+        retryService.hidden = false;
       } else {
-        setStatus(accountStatus, error instanceof TypeError
-          ? 'The score service is not reachable yet. Your game remains available.'
-          : error.message, 'error');
+        setStatus(accountStatus, error.message, 'error');
+        retryService.hidden = false;
       }
     } finally {
       button.disabled = false;
@@ -182,6 +198,20 @@
       login: String(data.get('login') || ''),
       password: String(data.get('password') || ''),
     }));
+  });
+
+  document.querySelectorAll('[data-auth-switch]').forEach(button => {
+    button.addEventListener('click', () => {
+      setStatus(accountStatus, '', '');
+      showAuth(button.dataset.authSwitch);
+    });
+  });
+
+  retryService.addEventListener('click', async () => {
+    retryService.hidden = true;
+    setStatus(accountStatus, 'Reconnecting...', '');
+    await loadAccount();
+    await loadLeaderboard();
   });
 
   document.getElementById('saveVisibility').addEventListener('click', async () => {
