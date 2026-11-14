@@ -171,7 +171,7 @@
       const guess = state.guesses[r];
       for (let c = 0; c < WORD_LENGTH; c++) {
         const tile = row.children[c];
-        tile.classList.remove('flip-out', 'flip-in');
+        tile.classList.remove('flip-close', 'flip-open');
         if (guess) {
           tile.textContent = guess.word[c].toUpperCase();
           if (instant) tile.dataset.state = guess.states[c];
@@ -194,17 +194,21 @@
       return Promise.resolve();
     }
     const step = 220;
-    const gap = 150;
-    const revealDuration = (WORD_LENGTH - 1) * step + gap + 180;
+    const closeMs = 150;
+    const openMs = 200;
+    const revealDuration = (WORD_LENGTH - 1) * step + closeMs + openMs + 40;
     const bounceDuration = 260;
     tiles.forEach((tile, i) => {
-      setTimeout(() => tile.classList.add('flip-out'), i * step);
+      const at = i * step;
+      // Half one: the tile closes with the typed letter still visible.
+      setTimeout(() => tile.classList.add('flip-close'), at);
+      // Half two: only once it is closed does the colour and the letter appear.
       setTimeout(() => {
         tile.dataset.state = states[i];
-        tile.classList.remove('flip-out');
-        tile.classList.add('flip-in');
-      }, i * step + gap);
-      setTimeout(() => tile.classList.remove('flip-in'), i * step + gap + 260);
+        tile.classList.remove('flip-close');
+        tile.classList.add('flip-open');
+      }, at + closeMs);
+      setTimeout(() => tile.classList.remove('flip-open'), at + closeMs + openMs);
     });
     setTimeout(() => row.classList.add('row--bounce'), revealDuration);
     return new Promise(resolve => setTimeout(resolve, revealDuration + bounceDuration));
@@ -640,7 +644,7 @@
       el.classList.add('splash--out');
       setTimeout(() => el.remove(), 260);
     };
-    const cap = setTimeout(done, 1400);
+    const cap = setTimeout(done, 2600);
     el.addEventListener('animationend', event => {
       if (event.animationName !== 'splash-in') return;
       clearTimeout(cap);

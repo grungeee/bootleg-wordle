@@ -239,16 +239,38 @@ test("sign-in and registration share one card instead of stacking two", () => {
   assert.doesNotMatch(source, /scrollIntoView/);
 });
 
-test("guess tiles reveal first and the row bounces after the final letter", () => {
+test("tiles close before they colour in, then the row bounces", () => {
   const css = read("css/style.css");
   const game = read("js/game.js");
-  assert.match(css, /\.tile\.flip-in\s*\{\s*animation:\s*tile-reveal/);
+  assert.match(css, /\.tile\.flip-close\s*\{\s*animation:\s*tile-close\s+150ms[^}]*forwards/);
+  assert.match(css, /\.tile\.flip-open\s*\{\s*animation:\s*tile-open/);
+  assert.match(css, /@keyframes tile-close\s*\{[\s\S]*?scaleY\(1\)[\s\S]*?scaleY\(0\.04\)/);
   assert.match(css, /\.row--bounce\s+\.tile\s*\{\s*animation:\s*tile-pop/);
+  // The typing pop must not outrank the flip, or the close half never plays.
+  assert.match(css, /\.tile:not\(:empty\):not\(\[data-state\]\):not\(\.flip-close\):not\(\.flip-open\)/);
+  // The colour is written only after the closing half has finished.
+  assert.match(game, /setTimeout\(\(\) => tile\.classList\.add\('flip-close'\), at\)/);
+  assert.match(game, /tile\.dataset\.state = states\[i\];\s*\n\s*tile\.classList\.remove\('flip-close'\)/);
+  assert.match(game, /\}, at \+ closeMs\)/);
+  assert.doesNotMatch(game, /flip-out|flip-in/);
   assert.match(game, /row\.classList\.add\('row--bounce'\), revealDuration\)/);
   assert.match(game, /setTimeout\(resolve, revealDuration \+ bounceDuration\)/);
   for (const page of ["index.html", "play/index.html"]) {
     const html = read(page);
-    assert.match(html, /style\.css\?v=reveal-bounce-1/);
-    assert.match(html, /game\.js\?v=reveal-bounce-1/);
+    assert.match(html, /style\.css\?v=reveal-2/);
+    assert.match(html, /game\.js\?v=reveal-2/);
+  }
+});
+
+test("the splash word holds long enough and its letters sit centred", () => {
+  const css = read("css/style.css");
+  const game = read("js/game.js");
+  assert.match(css, /\.splash-word\s*\{[^}]*animation:\s*splash-in 2\.2s/s);
+  assert.match(css, /@keyframes splash-in\s*\{[\s\S]*?27%[\s\S]*?74%/);
+  assert.match(css, /\.splash-tile > span\s*\{[^}]*line-height:\s*1[^}]*translateY\(0\.02em\)/s);
+  assert.match(game, /setTimeout\(done, 2600\)/);
+  for (const page of ["index.html", "play/index.html"]) {
+    const html = read(page);
+    assert.equal((html.match(/<div class="splash-tile"><span>[A-Z]<\/span><\/div>/g) || []).length, 6, page);
   }
 });

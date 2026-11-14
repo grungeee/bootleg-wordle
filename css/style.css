@@ -233,7 +233,7 @@ body.theme-cream .chip {
   will-change: transform;
 }
 
-.tile:not(:empty) {
+.tile:not(:empty):not([data-state]):not(.flip-close):not(.flip-open) {
   background: var(--tile);
   animation: tile-in 120ms ease-out;
 }
@@ -253,12 +253,17 @@ body.theme-cream .chip {
   color: #fff;
 }
 
-.tile.flip-out {
-  transform: scaleY(0.04);
+.tile.flip-close,
+.tile.flip-open {
+  transition: none;
 }
 
-.tile.flip-in {
-  animation: tile-reveal 180ms ease-out;
+.tile.flip-close {
+  animation: tile-close 150ms ease-in forwards;
+}
+
+.tile.flip-open {
+  animation: tile-open 200ms ease-out;
 }
 
 .row--bounce .tile {
@@ -771,7 +776,7 @@ body:has(dialog[open]) {
 .splash-word {
   display: flex;
   gap: 0.25rem;
-  animation: splash-in 1.05s ease-out both;
+  animation: splash-in 2.2s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 .splash-tile {
@@ -787,6 +792,13 @@ body:has(dialog[open]) {
   text-transform: uppercase;
 }
 
+/* Inter sits its caps low in the line box, so lift the glyph optically. */
+.splash-tile > span {
+  display: block;
+  line-height: 1;
+  transform: translateY(0.02em);
+}
+
 /* ---------------------------------------------------------- animations */
 
 @keyframes tile-in {
@@ -798,7 +810,16 @@ body:has(dialog[open]) {
   }
 }
 
-@keyframes tile-reveal {
+@keyframes tile-close {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0.04);
+  }
+}
+
+@keyframes tile-open {
   from {
     transform: scaleY(0.04);
   }
@@ -855,18 +876,19 @@ body:has(dialog[open]) {
 
 @keyframes splash-in {
   0% {
-    transform: translateX(-14vw);
+    transform: translateX(-16vw);
     opacity: 0.4;
   }
-  45% {
+  27% {
     transform: translateX(0);
     opacity: 1;
   }
-  70% {
+  74% {
     transform: translateX(0);
+    opacity: 1;
   }
   100% {
-    transform: translateX(14vw);
+    transform: translateX(16vw);
     opacity: 0;
   }
 }
