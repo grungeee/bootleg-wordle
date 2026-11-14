@@ -69,7 +69,8 @@
     const cream = theme === 'cream';
     document.body.classList.toggle('theme-cream', cream);
     if (themeBtn) {
-      themeBtn.textContent = cream ? 'EVA-01' : 'CREAM';
+      // The button names the theme that is on now; the next click swaps it.
+      themeBtn.textContent = cream ? 'CREAM' : 'EVA-01';
       themeBtn.setAttribute('aria-pressed', String(cream));
       themeBtn.setAttribute('aria-label', cream ? 'Switch to EVA-01 theme' : 'Switch to cream theme');
     }

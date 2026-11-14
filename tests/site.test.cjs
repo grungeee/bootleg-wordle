@@ -257,8 +257,8 @@ test("tiles close before they colour in, then the row bounces", () => {
   assert.match(game, /setTimeout\(resolve, revealDuration \+ bounceDuration\)/);
   for (const page of ["index.html", "play/index.html"]) {
     const html = read(page);
-    assert.match(html, /style\.css\?v=win-1/);
-    assert.match(html, /game\.js\?v=win-2/);
+    assert.match(html, /style\.css\?v=win-2/);
+    assert.match(html, /game\.js\?v=win-3/);
   }
 });
 
@@ -310,9 +310,15 @@ test("the how-to-play panel is darker than the default dialog", () => {
 
 test("the lavender theme is called EVA-01", () => {
   const game = read("js/game.js");
-  assert.match(game, /themeBtn\.textContent = cream \? 'EVA-01' : 'CREAM';/);
+  assert.match(game, /themeBtn\.textContent = cream \? 'CREAM' : 'EVA-01';/);
   assert.match(game, /Switch to EVA-01 theme/);
   assert.doesNotMatch(game, /'LAVENDER'/);
   // The stored preference key stays "lavender" so saved themes keep working.
   assert.match(game, /localStorage\.getItem\(THEME_KEY\) \|\| 'lavender'/);
+});
+
+test("cream keeps the letters readable on the pale absent keys", () => {
+  const css = read("css/style.css");
+  assert.match(css, /body\.theme-cream \.key\[data-state='absent'\]\s*\{\s*color: #3a2019/);
+  assert.match(css, /body\.theme-cream \.tile\[data-state='absent'\]\s*\{\s*color: #3a2019/);
 });

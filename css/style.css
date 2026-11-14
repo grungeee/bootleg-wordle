@@ -181,6 +181,11 @@ body.theme-cream .tile[data-state='absent'] {
   color: #3a2019;
 }
 
+/* Cream's absent keys are pale, so white letters disappear on them. */
+body.theme-cream .key[data-state='absent'] {
+  color: #3a2019;
+}
+
 body.theme-cream .theme-toggle {
   background: #4a2b20;
   color: #fff6e9;
