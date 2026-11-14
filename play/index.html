@@ -27,7 +27,7 @@
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/style.css?v=reveal-2" />
+    <link rel="stylesheet" href="/css/style.css?v=win-1" />
     <link rel="stylesheet" href="/css/public-game.css?v=analytics-1" />
     <link rel="stylesheet" href="/css/brand.css?v=cream-1" />
   </head>
@@ -191,7 +191,27 @@
         </div>
         <div class="result-links">
           <a class="primary-btn" href="/scores/" data-track="account_open">HIGH SCORES / ACCOUNT ↗</a>
-          <a class="primary-btn" href="/world/">EXPLORE MY WORLD ↗</a>
+          <a
+            class="primary-btn world-icon-btn"
+            href="/world/"
+            aria-label="Explore my world. Invitation code required."
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18" />
+              <path d="M12 3c2.9 2.9 2.9 15.1 0 18" />
+              <path d="M12 3c-2.9 2.9-2.9 15.1 0 18" />
+            </svg>
+          </a>
           <p>Invitation code required. The game stays open to everyone.</p>
         </div>
       </div>
@@ -200,6 +220,6 @@
     <script src="/js/words.js"></script>
     <script src="/js/core.js"></script>
     <script src="/js/analytics.js?v=analytics-1"></script>
-    <script src="/js/game.js?v=reveal-2"></script>
+    <script src="/js/game.js?v=win-1"></script>
   </body>
 </html>

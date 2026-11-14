@@ -8,6 +8,7 @@
   --purple-deep: #6a64b8;
   --ink: #17161f;
   --panel: #21202b;
+  --panel-deep: #17161f;
   --tile: #444444;
   --tile-empty: #3b3b3b;
   --absent: #6a6a6a;
@@ -164,6 +165,7 @@ body.theme-cream {
   --purple-deep: #e2d3bd;
   --ink: #24140e;
   --panel: #332019;
+  --panel-deep: #241610;
   --tile: #4a2b20;
   --tile-empty: #3c2118;
   --absent: #e8bfa9;
@@ -268,6 +270,26 @@ body.theme-cream .chip {
 
 .row--bounce .tile {
   animation: tile-pop 260ms cubic-bezier(0.22, 0.68, 0, 1.15) both;
+}
+
+.row--win .tile {
+  animation: tile-win 460ms cubic-bezier(0.22, 0.68, 0, 1.2) both;
+}
+
+.row--win .tile:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.row--win .tile:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.row--win .tile:nth-child(4) {
+  animation-delay: 210ms;
+}
+
+.row--win .tile:nth-child(5) {
+  animation-delay: 280ms;
 }
 
 .row--shake {
@@ -551,6 +573,10 @@ body.theme-cream .chip {
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.45);
 }
 
+#dialog-help {
+  background: var(--panel-deep);
+}
+
 .dialog::backdrop {
   background: rgba(20, 19, 27, 0.78);
 }
@@ -678,6 +704,21 @@ body:has(dialog[open]) {
 
 .primary-btn:active {
   transform: translateY(1px);
+}
+
+.world-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.world-icon-btn svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  display: block;
 }
 
 .ghost-btn--wide {
@@ -837,6 +878,24 @@ body:has(dialog[open]) {
   }
   72% {
     transform: translateY(1px) scale(0.99, 0.98);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tile-win {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(-18px) scale(1.045);
+  }
+  55% {
+    transform: translateY(2px) scale(0.99, 1.01);
+  }
+  76% {
+    transform: translateY(-4px) scale(1);
   }
   100% {
     transform: translateY(0) scale(1);

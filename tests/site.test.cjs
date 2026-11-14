@@ -257,8 +257,8 @@ test("tiles close before they colour in, then the row bounces", () => {
   assert.match(game, /setTimeout\(resolve, revealDuration \+ bounceDuration\)/);
   for (const page of ["index.html", "play/index.html"]) {
     const html = read(page);
-    assert.match(html, /style\.css\?v=reveal-2/);
-    assert.match(html, /game\.js\?v=reveal-2/);
+    assert.match(html, /style\.css\?v=win-1/);
+    assert.match(html, /game\.js\?v=win-1/);
   }
 });
 
@@ -273,4 +273,37 @@ test("the splash word holds long enough and its letters sit centred", () => {
     const html = read(page);
     assert.equal((html.match(/<div class="splash-tile"><span>[A-Z]<\/span><\/div>/g) || []).length, 6, page);
   }
+});
+
+test("a winning row jumps tile by tile before the result opens", () => {
+  const css = read("css/style.css");
+  const game = read("js/game.js");
+  assert.match(css, /\.row--win \.tile\s*\{\s*animation:\s*tile-win 460ms/);
+  for (const [n, delay] of [[2, 70], [3, 140], [4, 210], [5, 280]]) {
+    assert.match(css, new RegExp(`\\.row--win \\.tile:nth-child\\(${n}\\)\\s*\\{\\s*animation-delay:\\s*${delay}ms`));
+  }
+  assert.match(css, /@keyframes tile-win\s*\{[\s\S]*?translateY\(-18px\)[\s\S]*?translateY\(0\) scale\(1\)/);
+  assert.match(game, /if \(word === state\.answer\) \{\s*\n\s*state\.status = 'won';\s*\n\s*await winRow\(rowEl\(row\)\);/);
+  assert.match(game, /function winRow\(row\) \{\s*\n\s*if \(!row \|\| reduceMotion\(\)\) return Promise\.resolve\(\);/);
+  assert.match(game, /row\.classList\.add\('row--win'\)/);
+  assert.match(game, /row\.classList\.remove\('row--win', 'row--bounce'\)/);
+  assert.match(game, /\}, 780\);/);
+});
+
+test("the locked world is a thick-stroke globe icon instead of a text link", () => {
+  for (const page of ["index.html", "play/index.html"]) {
+    const html = read(page);
+    assert.doesNotMatch(html, /EXPLORE MY WORLD/);
+    assert.match(html, /class="primary-btn world-icon-btn"/);
+    assert.match(html, /aria-label="Explore my world\. Invitation code required\."/);
+    assert.match(html, /stroke-width="2\.6"/);
+    assert.equal((html.match(/<circle cx="12" cy="12" r="9" \/>/g) || []).length, 1, page);
+  }
+});
+
+test("the how-to-play panel is darker than the default dialog", () => {
+  const css = read("css/style.css");
+  assert.match(css, /:root\s*\{[^}]*--panel-deep:\s*#17161f/s);
+  assert.match(css, /body\.theme-cream\s*\{[^}]*--panel-deep:\s*#241610/s);
+  assert.match(css, /#dialog-help\s*\{\s*background:\s*var\(--panel-deep\)/);
 });

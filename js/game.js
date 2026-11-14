@@ -168,6 +168,7 @@
   function renderBoard(instant) {
     for (let r = 0; r < MAX_ROWS; r++) {
       const row = rowEl(r);
+      row.classList.remove('row--win', 'row--bounce');
       const guess = state.guesses[r];
       for (let c = 0; c < WORD_LENGTH; c++) {
         const tile = row.children[c];
@@ -328,6 +329,7 @@
 
       if (word === state.answer) {
         state.status = 'won';
+        await winRow(rowEl(row));
         finish();
       } else if (state.guesses.length === MAX_ROWS) {
         state.status = 'lost';
@@ -346,6 +348,18 @@
     void row.offsetWidth;
     row.classList.add('row--shake');
     setTimeout(() => row.classList.remove('row--shake'), 500);
+  }
+
+  // The winning row jumps tile by tile before the result dialog covers it.
+  function winRow(row) {
+    if (!row || reduceMotion()) return Promise.resolve();
+    row.classList.add('row--win');
+    return new Promise(resolve => {
+      setTimeout(() => {
+        row.classList.remove('row--win');
+        resolve();
+      }, 780);
+    });
   }
 
   function finish() {
