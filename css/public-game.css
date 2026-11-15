@@ -119,8 +119,8 @@
   overflow: auto;
   padding: 0.55rem 0.7rem 0.6rem;
   border: 3px solid #000;
-  background: #fff8ea;
-  color: #24140e;
+  background: var(--note-bg, #fff8ea);
+  color: var(--note-ink, #24140e);
   box-shadow: 6px 6px 0 #000;
 }
 .privacy-note__heading {
@@ -129,7 +129,7 @@
   justify-content: space-between;
   gap: 0.6rem;
   margin-bottom: 0.25rem;
-  color: #4a2b20;
+  color: var(--note-head, #4a2b20);
 }
 .privacy-note__heading span {
   font-size: 1.3rem;
@@ -149,7 +149,7 @@
   line-height: 1.25;
 }
 .privacy-note__details {
-  color: #684a3b;
+  color: var(--note-muted, #684a3b);
   font-size: 0.66rem;
 }
 .privacy-note__details summary {
@@ -177,7 +177,7 @@
   padding: 0.35rem 0.45rem;
   border: 2px solid #000;
   box-shadow: 3px 3px 0 #000;
-  color: #24140e;
+  color: #17161f;
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -185,10 +185,10 @@
   cursor: pointer;
 }
 .privacy-note__actions .ghost-btn {
-  background: #f4dda0;
+  background: var(--yellow, #f4dda0);
 }
 .privacy-note__actions .primary-btn {
-  background: #b8e7c5;
+  background: var(--green, #b8e7c5);
 }
 .privacy-note__actions button:focus-visible,
 .footer-links a:focus-visible,

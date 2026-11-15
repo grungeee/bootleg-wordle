@@ -177,6 +177,22 @@ body.theme-cream {
   --muted: #b98774;
 }
 
+/* The visit-data note follows whichever theme is on. Pages without the toggle
+   fall back to the cream card through the var() defaults in public-game.css. */
+body.game-page {
+  --note-bg: #21202b;
+  --note-ink: #f4f4f8;
+  --note-head: #f4f4f8;
+  --note-muted: #a9a6c4;
+}
+
+body.game-page.theme-cream {
+  --note-bg: #fff8ea;
+  --note-ink: #24140e;
+  --note-head: #4a2b20;
+  --note-muted: #684a3b;
+}
+
 body.theme-cream .tile[data-state='absent'] {
   color: #3a2019;
 }

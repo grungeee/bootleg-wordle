@@ -257,7 +257,7 @@ test("tiles close before they colour in, then the row bounces", () => {
   assert.match(game, /setTimeout\(resolve, revealDuration \+ bounceDuration\)/);
   for (const page of ["index.html", "play/index.html"]) {
     const html = read(page);
-    assert.match(html, /style\.css\?v=win-2/);
+    assert.match(html, /style\.css\?v=win-3/);
     assert.match(html, /game\.js\?v=win-3/);
   }
 });
@@ -321,4 +321,22 @@ test("cream keeps the letters readable on the pale absent keys", () => {
   const css = read("css/style.css");
   assert.match(css, /body\.theme-cream \.key\[data-state='absent'\]\s*\{\s*color: #3a2019/);
   assert.match(css, /body\.theme-cream \.tile\[data-state='absent'\]\s*\{\s*color: #3a2019/);
+});
+
+test("the visit-data note follows the active theme", () => {
+  const css = read("css/style.css");
+  const pub = read("css/public-game.css");
+  assert.match(css, /body\.game-page\s*\{\s*--note-bg:\s*#21202b/);
+  assert.match(css, /body\.game-page\.theme-cream\s*\{\s*--note-bg:\s*#fff8ea/);
+  assert.match(pub, /background: var\(--note-bg, #fff8ea\)/);
+  assert.match(pub, /color: var\(--note-ink, #24140e\)/);
+  assert.match(pub, /color: var\(--note-head, #4a2b20\)/);
+  assert.match(pub, /color: var\(--note-muted, #684a3b\)/);
+  assert.match(pub, /\.privacy-note__actions \.ghost-btn \{\s*background: var\(--yellow, #f4dda0\)/);
+  assert.match(pub, /\.privacy-note__actions \.primary-btn \{\s*background: var\(--green, #b8e7c5\)/);
+  for (const page of ["index.html", "play/index.html"]) {
+    assert.match(read(page), /<body class="game-page">/);
+  }
+  // Pages without the toggle keep the cream card.
+  assert.doesNotMatch(read("privacy/index.html"), /game-page/);
 });
