@@ -142,7 +142,7 @@ test("the published world payload carries the floating bubble orbit", () => {
 test("world-only material transition is versioned and leaves game routes alone", () => {
   const gate = read("world/index.html");
   assert.match(gate, /portal\.css\?v=analytics-1/);
-  assert.match(gate, /unlock\.js\?v=analytics-1/);
+  assert.match(gate, /unlock\.js\?v=gate-theme-1/);
   assert.match(gate, /analytics\.js\?v=cookie-1/);
   assert.match(gate, /id="privacyNotice"/);
   assert.match(gate, /portal-cue/);
@@ -182,7 +182,7 @@ test("cream theme keeps dark brown keys and pastel absent letters", () => {
 
 test("header keeps MY WORLD beside the logo and centers the daily date on desktop", () => {
   const css = read("css/public-game.css");
-  assert.match(css, /\.topbar \.world-entry\s*\{\s*margin-left:\s*0/);
+  assert.match(css, /\.topbar \.world-entry\s*\{\s*margin-left:\s*12px/);
   assert.match(css, /\.topbar #modeChip\s*\{[^}]*left:\s*50%/s);
   assert.match(css, /@media \(max-width: 560px\)[\s\S]*?\.topbar \.chip\s*\{\s*display:\s*none/s);
 });
@@ -349,4 +349,17 @@ test("the visit-data note follows the active theme", () => {
   }
   // Pages without the toggle keep the cream card.
   assert.doesNotMatch(read("privacy/index.html"), /game-page/);
+});
+
+test("the world gate and the sealed world follow the picked theme", () => {
+  const gate = read("world/index.html");
+  assert.match(gate, /localStorage\.getItem\("sharapa\.wordle\.theme"\) === "cream"/);
+  assert.match(gate, /classList\.add\("theme-cream"\)/);
+  const lock = read("css/lock.css");
+  assert.match(lock, /html\.theme-cream\s*\{[\s\S]*?--purple: #efe4d2/);
+  assert.match(lock, /html\.theme-cream\s*\{[\s\S]*?--paper: #fff6e9/);
+  const unlock = read("js/unlock.js");
+  assert.match(gate, /dataset\.worldTheme = "cream"/);
+  assert.match(unlock, /documentElement\.dataset\.worldTheme === "cream"/);
+  assert.match(unlock, /html\.replace\('<html lang="en">', '<html lang="en" class="theme-cream">'\)/);
 });

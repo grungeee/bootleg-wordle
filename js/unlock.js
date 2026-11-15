@@ -78,6 +78,10 @@
         status.className = "error"; input.focus(); return;
       }
       code = "";
+      // The world document is sealed, so hand it the theme the gate announced.
+      const cream = document.documentElement.dataset.worldTheme === "cream";
+      if (cream && html.includes('<html lang="en">'))
+        html = html.replace('<html lang="en">', '<html lang="en" class="theme-cream">');
       const frame = document.createElement("iframe");
       frame.title = "Nikita's unlocked world";
       frame.setAttribute("sandbox", "allow-scripts allow-top-navigation-by-user-activation");

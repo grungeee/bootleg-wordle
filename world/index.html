@@ -5,14 +5,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <meta name="theme-color" content="#7c76cc" />
+    <script>
+      /* Paint the gate in the theme the game last used, before CSS lands. */
+      try {
+        if (localStorage.getItem("sharapa.wordle.theme") === "cream") {
+          document.documentElement.classList.add("theme-cream");
+          document.documentElement.dataset.worldTheme = "cream";
+          var themeMeta = document.querySelector('meta[name="theme-color"]');
+          if (themeMeta) themeMeta.setAttribute("content", "#efe4d2");
+        }
+      } catch (error) {}
+    </script>
     <title>SHARAPA - locked world</title>
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/css/lock.css?v=analytics-1" />
+    <link rel="stylesheet" href="/css/lock.css?v=gate-theme-1" />
     <link rel="stylesheet" href="/css/brand.css?v=header-2" />
     <link rel="stylesheet" href="/css/portal.css?v=analytics-1" />
-    <link rel="stylesheet" href="/css/public-game.css?v=cookie-1" />
+    <link rel="stylesheet" href="/css/public-game.css?v=cookie-2" />
     <script src="/js/analytics.js?v=cookie-1" defer></script>
-    <script src="/js/unlock.js?v=analytics-1" defer></script>
+    <script src="/js/unlock.js?v=gate-theme-1" defer></script>
   </head>
   <body>
     <header class="lock-header">

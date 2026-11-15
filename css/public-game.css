@@ -57,7 +57,7 @@
   margin-left: auto;
 }
 .topbar .world-entry {
-  margin-left: 0;
+  margin-left: 12px;
 }
 .topbar #modeChip {
   position: absolute;
