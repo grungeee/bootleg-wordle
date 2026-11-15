@@ -5,6 +5,7 @@
   const CONSENT_KEY = 'sharapa.analytics.consent.v1';
   const SESSION_KEY = 'sharapa.analytics.session.v1';
   const notice = document.getElementById('privacyNotice');
+  const stateLine = document.getElementById('visitState');
   const page = location.pathname === '/play/' ? 'play'
     : location.pathname.startsWith('/world') ? 'world'
     : location.pathname.startsWith('/scores') ? 'scores'
@@ -16,6 +17,50 @@
   let active = false;
   // One page_view per page load, even if the visitor withdraws and re-consents.
   let announced = false;
+
+  function prefersReducedMotion() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  // A short filtered crumb crunch, synthesised so the page ships no audio file.
+  function playBite() {
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return;
+    let ctx;
+    try { ctx = new Ctor(); } catch (_) { return; }
+    const rate = ctx.sampleRate;
+    const buffer = ctx.createBuffer(1, Math.floor(rate * 0.26), rate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i += 1) {
+      const t = i / rate;
+      const crackle = Math.random() * 2 - 1;
+      const thump = Math.sin(2 * Math.PI * 190 * t) * 0.6;
+      const envelope = Math.exp(-t * 15) * Math.min(1, t * 900);
+      data[i] = (crackle * 0.65 + thump) * envelope * 0.5;
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 1700;
+    filter.Q.value = 0.9;
+    const gain = ctx.createGain();
+    gain.gain.value = 0.85;
+    source.connect(filter).connect(gain).connect(ctx.destination);
+    source.start();
+    source.onended = () => {
+      if (ctx.state !== 'closed') ctx.close().catch(() => {});
+    };
+  }
+
+  function renderState() {
+    if (!stateLine) return;
+    stateLine.textContent = consent === 'allow'
+      ? 'Visit statistics are on. You can switch them off here at any time.'
+      : consent === 'essential'
+        ? 'Visit statistics are off. Only essential functions run.'
+        : 'No choice saved yet. Visit statistics stay off until you allow them.';
+  }
 
   function makeId() {
     if (window.crypto && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
@@ -101,24 +146,37 @@
     if (notice) notice.hidden = true;
     if (value === 'allow') start();
     else stop(true);
+    renderState();
   }
 
   function openSettings() {
-    stop(true);
-    consent = 'unset';
-    try { localStorage.removeItem(CONSENT_KEY); } catch (_) { /* optional */ }
-    if (notice) {
-      notice.hidden = false;
-      const allow = notice.querySelector('[data-privacy-choice="allow"]');
-      if (allow) allow.focus();
+    const controls = document.querySelectorAll('[data-privacy-choice]');
+    if (!controls.length) {
+      location.assign('/privacy/#visit-data');
+      return;
     }
+    const block = document.getElementById('visit-data') || controls[0];
+    if (block.scrollIntoView) block.scrollIntoView({ block: 'center', behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    controls[0].focus({ preventScroll: true });
   }
 
-  if (notice) {
-    notice.querySelectorAll('[data-privacy-choice]').forEach(button => {
-      button.addEventListener('click', () => choose(button.dataset.privacyChoice));
+  // One big cookie: crunch, take a bite, then close the notice as essential-only.
+  document.querySelectorAll('[data-privacy-cookie]').forEach(button => {
+    button.addEventListener('click', () => {
+      playBite();
+      const body = button.querySelector('.cookie-body');
+      if (body) body.setAttribute('mask', 'url(#cookieBiteMask)');
+      button.classList.add('is-bitten');
+      window.setTimeout(() => {
+        if (body) body.removeAttribute('mask');
+        button.classList.remove('is-bitten');
+        choose('essential');
+      }, prefersReducedMotion() ? 140 : 420);
     });
-  }
+  });
+  document.querySelectorAll('[data-privacy-choice]').forEach(button => {
+    button.addEventListener('click', () => choose(button.dataset.privacyChoice));
+  });
   document.querySelectorAll('[data-privacy-settings]').forEach(button => {
     button.addEventListener('click', openSettings);
   });
@@ -133,6 +191,7 @@
   } catch (_) { /* show a fresh choice if storage is unavailable */ }
   if (notice) notice.hidden = consent !== 'unset';
   if (consent === 'allow') start();
+  renderState();
 
   window.sharapaAnalytics = {
     track(feature) {

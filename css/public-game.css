@@ -158,39 +158,106 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.privacy-note .primary-btn {
-  flex: 0 0 auto;
-  min-height: 2.2rem;
-  padding: 0.4rem 0.55rem;
-  font-size: 0.62rem;
+.privacy-note__more {
+  margin: 0.3rem 0 0.5rem;
+}
+.privacy-note__more a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cookie-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 3.2rem;
+  padding: 0.45rem 0.8rem;
+  border: 3px solid #000;
+  background: var(--coral, #ff7f50);
+  color: #17161f;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  box-shadow: 4px 4px 0 #000;
   cursor: pointer;
 }
-.privacy-note__actions {
-  display: flex;
-  gap: 0.55rem;
-  margin: 0.45rem 0;
+.cookie-btn:hover {
+  background: var(--coral-soft, #ffa686);
 }
-.privacy-note__actions button {
-  flex: 1 1 50%;
-  min-width: 0;
-  min-height: 2.2rem;
-  padding: 0.35rem 0.45rem;
+.cookie-btn:active {
+  transform: translateY(1px);
+  box-shadow: 3px 3px 0 #000;
+}
+.cookie-btn .cookie-glyph {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+}
+.cookie-dough {
+  fill: #e6b57a;
+  stroke: #24140e;
+  stroke-width: 2;
+}
+.cookie-chip {
+  fill: #4a2b20;
+}
+.cookie-btn.is-bitten .cookie-body {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: cookie-chomp 420ms ease-out;
+}
+@keyframes cookie-chomp {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  40% {
+    transform: scale(0.84) rotate(-7deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+.visit-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0 0.6rem;
+}
+.visit-choices button {
+  min-height: 2.6rem;
+  padding: 0.45rem 0.75rem;
   border: 2px solid #000;
   box-shadow: 3px 3px 0 #000;
   color: #17161f;
-  font-size: 0.58rem;
+  font-family: inherit;
+  font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1.1;
   cursor: pointer;
 }
-.privacy-note__actions .ghost-btn {
+.visit-choices .ghost-btn,
+.visit-choices .ghost-btn:hover {
   background: var(--yellow, #f4dda0);
+  color: #17161f;
 }
-.privacy-note__actions .primary-btn {
+.visit-choices .primary-btn,
+.visit-choices .primary-btn:hover {
   background: var(--green, #b8e7c5);
+  color: #17161f;
 }
-.privacy-note__actions button:focus-visible,
+.visit-state {
+  margin: 0.2rem 0 0;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+.cookie-btn:focus-visible,
+.visit-choices button:focus-visible,
 .footer-links a:focus-visible,
 .footer-links button:focus-visible {
   outline: 3px solid #17161f;

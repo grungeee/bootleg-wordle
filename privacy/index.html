@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css?v=win-3" />
-    <link rel="stylesheet" href="/css/public-game.css?v=note-theme-1" />
+    <link rel="stylesheet" href="/css/public-game.css?v=cookie-1" />
     <link rel="stylesheet" href="/css/brand.css?v=cream-1" />
     <link rel="stylesheet" href="/css/account.css?v=accounts-3" />
   </head>
@@ -41,6 +41,11 @@
 
         <h2>Optional visit statistics</h2>
         <p>Visitor analytics start only if you choose ALLOW VISIT STATS. If you choose ONLY ESSENTIAL, no analytics events are sent. You can change this choice at any time with the PRIVACY SETTINGS control. Withdrawal stops future analytics; records already collected remain until their stated deletion date.</p>
+        <div class="visit-choices" id="visit-data">
+          <button type="button" class="ghost-btn" data-privacy-choice="essential">ONLY ESSENTIAL</button>
+          <button type="button" class="primary-btn" data-privacy-choice="allow">ALLOW VISIT STATS</button>
+        </div>
+        <p class="visit-state" id="visitState" role="status" aria-live="polite"></p>
         <p>When enabled, the server records a random tab-only visit identifier, page views, visible time on each page, coarse exploration counts, device category, operating system category and country derived from the network IP address. It does not record your guesses, full browser string, advertising identifiers or raw IP address in the analytics database. The raw IP is processed in memory for country lookup and short-lived abuse controls. Analytics session detail is deleted after 30 days and aggregate totals after 396 days.</p>
         <p>Analytics do not use cookies, advertising, cross-site tracking or fingerprinting. The consent choice is stored in browser local storage. The temporary visit ID is stored in session storage for the current tab only. Country lookup uses the DB-IP Lite country database (CC BY 4.0) on the server. <a href="https://db-ip.com/" rel="noopener noreferrer" target="_blank">DB-IP data and licensing</a>.</p>
 
@@ -60,23 +65,10 @@
       </article>
     </main>
 
-    <aside class="privacy-note" id="privacyNotice" role="region" aria-labelledby="privacyTitle" hidden>
-      <div class="privacy-note__heading"><span aria-hidden="true">✦</span><h2 id="privacyTitle">YOUR VISIT DATA, YOUR CHOICE</h2></div>
-      <p>Optional visit stats: device type, OS, country from your IP, page loads, page time and feature counts. No ads, fingerprinting or analytics cookies. Raw IPs are not saved.</p>
-      <div class="privacy-note__actions">
-        <button type="button" class="ghost-btn" data-privacy-choice="essential">ONLY ESSENTIAL</button>
-        <button type="button" class="primary-btn" data-privacy-choice="allow">ALLOW VISIT STATS</button>
-      </div>
-      <details class="privacy-note__details">
-        <summary>What is stored, and for how long?</summary>
-        <p>Game progress, personal stats and theme stay in this browser. Accounts store your email, username and Argon2id password hash. Public scores show your username only if you opt in. Optional analytics store coarse device, OS, country, page time and feature counts. Session detail lasts 30 days; daily summaries last 396 days. Raw IPs and full browser strings are discarded. GitHub Pages and Google Fonts handle ordinary requests and may process or log IP addresses. Country lookup uses <a href="https://db-ip.com/" rel="noopener noreferrer" target="_blank">DB-IP Lite data</a>. <a href="/privacy/">Full privacy notice</a>.</p>
-      </details>
-    </aside>
-
     <footer class="footer account-footer">
       <p>Built by Nikita Sharapa.</p><p class="footer-meta">PLAY / SHARAPA</p>
       <nav class="footer-links" aria-label="Site information"><a href="/">GAME</a><a href="/scores/">HIGH SCORES</a><button type="button" data-privacy-settings>PRIVACY SETTINGS</button></nav>
     </footer>
-    <script src="/js/analytics.js?v=accounts-1"></script>
+    <script src="/js/analytics.js?v=cookie-1"></script>
   </body>
 </html>

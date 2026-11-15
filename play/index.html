@@ -28,7 +28,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/style.css?v=win-3" />
-    <link rel="stylesheet" href="/css/public-game.css?v=note-theme-1" />
+    <link rel="stylesheet" href="/css/public-game.css?v=cookie-1" />
     <link rel="stylesheet" href="/css/brand.css?v=cream-1" />
   </head>
 
@@ -80,20 +80,36 @@
       <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
       <aside class="privacy-note" id="privacyNotice" role="region" aria-labelledby="privacyTitle" hidden>
-        <div class="privacy-note__heading">
-          <span aria-hidden="true">✦</span>
-          <h2 id="privacyTitle">YOUR VISIT DATA, YOUR CHOICE</h2>
-        </div>
-        <p>Optional visit stats: device type, OS, country from your IP, page loads, page time and feature counts. No ads, fingerprinting or analytics cookies. Raw IPs are not saved.</p>
-        <div class="privacy-note__actions">
-          <button type="button" class="ghost-btn" id="privacyEssential" data-privacy-choice="essential">ONLY ESSENTIAL</button>
-          <button type="button" class="primary-btn" id="privacyAllow" data-privacy-choice="allow">ALLOW VISIT STATS</button>
-        </div>
-        <details class="privacy-note__details">
-          <summary>What is stored, and for how long?</summary>
-          <p>Daily guesses, personal game stats and theme stay in this browser. If you create an account, your email, username and Argon2id password hash are stored on Nikita's server. Sign-in uses a necessary Secure, HttpOnly cookie for up to 30 days; it is not used for analytics. Public scores show your username only if you opt in. Optional analytics use a random tab-only ID and store coarse device, OS, country, page-time and feature counts. Session detail lasts 30 days; daily summaries last 396 days. Raw IPs and full browser strings are discarded. GitHub Pages and Google Fonts handle ordinary requests and may process or log IP addresses. Country lookup uses <a href="https://db-ip.com/" rel="noopener noreferrer" target="_blank">DB-IP Lite data</a> on the server. <a href="/privacy/">Full privacy notice</a>.</p>
-        </details>
-      </aside>
+  <div class="privacy-note__heading">
+    <span aria-hidden="true">✦</span>
+    <h2 id="privacyTitle">YOUR VISIT DATA</h2>
+  </div>
+  <p>
+    Visit statistics are optional and stay off unless you allow them. No ads,
+    fingerprinting or analytics cookies, and raw IPs are not saved.
+  </p>
+  <p class="privacy-note__more"><a href="/privacy/">How the data works ↗</a></p>
+  <button type="button" class="cookie-btn" data-privacy-cookie aria-label="Got it, close this notice">
+    <svg class="cookie-glyph" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <defs>
+        <mask id="cookieBiteMask" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
+          <rect width="32" height="32" fill="#fff" />
+          <circle cx="26.8" cy="6.2" r="5" fill="#000" />
+          <circle cx="24.4" cy="11" r="3.5" fill="#000" />
+        </mask>
+      </defs>
+      <g class="cookie-body">
+        <circle class="cookie-dough" cx="16" cy="16" r="12.4" />
+        <circle class="cookie-chip" cx="11.4" cy="11.8" r="1.9" />
+        <circle class="cookie-chip" cx="20.2" cy="10.6" r="1.5" />
+        <circle class="cookie-chip" cx="13.2" cy="21" r="1.7" />
+        <circle class="cookie-chip" cx="21.4" cy="19.2" r="2" />
+        <circle class="cookie-chip" cx="19.4" cy="14.6" r="1.2" />
+      </g>
+    </svg>
+    <span>GOT IT</span>
+  </button>
+</aside>
 
       <section class="bonus-level" aria-labelledby="bonus-title">
         <p class="eyebrow">THAT WAS THE GAME.</p>
@@ -219,7 +235,7 @@
 
     <script src="/js/words.js"></script>
     <script src="/js/core.js"></script>
-    <script src="/js/analytics.js?v=analytics-1"></script>
+    <script src="/js/analytics.js?v=cookie-1"></script>
     <script src="/js/game.js?v=win-3"></script>
   </body>
 </html>

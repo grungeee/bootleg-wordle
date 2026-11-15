@@ -143,7 +143,7 @@ test("world-only material transition is versioned and leaves game routes alone",
   const gate = read("world/index.html");
   assert.match(gate, /portal\.css\?v=analytics-1/);
   assert.match(gate, /unlock\.js\?v=analytics-1/);
-  assert.match(gate, /analytics\.js\?v=analytics-1/);
+  assert.match(gate, /analytics\.js\?v=cookie-1/);
   assert.match(gate, /id="privacyNotice"/);
   assert.match(gate, /portal-cue/);
   for (const page of ["index.html", "play/index.html"]) {
@@ -187,20 +187,30 @@ test("header keeps MY WORLD beside the logo and centers the daily date on deskto
   assert.match(css, /@media \(max-width: 560px\)[\s\S]*?\.topbar \.chip\s*\{\s*display:\s*none/s);
 });
 
-test("privacy choice is explicit, withdrawable and gates analytics", () => {
-  for (const page of ["index.html", "play/index.html", "scores/index.html", "privacy/index.html"]) {
+test("the visit-data banner informs, links the notice and closes on one cookie", () => {
+  for (const page of ["index.html", "play/index.html", "scores/index.html", "world/index.html"]) {
     const html = read(page);
     assert.match(html, /id="privacyNotice"/);
-    assert.match(html, /data-privacy-choice="essential"/);
-    assert.match(html, /data-privacy-choice="allow"/);
-    assert.match(html, /No ads, fingerprinting or analytics cookies/);
-    assert.match(html, /Google Fonts[\s\S]*IP address/);
-    assert.match(html, /data-privacy-settings/);
+    assert.match(html, /data-privacy-cookie/);
+    assert.match(html, /href="\/privacy\/"/);
+    assert.match(html, /No ads,\s+fingerprinting or analytics cookies/);
+    assert.doesNotMatch(html, /data-privacy-choice/);
   }
+  for (const page of ["index.html", "play/index.html", "scores/index.html", "privacy/index.html"]) {
+    assert.match(read(page), /data-privacy-settings/);
+  }
+  const noticePage = read("privacy/index.html");
+  assert.match(noticePage, /id="visit-data"/);
+  assert.match(noticePage, /data-privacy-choice="essential"/);
+  assert.match(noticePage, /data-privacy-choice="allow"/);
+  assert.match(noticePage, /id="visitState"/);
+  assert.doesNotMatch(noticePage, /id="privacyNotice"/);
   const analytics = read("js/analytics.js");
   assert.match(analytics, /consent !== 'allow'/);
   assert.match(analytics, /sharapa\.analytics\.consent\.v1/);
-  assert.match(analytics, /function openSettings\(\)/);
+  assert.match(analytics, /function playBite\(\)/);
+  assert.match(analytics, /url\(#cookieBiteMask\)/);
+  assert.match(analytics, /choose\('essential'\)/);
   assert.match(analytics, /navigator\.sendBeacon/);
   assert.doesNotMatch(analytics, /document\.cookie|canvas\.toDataURL/i);
   assert.match(read("privacy/index.html"), /nikita@sharapa\.io/);
@@ -332,8 +342,8 @@ test("the visit-data note follows the active theme", () => {
   assert.match(pub, /color: var\(--note-ink, #24140e\)/);
   assert.match(pub, /color: var\(--note-head, #4a2b20\)/);
   assert.match(pub, /color: var\(--note-muted, #684a3b\)/);
-  assert.match(pub, /\.privacy-note__actions \.ghost-btn \{\s*background: var\(--yellow, #f4dda0\)/);
-  assert.match(pub, /\.privacy-note__actions \.primary-btn \{\s*background: var\(--green, #b8e7c5\)/);
+  assert.match(pub, /\.visit-choices \.ghost-btn,\s*\.visit-choices \.ghost-btn:hover \{\s*background: var\(--yellow, #f4dda0\);\s*color: #17161f/);
+  assert.match(pub, /\.visit-choices \.primary-btn,\s*\.visit-choices \.primary-btn:hover \{\s*background: var\(--green, #b8e7c5\);\s*color: #17161f/);
   for (const page of ["index.html", "play/index.html"]) {
     assert.match(read(page), /<body class="game-page">/);
   }
