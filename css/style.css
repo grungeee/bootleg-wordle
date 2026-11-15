@@ -159,8 +159,10 @@ button {
 }
 
 
-/* Optional cream theme: the board stays neo-brutalist, only the material changes. */
-body.theme-cream {
+/* Optional cream theme: the board stays neo-brutalist, only the material changes.
+   The class sits on body on the game pages and on html on the notice pages. */
+body.theme-cream,
+html.theme-cream body {
   --purple: #efe4d2;
   --purple-deep: #e2d3bd;
   --ink: #24140e;
@@ -175,6 +177,10 @@ body.theme-cream {
   --coral-soft: #efac8e;
   --paper: #fff6e9;
   --muted: #b98774;
+}
+
+html.theme-cream body {
+  color: var(--ink);
 }
 
 /* The visit-data note follows whichever theme is on. Pages without the toggle

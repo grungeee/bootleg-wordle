@@ -267,7 +267,7 @@ test("tiles close before they colour in, then the row bounces", () => {
   assert.match(game, /setTimeout\(resolve, revealDuration \+ bounceDuration\)/);
   for (const page of ["index.html", "play/index.html"]) {
     const html = read(page);
-    assert.match(html, /style\.css\?v=win-3/);
+    assert.match(html, /style\.css\?v=win-4/);
     assert.match(html, /game\.js\?v=win-3/);
   }
 });
@@ -314,7 +314,7 @@ test("the locked world is a thick-stroke globe icon instead of a text link", () 
 test("the how-to-play panel is darker than the default dialog", () => {
   const css = read("css/style.css");
   assert.match(css, /:root\s*\{[^}]*--panel-deep:\s*#17161f/s);
-  assert.match(css, /body\.theme-cream\s*\{[^}]*--panel-deep:\s*#241610/s);
+  assert.match(css, /body\.theme-cream(?:,\s*html\.theme-cream body)?\s*\{[^}]*--panel-deep:\s*#241610/s);
   assert.match(css, /#dialog-help\s*\{\s*background:\s*var\(--panel-deep\)/);
 });
 
@@ -362,4 +362,18 @@ test("the world gate and the sealed world follow the picked theme", () => {
   assert.match(gate, /dataset\.worldTheme = "cream"/);
   assert.match(unlock, /documentElement\.dataset\.worldTheme === "cream"/);
   assert.match(unlock, /html\.replace\('<html lang="en">', '<html lang="en" class="theme-cream">'\)/);
+});
+
+test("the notice says no ads, follows the theme and keeps the real wordmark", () => {
+  const page = read("privacy/index.html");
+  assert.match(page, /<h1>NO ADS\.<br \/>NOTHING SOLD\.<\/h1>/);
+  assert.doesNotMatch(page, /YOUR DATA\.<br \/>YOUR CHOICE/);
+  assert.match(page, /data brokers/);
+  assert.match(page, /localStorage\.getItem\("sharapa\.wordle\.theme"\) === "cream"/);
+  const css = read("css/style.css");
+  assert.match(css, /body\.theme-cream,\s*html\.theme-cream body \{/);
+  const account = read("css/account.css");
+  assert.doesNotMatch(account, /\.sitebar \.brand \{/);
+  assert.match(account, /\.privacy-article a:not\(\.primary-btn\) \{ color: var\(--accent-ink\)/);
+  assert.match(account, /html\.theme-cream \{\s*--accent-ink: #7a3f24/);
 });
